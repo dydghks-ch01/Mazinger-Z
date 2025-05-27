@@ -1,0 +1,58 @@
+.errorlist {
+  color: rgb(194, 39, 39);                 /* 오류 텍스트 빨간색 유지 */
+  font-size: 0.9rem;            /* 폰트 크기 적당히 키우기 */
+  font-weight: 600;           /* 약간 굵게 */
+  line-height: 1.5;           /* 줄간격 넉넉하게 */
+  text-shadow: 0 0 1px black; /* 텍스트 경계선 약간 줘서 선명하게 */
+  margin: 5px 5px;             /* 여백 확보 */
+  list-style-type: none;  /* 기본 점 없애기 */
+  padding-left: 0;        /* 왼쪽 들여쓰기 제거 */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  font-size: 1rem;
+}
+
+.login-form h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.login-form {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 10px; 
+  border: 1px solid white;       /* 흰색 테두리 */
+  background: transparent;       /* 배경 투명 */
+  min-height: 500px; /* 필요에 따라 조절 */
+}
+
+.sign{
+  margin-top: 10px !important; /* 10px → 5px */
+}
+
+.signup {
+  display: block; /* 한 줄로 보이게 (이미 block이면 생략 가능) */
+  margin-top: 30px; /* 원하는 간격으로 (지금 50px → 30px처럼 조절 가능) */
+  color: #aaa; /* 추가: 색상 유지 */
+  text-align: center; /* 가운데 정렬 유지 */
+}
+
+.font_color{
+  color: rgba(167, 167, 156, 0.897) !important; 
+}
+

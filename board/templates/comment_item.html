@@ -1,0 +1,52 @@
+<div class="{% if comment.parent %}reply{% else %}comment{% endif %}">
+  <!-- 👤 작성자 + 시간 -->
+  <div class="comment-header">
+    <span class="comment-author">{{ comment.user.nickname }}</span>
+    <span class="comment-time">{{ comment.created_at|date:"Y.m.d H:i" }}</span>
+  </div>
+
+  <!-- 💬 댓글 내용 -->
+  <div class="comment-body">{{ comment.text }}</div>
+
+  <!-- 🧩 버튼 영역 -->
+  <div class="comment-actions">
+    <button class="toggle-replies-btn" data-parent-id="{{ comment.id }}">▼</button>
+    <button class="reply-btn" data-id="{{ comment.id }}">답글</button>
+    {% if user == comment.user %}
+      <form method="post" action="{% url 'delete_comment' comment.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">삭제</button>
+      </form>
+    {% endif %}
+  </div>
+
+  <!-- ✏️ 대댓글 작성 폼 -->
+  <form method="post" action="{% url 'comment_reply' comment.id %}" class="reply-form hidden" id="reply-form-{{ comment.id }}">
+    {% csrf_token %}
+    <input type="text" name="text" placeholder="답글을 입력하세요" required>
+    <button type="submit">작성</button>
+  </form>
+
+  <!-- 📎 대댓글 목록 -->
+  <div class="replies" id="reply-container-{{ comment.id }}">
+    {% for reply in comment.replies.all %}
+      <div class="reply hidden" id="reply-{{ reply.id }}">
+        <div class="comment-header">
+          <span class="comment-author">{{ reply.user.nickname }}</span>
+          <span class="comment-time">{{ reply.created_at|date:"Y.m.d H:i" }}</span>
+        </div>
+        <div class="comment-body">{{ reply.text }}</div>
+        
+        <!-- 🧩 대댓글 삭제 버튼 -->
+        {% if user == reply.user %}
+        <div class="comment-actions">
+          <form method="post" action="{% url 'delete_comment' reply.id %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">삭제</button>
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>

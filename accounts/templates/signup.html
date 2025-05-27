@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Signup{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="signup-container">
+  <div class="signup-form">
+    <h1>SIGN UP</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- Username -->
+      <p>
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {% if form.username.errors %}
+        <span id="username-check" class="error-msg">{{ form.username.errors.0 }}</span>
+        {% else %}
+        <span id="username-check" class="check-msg"></span>
+        {% endif %}
+      </p>
+      <ul class="input-info">
+        <li>영문, 숫자, @/./+/-/_ 가능</li>
+        <li>중복 불가, 최대 150자</li>
+      </ul>
+
+      <!-- Email + 인증번호 -->
+      <div class="email-verification-group">
+        <p class="email-row">
+          <label for="id_email">이메일:</label>
+        <div class="email-input-group">
+          <input type="email" name="email" id="id_email" class="signup-input" required>
+          <button type="button" id="send-code-btn">인증번호 발송</button>
+        </div>
+        <span id="email-send-msg" class="check-msg"></span>
+        </p>
+        <p>
+          <label for="email-code-input">인증번호 입력</label>
+          <input type="text" id="email-code-input" name="email_code" maxlength="6" />
+          <button type="button" id="verify-code-btn" class="btn-glitch">인증 확인</button>
+          <span id="email-verify-msg" class="check-msg"></span>
+        </p>
+      </div>
+
+
+
+      <!-- Password -->
+      <p>
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+        <span id="password-check" class="check-msg"></span>
+        {% if form.password1.errors %}
+      <div class="error-msg">{{ form.password1.errors.0 }}</div>
+      {% endif %}
+      </p>
+      <ul class="input-info">
+        <li>8자 이상</li>
+        <li>숫자만 사용 불가</li>
+      </ul>
+
+      <p>
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+        {% if form.password2.errors %}
+      <div class="error-msg">{{ form.password2.errors.0 }}</div>
+      {% endif %}
+      </p>
+
+      <!-- Birthday -->
+      <p>
+        {{ form.birthday.label_tag }}
+        {{ form.birthday }}
+        {% if form.birthday.errors %}
+      <div class="error-msg">{{ form.birthday.errors.0 }}</div>
+      {% endif %}
+      </p>
+
+      <!-- Phone Number -->
+      <p>
+        {{ form.phone_number.label_tag }}
+        {{ form.phone_number }}
+        <small class="input-info">예: 010-1234-5678 형식으로 입력하세요</small>
+        {% if form.phone_number.errors %}
+      <div class="error-msg">{{ form.phone_number.errors.0 }}</div>
+      {% endif %}
+      </p>
+
+      <!-- Profile Picture -->
+      <p>
+        {{ form.profile_picture.label_tag }}
+        {{ form.profile_picture }}
+      </p>
+
+      <button class="btn-glitch" type="submit">SIGN UP</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/signup.js' %}"></script>
+{% endblock %}

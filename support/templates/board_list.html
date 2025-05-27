@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}고객지원 게시판{% endblock %}
+
+{% block extra_script %}
+<link rel="stylesheet" href="{% static 'css/board_list.css' %}">
+<script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="contact-container">
+    <h1>📋 고객지원 게시판</h1>
+    <div class="board-container">
+        <div class="search-wrapper" style="width: 100%; display: flex; justify-content: center; margin-bottom: 20px;">
+            <form method="GET" action="{% url 'support_board_list' %}" class="search-form"
+                style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <select name="category"
+                    style="padding: 10px 10px; font-size: 1rem; border-radius: 8px; border: none; background-color: #444; color: white; min-width: 80px;">
+                    <option value="" {% if not selected_category %}selected{% endif %}>전체</option>
+                    <option value="general" {% if selected_category == "general" %}selected{% endif %}>일반</option>
+                    <option value="bug" {% if selected_category == "bug" %}selected{% endif %}>버그</option>
+                    <option value="feature" {% if selected_category == "feature" %}selected{% endif %}>기능</option>
+                    <option value="account" {% if selected_category == "account" %}selected{% endif %}>계정</option>
+                    <option value="other" {% if selected_category == "other" %}selected{% endif %}>기타</option>
+                </select>
+                <input type="text" name="q" placeholder="제목 또는 내용 검색..." value="{{ request.GET.q }}"
+                    style="padding: 10px 14px; font-size: 1rem; border-radius: 8px; border: none; background-color: #444; color: white; min-width: 400px;">
+                <button type="sub"
+                    style="padding: 10px 16px; font-size: 1rem; font-weight: bold; background-color: #444; color: black; border: none; border-radius: 8px; cursor: pointer;">🔍</button>
+            </form>
+        </div>
+        <div class="board-header">
+            <div class="category-filter">
+                <a href="{% url 'support_board_list' %}" {% if not selected_category %}class="active" {% endif %}>전체</a>
+                <a href="?category=general" {% if is_general %}class="active" {% endif %}>일반</a>
+                <a href="?category=bug" {% if is_bug %}class="active" {% endif %}>버그</a>
+                <a href="?category=feature" {% if is_feature %}class="active" {% endif %}>기능</a>
+                <a href="?category=account" {% if is_account %}class="active" {% endif %}>계정</a>
+                <a href="?category=other" {% if is_other %}class="active" {% endif %}>기타</a>
+            </div>
+            <div class="write-button-wrapper">
+                <a href="{% url 'support_board_create' %}" class="sub-button">✍️ 글쓰기</a>
+            </div>
+        </div>
+
+        <ul class="post-list">
+            {% for post in posts %}
+            <li>
+                <a href="{% url 'support_board_detail' post.pk %}" class="post-link">
+                    <span class="post-title">
+                        <span class="category-badge">[{{ post.get_category_display }}]</span>
+                        {{ post.title }}
+                        {% if post.supportreply %}
+                        <span class="reply-status done">📩 답변 완료</span>
+                        {% else %}
+                        <span class="reply-status pending">⏳ 미답변</span>
+                        {% endif %}
+                    </span>
+                    <p class="post-meta">작성자: {{ post.user.username }} | {{ post.created_at|date:"Y-m-d H:i" }}</p>
+                </a>
+            </li>
+            {% empty %}
+            <li class="post-none">📭 아직 등록된 문의글이 없습니다.</li>
+            {% endfor %}
+        </ul>
+
+        {% if posts.has_other_pages %}
+        <div class="pagination">
+            {% if posts.has_previous %}
+            <a
+                href="?{% if selected_category %}category={{ selected_category }}&{% endif %}page={{ posts.previous_page_number }}">←
+                이전</a>
+            {% endif %}
+
+            {% for num in posts.paginator.page_range %}
+            {% if posts.number == num %}
+            <strong>{{ num }}</strong>
+            {% else %}
+            <a data-label="{{ num }}" href="?page={{ num }}"></a>
+
+            {% endif %}
+            {% endfor %}
+
+            {% if posts.has_next %}
+            <a
+                href="?{% if selected_category %}category={{ selected_category }}&{% endif %}page={{ posts.next_page_number }}">다음
+                →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

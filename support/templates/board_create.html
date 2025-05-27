@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}고객지원 게시판 글쓰기{% endblock %}
+
+{% block extra_script %}
+<link rel="stylesheet" href="{% static 'css/board_create.css' %}">
+<script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="contact-container">
+    <div class="board-container">
+        <div class="header-box">
+            <h1>고객지원 / 문의글 작성</h1>
+            <a href="{% url 'support_board_list' %}" class="back-arrow">← 뒤로가기</a>
+            </div>
+        <form method="POST" action="{% url 'support_board_create' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">문의 유형</label>
+                <select name="category" id="category" required>
+                    <option value="general">일반 문의</option>
+                    <option value="bug">버그 제보</option>
+                    <option value="feature">기능 요청</option>
+                    <option value="account">계정 관련</option>
+                    <option value="other">기타</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="message">문의 내용</label>
+                <textarea id="message" name="message" rows="6" required></textarea>
+            </div>
+
+            <button type="submit" class="sub-button">작성 완료</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

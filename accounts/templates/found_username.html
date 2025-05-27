@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Found_username{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<style>
+  .login-form p {
+    margin-bottom: 30px;  /* ✅ 결과와 버튼 사이 여백 추가 */
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <div class="login-form">
+    <h1>Username Found</h1>
+
+    <p>당신의 아이디는 <strong>{{ username }}</strong> 입니다.</p>
+    <a class="btn-glitch" href="{% url 'login' %}">로그인 하러 가기</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/base.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mypage{% endblock %}
+
+{% block extra_head %}
+<!-- 📌 공통 스타일 시트 불러오기 -->
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<!-- 📌 마이페이지 전용 스타일 시트 -->
+<link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+
+<!-- ✅ CSRF 토큰을 JS에서 사용하기 위해 메타 태그로 삽입 -->
+<meta name="csrf-token" content="{{ csrf_token }}">
+{% endblock %}
+
+
+{% block content %}
+<!-- 🔵 마이페이지 상단 프로필 영역 -->
+<div class="mypage-container">
+  <!-- 왼쪽 프로필 박스 -->
+  <div class="profile-box">
+    {% if form.profile_picture.value %}
+      <img src="{% static 'images/profiles/'|add:form.profile_picture.value %}" alt="Profile Picture" class="profile-picture">
+    {% else %}
+      <img src="{% static 'images/logo-black.png' %}" alt="Default Picture" class="profile-picture">
+    {% endif %}
+    <h2>{{ form.username.value }}</h2>
+    <p class="nickname-display">{{ form.nickname.value }}</p>
+    <button id="openPasswordBtn" class="edit-profile-btn">프로필 수정</button>
+  </div>
+
+  <!-- 오른쪽 컨텐츠: 버튼 + 목록 -->
+  <div class="content-box">
+    <div class="link-buttons">
+      <a href="javascript:void(0);" class="mypage-link-btn lyrics-btn" data-type="lyrics">AI뮤즈</a>
+      <a href="javascript:void(0);" class="mypage-link-btn" data-type="button2">게시글</a>
+      <a href="javascript:void(0);" class="mypage-link-btn" data-type="button3">좋아요목록</a>
+      <a href="javascript:void(0);" class="mypage-link-btn" data-type="button4">고객센터</a>
+    </div>
+    <!-- 버튼 아래 구분선 추가 -->
+    <!-- <div class="link-divider"></div> -->
+
+    <table id="user-lyrics-table" class="lyrics-table" style="display: none;">
+      <thead id="table-head">
+        <tr class="table-header">
+          <th class="col-select">
+            <input type="checkbox" id="select-all" title="전체 선택">
+          </th>
+          <th class="col-title">
+             <span class="th-title-main">제목</span>
+            <span class="th-title-sub">   (장르 / 언어) </span>
+          </th>
+          <th class="col-date"> 작성일</th>
+        </tr>
+      </thead>
+      <tbody id="user-lyrics-body">
+        <!-- JS로 동적으로 추가됨 -->
+      </tbody>
+    </table>
+
+    <!-- ✅ 삭제 버튼 + 페이지네이션 분리 -->
+    <div class="lyrics-controls-wrapper">
+      <div class="left-controls">
+        <button id="delete-selected" class="delete-btn">선택 삭제</button>
+      </div>
+      <div class="center-pagination">
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🔐 비밀번호 확인 모달 -->
+<div id="passwordModal" class="mypage-modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closePasswordModal()">&times;</span>
+    <h2>비밀번호 확인</h2>
+    <input type="password" id="confirmPassword" placeholder="비밀번호를 입력하세요">
+    <button class="save-btn" onclick="verifyPassword()">확인</button>
+  </div>
+</div>
+
+<!-- ✏️ 프로필 수정 모달 -->
+<div id="editModal" class="mypage-modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <h2>프로필 수정</h2>
+
+    <!-- 🔐 수정 폼 시작 -->
+    <form method="POST" class="profile-form">
+      {% csrf_token %}
+
+      <!-- ✅ 아이디(읽기 전용) -->
+      <label>ID</label>
+      <input type="text" name="username" id="id_username" value="{{ form.username.value }}" readonly>
+
+      <!-- ✅ 닉네임 입력 -->
+      <label for="id_nickname">닉네임</label>
+      <input type="text" name="nickname" id="id_nickname"
+            value="{{ form.nickname.value|default_if_none:'' }}"
+            placeholder="닉네임 입력">
+      {% if form.nickname.errors %}
+        <div class="nickname-error error" style="color:red">{{ form.nickname.errors.0 }}</div>
+      {% endif %}
+
+      <!-- ✅ 생일 입력 -->
+      <label for="id_birthday">생일</label>
+      <input type="date" name="birthday" id="id_birthday"
+             value="{{ form.birthday.value|date:'Y-m-d' }}">
+
+      <!-- ✅ 전화번호 입력 -->
+      <label for="id_phone_number">전화번호</label>
+      <input type="text" name="phone_number" id="id_phone_number"
+             value="{{ form.phone_number.value|default_if_none:'' }}" placeholder="010-1234-5678">
+
+      <!-- ✅ 프로필 이미지 선택 -->
+      <label for="id_profile_picture">프로필 사진 선택</label>
+      <select name="profile_picture" id="id_profile_picture" class="form-control">
+        {% for val, label in form.fields.profile_picture.choices %}
+          <option value="{{ val }}" {% if form.profile_picture.value == val %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+
+      <!-- ✅ 실시간 미리보기 영역 -->
+      <div class="preview-box">
+        <img id="profilePreview" src="{% static 'images/profiles/' %}{{ form.profile_picture.value }}" class="profile-preview" alt="선택된 프로필 미리보기">
+      </div>
+
+      <!-- ✅ 비밀번호 hidden 처리 (수정 시 검증용) -->
+      <input type="hidden" name="password" id="hiddenPassword">
+
+      <!-- ✅ 수정 버튼 (조건 충족해야 활성화됨) -->
+      <button type="submit" id="submit-btn" disabled class="btn btn-primary">수정</button>
+    </form>
+  </div>
+</div>
+
+<!-- 이미지 확대 미리보기 모달 -->
+<div id="imagePreviewModal" class="image-modal">
+  <button id="closePreviewBtn" class="close-btn">×</button>
+  <img id="previewImage" src="" alt="확대 이미지">
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/mypage.js' %}"></script>
+
+{% endblock %}

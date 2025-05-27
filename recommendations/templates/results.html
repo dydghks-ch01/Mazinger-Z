@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Recommend results{% endblock %}
+
+{% block extra_head %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>추천 결과</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% endblock %}
+
+    {% block content %}
+    <link rel="stylesheet" href="{% static 'css/recommend.css' %}">
+    <div class="result-container">
+        <div class="result-title">
+            <h1><i class="fa-solid fa-headphones"></i> '{{ song }}' 관련 추천</h1>
+        </div>
+        <div class="result-box">
+            <!-- 책 추천 -->
+            <div class="sec">
+                <h2><i class="fa-solid fa-book-open"></i> 책</h2>
+                <div class="items">
+                    {% for book in books %}
+                    <div class="item">
+                        <div class="hover-box" data-reason="{{ book.reason }}">
+                            <img src="{{ book.image }}" alt="책 이미지">
+                        </div>
+                        <p>
+                            <strong>{{ book.title }}</strong><br>
+                            <small>{{ book.author }}</small>
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- 여행지 추천 -->
+            <div class="sec">
+                <h2><i class="fa-solid fa-person-walking-luggage"></i> 여행지</h2>
+                <div class="items">
+                    {% for travel in travels %}
+                    <div class="item">
+                        <div class="hover-box" data-reason="{{ travel.reason }}">
+                            <img src="{{ travel.image }}" alt="여행지 이미지">
+                        </div>
+                        <p>
+                            <strong>{{ travel.place }}</strong>
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="btn-sec">
+                <a href="/recommend/" class="retry-btn"><i class="fa-solid fa-magnifying-glass"></i> 다른 검색</a>
+            </div>
+            <div id="reason-popup" class="reason-popup-hidden">
+                <h3 id="reason-title" class="popup-title"></h3>
+                <p id="reason-text"></p>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block extra_script %}
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/recommendations.js' %}"></script>
+    {% endblock %}
+
+</html>

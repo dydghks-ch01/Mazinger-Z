@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}문의글 수정{% endblock %}
+{% block extra_script %}
+<link rel="stylesheet" href="{% static 'css/board_update.css' %}">
+<script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="contact-container">
+    <div class="board-container">
+        <h1>✏️ 문의글 수정</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" name="title" id="title" value="{{ post.title }}" required>
+            </div>
+            <div class="form-group">
+                <label for="category">문의 유형</label>
+                <select name="category" id="category" required>
+                    <option value="general">일반 문의</option>
+                    <option value="bug">버그 제보</option>
+                    <option value="feature">기능 요청</option>
+                    <option value="account">계정 관련</option>
+                    <option value="other">기타</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">문의 내용</label>
+                <textarea name="message" id="message" rows="6">{{ post.message }}</textarea>
+            </div>
+            <div class="button-save">
+                <button type="sub" class="sub-button">💾 저장하기</button>
+            </div>
+            <div class="button-cancel">
+                <a href="{% url 'support_board_detail' post.pk %}" class="sub-button">취소</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

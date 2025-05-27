@@ -1,0 +1,111 @@
+/* 🚀 오류 메시지 */
+.error-msg {
+  font-size: 0.85em;
+  color: red;
+}
+
+/* 🚀 확인 메시지 (성공 등) */
+.check-msg {
+  font-size: 0.85em;
+  color: yellowgreen;
+}
+
+/* 🚀 추가 입력 정보 안내 (예: 형식 안내) */
+.input-info {
+  font-size: 0.8em;
+  color: gray;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* 🚀 이메일 입력 행 - 레이블과 입력 그룹을 가로로 정렬 */
+.email-row {
+  display: flex;           /* 가로 정렬 */
+  align-items: center;     /* 세로 중앙 정렬 */
+  gap: 10px;               /* 요소 간격 */
+  margin-bottom: 15px;     /* 아래 여백 */
+  width: 100%;             /* 사용자 이름 입력칸과 동일 너비 */
+}
+
+/* 🚀 이메일 입력칸 + 발송 버튼을 감싸는 그룹 */
+.email-input-group {
+  display: flex;           /* 가로 정렬 */
+  flex: 1;                 /* 가로 길이를 사용자 이름 입력칸과 동일하게 */
+  gap: 10px;               /* 간격 */
+  align-items: center;     /* ⭐ 여기가 추가됨 */
+  width: 100%; /* 사용자 이름 입력칸과 정확히 일치 */
+}
+
+/* 🚀 이메일 입력칸 스타일 */
+.email-input-group .signup-input {
+  flex: 2;                 /* 2:1 비율 - 이메일 입력칸 */
+  height: 42px;            /* 버튼과 동일 높이 */
+  box-sizing: border-box;  /* border + padding 포함 */
+  padding: 10px;           /* 내용 여백 */
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #333;  /* 어두운 배경 */
+  color: #fff;             /* 흰색 글씨 */
+  width: 100%;             /* 꽉 채우기 */
+}
+
+/* 🚀 인증번호 발송 버튼 스타일 */
+.email-input-group #send-code-btn {
+  flex: 1;                 /* 2:1 비율 - 버튼 */
+  height: 42px;            /* 입력칸과 동일 높이 */
+  padding: 0 16px;         /* 좌우 여백만 (위아래 없음) */
+  white-space: nowrap;     /* 버튼 글자가 줄바꿈되지 않도록 */
+  cursor: pointer;
+  background-color: #222;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease; /* hover 부드럽게 */
+  flex-shrink: 0;          /* 버튼 크기 유지 */
+  position: relative;      /* ⭐ 버튼 위치를 살짝 조정할 준비 */
+  top: -10px;               /* ⭐ 버튼을 1px 위로 올리기 */
+}
+
+/* 🚀 버튼 hover 효과 */
+#send-code-btn:hover,
+#verify-code-btn:hover {
+  background-color: #555;
+}
+
+/* 🚀 인증번호 입력칸 (2번째 단계) */
+#email-code-input {
+  flex-grow: 1;
+  height: 42px;            /* 버튼과 동일 높이 */
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #333;
+  color: #fff;
+  min-width: 0;            /* flexbox 레이아웃 안정성 */
+}
+
+/* 🚀 인증번호 확인 버튼 (2번째 단계) */
+#verify-code-btn {
+  height: 42px;
+  padding: 0 16px;         /* 좌우 여백만 */
+  cursor: pointer;
+  background-color: #222;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* 🚀 이메일 인증번호 입력 라벨 */
+.email-verification-group label {
+  min-width: 100px;
+  color: white;
+}

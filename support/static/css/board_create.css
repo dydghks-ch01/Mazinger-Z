@@ -1,0 +1,129 @@
+/* 공통 배경 */
+.contact-container {
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px;
+  background-color: #000000;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+/* 박스 형태의 폼 컨테이너 */
+.board-container {
+  background-color: #272727;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 700px;
+  z-index: 10;
+}
+
+/* 제목 */
+.board-container h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0px;
+  border-left: 6px solid #444;
+  padding-left: 12px;
+}
+
+form {
+  position: relative;
+  padding-bottom: 60px; /* 버튼이 가려지지 않게 아래 여백 확보 */
+}
+
+/* 폼 입력 영역 */
+.form-group {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 14px;
+  font-size: 1rem;
+  color: white;
+  border: 1px solid #7e7e7e;
+  border-radius: 6px;
+  background-color: #414141;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #444;
+  outline: none;
+}
+
+/* 버튼 */
+form .sub-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: white;
+  background-color: #444;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+
+/* 카테고리 드롭다운 글자색을 하얀색으로 */
+.form-group select {
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #444; /* 배경색을 어두운 색으로 설정 */
+  color: white; /* 글자색을 하얀색으로 설정 */
+  transition: border-color 0.3s ease;
+}
+
+.form-group select:focus {
+  border-color: #444;
+  outline: none;
+}
+
+.form-group textarea {
+  resize: none; /* 크기 조절 비활성화 */
+}
+
+/* 버튼 스타일 */
+.back-arrow {
+  display: inline-block;
+  background-color: #ffcc00;
+  color: rgb(0, 0, 0) !important;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  
+}
+
+.back-arrow:hover {
+  background-color: #e9ba00;
+  color: black !important;
+}
+
+
+.header-box {
+  display: flex;
+  justify-content: space-between; /* 제목 왼쪽, 버튼 오른쪽 */
+  align-items: center; /* 높이 맞추기 */
+  margin-bottom: 30px; /* 아래 여백 */
+  align-items: baseline; /* baseline으로 세로 기준 맞추기 */
+}

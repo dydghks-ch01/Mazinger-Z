@@ -1,0 +1,57 @@
+.contact-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  height: 100vh;          /* ✅ min-height 대신 height 사용 */
+  background-color: #000; /* 필요 시 배경 유지 */
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+}
+
+.board-container {
+  padding: 30px 40px;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 12px;
+  background-color: #2e2e2e;
+  text-align: center;
+  color: #fff;
+}
+.board-container h1 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #ffc107; /* 초록색으로 성공 강조 */
+}
+
+.contact-message {
+  font-size: 1rem;
+  margin-bottom: 40px;
+  color: #ffffff;
+}
+
+/* 버튼 */
+form .back-button[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form .back-button[type="submit"]:hover {
+  background-color: #444;
+}

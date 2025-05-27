@@ -1,0 +1,63 @@
+[
+{
+  "model": "chartsongs.chartsong",
+  "pk": 2760,
+  "fields": {
+    "title": "너에게 닿기를",
+    "artist": "10CM",
+    "normalized_genre": "발라드",
+    "lylics": "따사로운 햇살 속에서\n종소리가 울려 퍼지네\n뺨을 매만지는 바람\n한숨만은 깊어져만 가고\n저 멀리서 핑 도는 눈물\n이름을 붙여준 내일\n포개어지는 미래 빛 line\n\n천진난만한 이런 기분도\n신이 나서 날아갈 정도로 웃었던 날도\n사랑스럽고 소중하게 키울 수 있도록\n어렵고 힘들었던 시간을 넘어서\n아주 많은 처음을 주었잖아\n이어져 가서는 닿기를\n\n천진난만한 이런 기분도\n신이 나서 날아갈 정도로 웃었던 날도\n사랑스럽고 소중하게 키울 수 있도록\n어렵고 힘들었던 시간을 넘어서\n아주 많은 처음을 주었잖아\n이어져 가서는\n\n천진난만한 이런 기분도\n신이 나서 날아갈 정도로 웃었던 날도\n사랑스럽고 소중하게 키울 수 있도록\n어렵고 힘들었던 시간을 넘어서\n아주 많은 처음을 주었잖아\n이어져 가서는\n이어져 가서는 닿기를",
+    "emotion_tags": [
+      "즐거움",
+      "행복",
+      "사랑"
+    ],
+    "keywords": [
+      "햇살",
+      "종소리",
+      "눈물",
+      "미래",
+      "기분",
+      "사랑",
+      "처음"
+    ],
+    "album_cover_url": "https://i.scdn.co/image/ab67616d0000b27358c6956da5fa380b67986551",
+    "release_date": "Mar. 6, 2025",
+    "genius_id": 11566956
+  }
+},
+{
+  "model": "chartsongs.chartsong",
+  "pk": 2761,
+  "fields": {
+    "title": "like JENNIE",
+    "artist": "JENNIE",
+    "normalized_genre": "댄스",
+    "lylics": "Ha, c'mon, it's gon' be fucking hard\n\nSpecial edition and your AI couldn't copy\nI'm leaving clues in the fittin' room and it's hot tea\nNo, I'm not thinking about no exes, know they miss me\nI got the whole room spinning like it's tipsy\nDon't bore us, take you to the chorus\n\nWho wanna rock with JENNIE?\nKeep your hair done, nails done like JENNIE\nWho else got 'em obsessed like JENNIE?\nLike, like, like (JENNIE, JENNIE, JENNIE, JENNIE)\nI think I really like (JENNIE, JENNIE, JENNIE)\nHaters, they don't really like (JENNIE, JENNIE, JENNIE, JENNIE)\n'Cause they could never ever be (JENNIE, JENNIE, JENNIE)\nBut have you ever met JENNIE, JENNIE, JENNIE, JENNIE?\nJENNIE, JENNIE, JENNIE\nIt's JENNIE, JENNIE, JENNIE, JENNIE, JENNIE\n\nBut have you ever met?\nBut have you ever met?\nBut have you ever met?\n\n얼말 줘도 못해 서커스짓\n포징한번에 만들어 mosh pit\nThey can't deal with me 'cause I'm priceless\n여러 셀럽들 속에 내 DNA\nGet, get outta my way\n바비가 처키가 되기 전에\nName, shame, blame tryna burst my bubble\n터트려봐 그럼 더 큰 홀에서\n만나는 거야 제니를 keep shading\n예술작품엔 필요해 frame이\nI've slayed it, and I graved it\nYes, I'm guilty 잘난 게 죄니 (Mmh)\n\nWho wanna rock with JENNIE?\nKeep your hair done, nails done like JENNIE\nWho else got 'em obsessed like JENNIE?\nLike, like, like\nI think I really like JENNIE\nHaters, they don't really like JENNIE\n'Cause they could never ever be JENNIE\nBut have you ever met JENNIE, JENNIE, JENNIE, JENNIE?\nJENNIE, JENNIE, JENNIE\nIt's JENNIE, JENNIE, JENNIE, JENNIE\nJENNIE, JENNIE, JENNIE\nLike JENNIE, JENNIE, JENNIE, JENNIE, JENNIE\nRock with JENNIE\nKeep your hair done, nails done like JENNIE\nWho else got 'em obsessed, like\n\nBut have you ever met JENNIE?\nBut have you ever met?\nJENNIE, JENNIE, JENNIE\nIt's JENNIE, JENNIE, JENNIE, JENNIE",
+    "emotion_tags": [
+      "열정",
+      "즐거움",
+      "행복"
+    ],
+    "keywords": [
+      "JENNIE",
+      "rock",
+      "obsessed",
+      "DNA",
+      "frame",
+      "shading",
+      "guilty"
+    ],
+    "album_cover_url": "https://i.scdn.co/image/ab67616d0000b27388e90abbb4d0d9e45881f4dc",
+    "release_date": "Mar. 7, 2025",
+    "genius_id": 11496569
+  }
+},
+{
+  "model": "chartsongs.chartsong",
+  "pk": 2762,
+  "fields": {
+    "title": "Drowning",
+    "artist": "WOODZ",
+    "normalized_genre": "록/메탈",
+    "lylics": 

@@ -1,0 +1,417 @@
+/* ✅ 전체 컨테이너 */
+.post-detail-container {
+  max-width: 850px;
+  margin: 120px auto;
+  padding: 30px;
+  background-color: #1c1c1c;
+  color: white;
+  border-radius: 12px;
+  position: relative;
+}
+
+/* ✅ 상단 버튼: 뒤로가기 / 글쓰기 */
+.post-detail-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.btn-back,
+.btn-write {
+  padding: 8px 16px;
+  color: white;
+  background: #333;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.btn-back:hover,
+.btn-write:hover {
+  background-color: #555;
+}
+
+/* ✅ 제목 및 썸네일 배치 */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+.title-area {
+  flex: 1;
+}
+.post-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.post-meta {
+  color: #bbb;
+  font-size: 0.9rem;
+}
+
+/* ✅ 썸네일 이미지 */
+.post-thumbnail {
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* ✅ 본문 내용 */
+.post-body {
+  margin-top: 30px;
+}
+.post-description {
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+/* ✅ 좋아요 버튼 */
+.btn-like {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-like:hover {
+  background-color: #666;
+}
+
+/* ✅ 댓글 섹션 */
+.comment-section {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid #444;
+}
+
+/* ✅ 댓글 및 대댓글 공통 스타일 */
+.comment,
+.reply {
+  margin: 10px 0;
+  background-color: #2a2a2a;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.comment .comment-text {
+  max-height: 7.5em;     /* 줄당 약 1.5em x 5줄 */
+  overflow-y: auto;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+
+/* ✅ 댓글 작성 폼 */
+#comment-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ✅ 입력창 디자인 */
+#comment-form textarea {
+  width: 100%;
+  max-width: 650px;
+  height: 40px;
+  padding: 10px;
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 6px;
+  resize: none; /* ✅ 크기 조절 비활성화 */
+  color: white;
+  font-size: 0.95rem;
+}
+
+/* ✅ 댓글 달기 버튼 */
+#comment-form button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  right: 10px;
+  transition: background-color 0.2s ease;
+}
+
+#comment-form button:hover {
+  background-color: #666;
+}
+
+
+/* ✅ 대댓글 입력창 스타일 */
+.reply-form {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.reply-form input[type="text"] {
+  flex: 1;
+  padding: 8px 12px;
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: white;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.reply-form input[type="text"]::placeholder {
+  color: #888;
+}
+
+/* ✅ 작성 버튼 */
+.reply-form button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reply-form button:hover {
+  background-color: #666;
+}
+
+
+/* ✅ 댓글 내부의 버튼들 스타일 정리 */
+.comment-actions button {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.comment-actions button:hover {
+  /* background-color: #444; */
+  color: white;
+}
+
+/* ✅ 댓글 입력 */
+.comment-form textarea {
+  width: 100%;
+  resize: none;
+}
+
+/* ✅ 댓글 제출 버튼 */
+.btn-submit {
+  margin-top: 10px;
+  background-color: #444;
+  color: rgb(247, 121, 121);
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+/* ✅ 숨김 처리용 */
+.hidden {
+  display: none;
+}
+
+/* ✅ 수정/삭제 버튼 우측 하단 고정 */
+.post-actions {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+/* ✅ 글쓰기/스크랩 묶기 */
+.top-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* ✅ 스크랩 버튼 사이즈 조정 */
+.btn-scrap.top-scrap {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.btn-scrap.top-scrap img {
+  width: 36px;
+  height: 36px;
+}
+
+.btn-scrap.top-scrap:hover .scrap-icon {
+  transform: scale(1.2) !important;
+}
+
+/* ✅ 좋아요 라인 오른쪽 하단 정렬 */
+.post-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ✅ 버튼 스타일 (게시판과 동일) */
+.post-footer-actions a,
+.post-footer-actions form button {
+  font-size: 1rem;
+  color: #ccc;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  height: 24px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.post-footer-actions a:hover,
+.post-footer-actions form button:hover {
+  transform: scale(1.2);
+}
+
+/* ✅ 좋아요 + 수정/삭제 같은 줄 정렬용 컨테이너 */
+.post-footer-actions-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  gap: 12px;
+}
+
+/* ✅ post-actions 위치 고정 제거 */
+.post-actions {
+  display: flex;
+  gap: 8px;
+  position: static;
+}
+
+/* ✅ 좋아요 버튼 여백 제거 */
+.btn-like {
+  margin-top: 0;
+}
+
+.selected-songs-container {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+}
+
+.selected-song-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 200px;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+  margin-top: 16px;
+}
+
+.selected-song-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.selected-song-list::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+.song-card {
+  background: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 5px;
+  width: 180px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.album-cover {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.like-btn {
+  margin-top: 10px;
+  background: transparent;
+  border: none;
+  color: #ff7070;
+  cursor: pointer;
+}
+
+.song-info-link {
+  color: white;
+  text-decoration: none;
+}
+
+.song-info-link:hover {
+  text-decoration: underline;
+}
+
+.arrow-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.selected-song-list {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+  max-width: 700px; /* 적절히 조정 */
+}
+
+.arrow-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2;
+}
+
+.left-arrow {
+  margin-right: 10px;
+}
+
+.right-arrow {
+  margin-left: 10px;
+}
+
+/* 댓글 */
+.comment-list-scrollable {
+  max-height: 25em; /* 약 5개의 댓글 높이 기준 (개당 약 7em 예상) */
+  overflow-y: auto;
+  margin-top: 20px;
+  padding-right: 6px;
+  scrollbar-width: thin;
+}
+
+.comment-list-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+.comment-list-scrollable::-webkit-scrollbar-thumb {
+  background-color: #666;
+  border-radius: 3px;
+}

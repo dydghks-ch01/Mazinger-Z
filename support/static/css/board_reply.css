@@ -1,0 +1,96 @@
+/* 답변 작성 전체 레이아웃 */
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 60px 20px;
+  color: #333;
+}
+
+/* 카드 박스 */
+.board-container {
+  background-color: #272727;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 700px;
+  color: #fff;
+  z-index: 10;
+}
+
+/* 제목 */
+.board-container h1 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #00aaff;
+}
+
+/* 본문 표시 */
+.board-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+/* 폼 입력 */
+.form-group {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #ddd;
+}
+
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #666;
+  border-radius: 6px;
+  background-color: #1e1e1e;
+  color: #fff;
+  resize: none;
+  font-size: 1rem;
+}
+
+/* 버튼 */
+.ans-button {
+  display: block;
+  margin: 0 auto;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.ans-button:hover {
+  background-color: #1a8cff;
+}
+
+/* 제목과 카테고리 라벨 */
+.reply-label {
+  color: #4fc3f7;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+/* 제목 텍스트 */
+.reply-title {
+  color: #4fc3f7; /* 노란색 계열 */
+  font-weight: bold;
+}
+
+/* 카테고리 텍스트 */
+.reply-category {
+  color: #4fc3f7; /* 하늘색 계열 */
+  font-weight: bold;
+}

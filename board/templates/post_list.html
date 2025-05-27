@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load post_tags %}
+
+{% block title %}Board{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="board-wrapper with-sidebar">
+  <div class="board-container">
+    <div class="board-header">
+      <h1 class="board-title">
+        <a href="{% url 'post_list' %}" class="page-title-link">Shared Playlists</a>
+      </h1>
+      <div class="board-actions">
+        <form method="get" action="{% url 'post_list' %}" class="search-form">
+          <input type="text" name="q" placeholder="제목 검색" value="{{ query }}">
+        </form>
+        <a href="{% if user.is_authenticated %}{% url 'post_create' %}{% else %}#{% endif %}"
+          class="btn-write{% if not user.is_authenticated %} not-logged-in-write{% endif %}">
+          글쓰기
+        </a>
+      </div>
+    </div>
+
+    <!-- ✅ 정렬 필터 영역 -->
+    <div class="filter-bar">
+      <form method="get" action="{% url 'post_list' %}" class="filter-form">
+        <input type="hidden" name="q" value="{{ query }}">
+        <label for="sort"></label>
+        <select name="sort" id="sort" onchange="this.form.submit()">
+          <option value="likes" {% if sort == "likes" %}selected{% endif %}>좋아요 높은 순</option>
+          <option value="views" {% if sort == "views" %}selected{% endif %}>조회수 높은 순</option>
+          <option value="scraps" {% if sort == "scraps" %}selected{% endif %}>스크랩 많은 순</option>
+          <option value="created" {% if sort == "created" %}selected{% endif %}>최신순</option>
+        </select>
+      </form>
+    </div>
+
+    {% for post in posts %}
+    <div class="post-card" data-post-id="{{ post.pk }}">
+      <form method="post" action="{% if user.is_authenticated %}{% url 'scrap_post' post.pk %}{% else %}#{% endif %}"
+        class="scrap-form">
+        {% csrf_token %}
+        <button type="sub" class="btn-scrap{% if not user.is_authenticated %} not-logged-in{% endif %}">
+          <img
+            src="{% static 'images/' %}{% if user.is_authenticated and post|scrapped:user %}scrap_on.png{% else %}scrap_off.png{% endif %}"
+            alt="스크랩 상태" class="scrap-icon">
+        </button>
+      </form>
+
+      <div class="post-contents">
+        <div class="post-thumbnail">
+          <img src="{% if post.thumbnail %}{{ post.thumbnail.url }}{% else %}/media/thumbnails/default.png{% endif %}"
+            alt="썸네일" class="thumbnail">
+        </div>
+        <a href="{% url 'post_detail' post.pk %}?q={{ query }}&sort={{ sort }}" class="post-card-link">
+          <div class="post-info">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <p class="post-description">{{ post.description }}</p>
+            <p class="post-meta">{{ post.user.nickname }} · {{ post.created_at|date:"Y년 n월 j일 g:i A" }}</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="post-actions">
+        {% if user == post.user %}
+        <a href="{% url 'post_edit' post.pk %}" class="edit-btn">수정</a>
+        <form method="post" action="{% url 'post_delete' post.pk %}" onsubmit="return confirm('정말로 삭제하시겠습니까?')"
+          style="display:inline;">
+          {% csrf_token %}
+          <button type="sub" class="delete-btn">삭제</button>
+        </form>
+        {% else %}
+        <div style="height: 24px;"></div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+
+    {% if posts.paginator.num_pages > 1 %}
+    <div class="pagination">
+      {% if posts.has_previous %}
+      <a href="?page={{ posts.previous_page_number }}&q={{ query }}&sort={{ sort }}">이전</a>
+      {% endif %}
+      {% for num in posts.paginator.page_range %}
+      {% if posts.number == num %}
+      <strong>{{ num }}</strong>
+      {% else %}
+      <a href="?page={{ num }}&q={{ query }}&sort={{ sort }}">{{ num }}</a>
+      {% endif %}
+      {% endfor %}
+      {% if posts.has_next %}
+      <a href="?page={{ posts.next_page_number }}&q={{ query }}&sort={{ sort }}">다음</a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- 사이드바 그대로 유지 -->
+  <div class="board-sidebar">
+    <div class="sidebar-section">
+      <h3>스크랩</h3>
+      <div class="scroll-box">
+        <ul class="sidebar-list">
+          {% for post in scrapped_posts %}
+          <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
+          {% empty %}
+          <li style="opacity: 0.3;">스크랩한 글 없음</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>최근 본</h3>
+      <div class="scroll-box">
+        <ul class="sidebar-list">
+          {% for post in recent_posts %}
+          <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
+          {% empty %}
+          <li style="opacity: 0.3;">최근 본 글 없음</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>내가 쓴 글</h3>
+      <div class="scroll-box">
+        <ul class="sidebar-list">
+          {% for post in my_posts %}
+          <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
+          {% empty %}
+          <li style="opacity: 0.3;">작성한 글 없음</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/post_list.js' %}"></script>
+{% endblock %}

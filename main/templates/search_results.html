@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Results{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="search-results-container">
+  <div class="search-box" id="searchBox">
+    <input type="search" placeholder="검색어를 입력해주세요" />
+    <button><i class="fa-solid fa-magnifying-glass"></i></button>
+  </div>
+
+  {% if popular_tags %}
+  <div class="popular-tags">
+    <span>🔥 인기 검색어</span>
+    {% for tag in popular_tags %}
+    <a href="/search/?q={{ tag|urlencode }}" class="tag-btn">{{ tag }}</a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="popular-tags">
+    <span>인기 태그가 아직 없습니다.</span>
+  </div>
+  {% endif %}
+
+  <div class="divider"></div>
+  <h2 class="search-title">"{{ query }}" 검색 결과</h2>
+
+  {% if results %}
+  <ul class="search-result-list">
+    {% for song in results %}
+    <li>
+      <a href="{% url 'music_info' %}?title={{ song.title|urlencode }}&artist={{ song.artist|urlencode }}">
+        <strong>{{ song.title }}</strong> - {{ song.artist }}
+        <br>
+        <small>장르: {{ song.normalized_genre }}</small>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="pagination">
+    {% if results.has_previous %}
+      <a href="?q={{ query|urlencode }}&page={{ results.previous_page_number }}">이전</a>
+    {% endif %}
+  
+    {% with current=results.number total=results.paginator.num_pages %}
+      {% for num in results.paginator.page_range %}
+        {% if num == 1 or num == total or num == current or num == current|add:"1" or num == current|add:"-1" or num == current|add:"2" or num == current|add:"-2" %}
+          {% if num == current %}
+            <strong class="current">{{ num }}</strong>
+          {% else %}
+            <a href="?q={{ query|urlencode }}&page={{ num }}">{{ num }}</a>
+          {% endif %}
+        {% elif num == 2 and current > 4 %}
+          <span class="dots">...</span>
+        {% elif num == total|add:"-1" and current|add:"3" < total %}
+          <span class="dots">...</span>
+        {% endif %}
+      {% endfor %}
+    {% endwith %}
+  
+    {% if results.has_next %}
+      <a href="?q={{ query|urlencode }}&page={{ results.next_page_number }}">다음</a>
+    {% endif %}
+  </div>
+  
+  
+
+  {% else %}
+  <p class="no-result">검색 결과가 없습니다.</p>
+  <a href="/music/" class="goto-youtube-btn">🔍 Search에서 이 노래 검색하기</a>
+  {% endif %}
+</div>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

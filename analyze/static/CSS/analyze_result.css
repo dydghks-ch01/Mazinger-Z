@@ -1,0 +1,218 @@
+/* ✅ 결과 전체 래퍼 */
+.lyrics-result-wrapper {
+  background-color: rgba(0, 0, 0, 1);
+  color: #fff;
+  padding: 40px;
+  width: 60%;
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  text-align: center;
+  margin: 120px auto 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.analyze-title {
+  background: linear-gradient(45deg, yellow, #9d5d18);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.lyrics-result-wrapper h1 {
+  font-size: 3rem;
+  margin: 30px 0 50px;
+  display: inline;
+  border-bottom: 2px solid white;
+}
+
+
+/* ✅ 로그인 유도 안내 스타일 */
+.login-notice {
+  width: 100%;
+  background-color: #000;
+  color: #ffffff80;
+  padding: 12px;
+  border-bottom: 2px solid white;
+}
+
+/* 로그인 안내 안의 링크 스타일 */
+.login-notice a {
+  color: #bbb;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.login-notice a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ✅ 감성 점수 및 상위 감정 2단 박스 레이아웃 */
+.analysis-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin: 40px;
+  padding: 20px;
+  gap: 80px;
+  width: 100%;
+}
+
+/* 감성 점수와 TOP3 박스 공통 스타일 */
+.emotion-list,
+.top3-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0 20px 0;
+  min-width: 250px;
+  font-size: 20px;
+  text-align: center;
+  width: 40%;
+  background-color: #ffffff05;
+}
+
+.emotion-list h3,
+.top3-box h3 {
+  margin-bottom: 30px;
+}
+
+
+/* 감정 리스트 스타일 초기화 및 중앙 정렬 */
+.emotion-list ul,
+.top3-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+}
+
+.label {
+  text-align: left;
+  /* ✅ 왼쪽으로 고정 정렬 */
+  padding-left: 4px;
+  /* ✅ 살짝 들여쓰기 */
+  font-weight: 500;
+}
+
+/* ✅ 감정 항목 한 줄 스타일 (감정명 : 점수) */
+.emotion-row {
+  display: grid;
+  grid-template-columns: 90px 10px 70px;
+  /* ✅ 고정 너비 */
+  column-gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* 감정명 - 오른쪽 정렬 + 여백 */
+.emotion {
+  text-align: right;
+  font-weight: 400;
+  padding-right: 2px;
+}
+
+/* 콜론 - 가운데 고정 */
+.colon {
+  text-align: center;
+  font-weight: 400;
+  width: 10px;
+}
+
+/* 점수 - 왼쪽 정렬 + 강조 */
+.score {
+  text-align: left;
+  font-weight: bold;
+  color: #ddd;
+  padding-left: 2px;
+}
+
+/* 분석 실패 시 경고 메시지 */
+.warning {
+  color: red;
+  margin-top: 10px;
+}
+
+/* ✅ 버튼 영역: 감정 추천 및 다시 분석 */
+.button-group {
+  width: 100%;
+  padding-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  border-top: 2px solid white;
+}
+
+/* 공통 버튼 스타일 */
+.button {
+  flex: 1 1 auto;
+  max-width: 250px;
+  padding: 8px 8px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+/* 감정 추천 버튼 스타일 */
+.button.recommend {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.button.recommend:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 다시 분석하기 버튼 */
+.button.retry {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.button.retry:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ✅ 하단 가사 영역 */
+.lyrics-section {
+  width: 100%;
+  margin-top: 40px;
+  text-align: left;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  background-color: #ffffff05;
+  padding: 20px;
+}
+
+.lyrics-section h2 {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* 가사 텍스트 출력 스타일 */
+.lyrics-section pre {
+  color: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 1rem;
+  line-height: 1.6;
+}

@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz_song</title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body>
+
+  <div class="quiz-container" data-answer="{{ quiz_song.title|escapejs|lower }}"
+    data-lyrics="{{ quiz_song.lylics|slice:':90' }}...">
+
+    {% if quiz_song %}
+    <h3 class="quiz-title">이 노래의 제목은 무엇일까요?</h3>
+
+    <p id="lyricSnippet" class="quiz-snippet">
+      {% if show_gamecover %}
+      <span class="game-cover" id="gameCover" onclick="startGame()">
+        <i class="xi-gamepad"></i>&nbsp;Game Start
+      </span>
+      {% endif %}
+    </p>
+
+    <div class="form-row">
+      <input type="text" id="answerInput" placeholder="노래 제목 입력" autocomplete="off">
+      <button id="retryButton">새로운 문제</button>
+      <button id="submitAnswer">제출</button>
+    </div>
+
+    <button id="retryButton" style="display:none; margin-top:10px;">새로운 문제</button>
+    {% else %}
+    <p class="quiz-empty">퀴즈 데이터가 없습니다.</p>
+    {% endif %}
+
+  </div>
+
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

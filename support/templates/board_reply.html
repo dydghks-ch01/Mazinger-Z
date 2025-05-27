@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}답변 작성{% endblock %}
+
+{% block extra_script %}
+<link rel="stylesheet" href="{% static 'css/board_reply.css' %}">
+<script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+<div class="contact-container">
+    <div class="board-container">
+        <h1>🛠️ 답변 작성</h1>
+        <p><strong class="reply-label">문의 제목 :</strong> <span class="reply-title">{{ post.title }}</span></p>
+        <p><strong class="reply-label">문의 카테고리 :</strong> <span class="reply-category">{{ post.get_category_display}}</span></p>
+        <p>{{ post.message }}</p>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="reply_text">답변 내용</label>
+                <textarea name="reply_text" id="reply_text" rows="6" required></textarea>
+            </div>
+            <button type="sub" class="ans-button">답변 등록</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="search-container">
+  <h1 class="search-title">Search</h1>
+  <div class="search-bar">
+    <div class="input-wrapper">
+      <input type="text" id="searchInput" placeholder="youtube로 검색하기" onfocus="handleInputChange()"
+         autocomplete="off">
+      <button id="micBtn"><i class="fas fa-microphone"></i></button>
+      <button id="stopBtn" style="display: none;"><i class="fas fa-stop"></i></button>
+      <div id="suggestions"></div>
+      <!-- <div id="recentKeywords" style="display: none;"></div> -->
+    </div>
+    <button class="search-btn" onclick="searchMusic()"><i class="fa-brands fa-youtube"></i></button>
+  </div>
+  <div class="results-box" style="display: none;">
+    <div id="results"></div>
+  </div>
+</div>
+<!-- ✅ 페이지네이션 바 -->
+<div id="pagination" class="pagination" style="display: none;"></div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/search.js' %}"></script>
+<script>const API_KEY = "{{ youtube_api_key }}";</script>
+{% endblock %}

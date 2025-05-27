@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Recommend{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/recommend.css' %}">
+<div class="recommend-container">
+    <h1 class="recommend-title">
+        <i class="fa-solid fa-music icon-music"></i>
+        What are you listening to?
+    </h1>
+    <form method="get" action="/recommend/" class="recommend-form">
+        <div class="input-wrapper">
+            <input type="text" name="q" id="prompt-input" placeholder="ex) 노래제목 - 가수" required>
+            <button type="button" id="mic-btn" title="음성인식 시작">
+                <i class="fa-solid fa-microphone mic-icon"></i>
+            </button>
+        </div>
+        <select name="count" class="select-count">
+            <option value="1">1개</option>
+            <option value="2">2개</option>
+            <option value="3" selected>3개</option>
+            <option value="4">4개</option>
+            <option value="5">5개</option>
+        </select>s
+        <button type="submit" class="submit-btn">검색</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/recommendations.js' %}"></script>
+{% endblock %}

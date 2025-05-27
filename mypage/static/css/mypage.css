@@ -1,0 +1,406 @@
+.mypage-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 80px 5vw;
+  gap: 40px;
+}
+
+.mypage-container,
+.content-box,
+.lyrics-table,
+.lyrics-controls-wrapper {
+  position: relative;
+  z-index: 5;
+  /* LP보다 확실히 위로 */
+}
+
+/* 📌 프로필 박스 왼쪽 고정 크기 */
+.profile-box {
+  flex: 0 0 220px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.985);
+  padding: 30px;
+  border: 1px solid white;
+  border-radius: 70px;
+  box-shadow: 0 4px 20px rgba(22, 19, 19, 0.948);
+  color: white;
+  margin-top: 5%;
+}
+
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit-profile-btn {
+  padding: 8px 16px;
+  margin-top: 10px;
+  background: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-profile-btn:hover {
+  background: linear-gradient(145deg, #666, #888);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+/* 📌 오른쪽 내용 박스 */
+.content-box {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.link-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 15px;
+  align-items: center;
+}
+
+.mypage-link-btn {
+  padding: 10px 20px;
+  background-color: rgba(33, 33, 33, 0.73);
+
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.mypage-link-btn.active {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  border: 2px solid white;
+}
+
+/* ✅ 테이블 */
+.lyrics-table {
+  width: 100%;
+  color: white;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+.lyrics-table th,
+.lyrics-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.2);
+  word-break: break-word;
+}
+
+.lyrics-table th {
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.lyrics-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ✅ 삭제 + 페이지네이션 */
+.lyrics-controls-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.left-controls {
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+
+.center-pagination {
+  display: flex;
+  justify-content: center;
+  z-index: 5;
+  width: 100%;
+}
+
+.delete-btn {
+  padding: 8px 16px;
+  background-color: #a00;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.delete-btn:hover {
+  background-color: #c33;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pagination button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: color 0.2s, text-decoration 0.2s;
+}
+
+.pagination button:hover {
+  text-decoration: underline;
+}
+
+.pagination button.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* ✅ 반응형 조정 */
+@media (max-width: 992px) {
+  .mypage-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  .profile-box {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .content-box {
+    width: 100%;
+  }
+
+  .link-buttons {
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .lyrics-table {
+    margin-left: 0;
+  }
+
+  .left-controls {
+    margin-left: 0;
+  }
+
+  .center-pagination {
+    justify-content: center;
+  }
+}
+
+
+/* 모달관련 css */
+/* ✅ 공통 모달 스타일 */
+.mypage-modal {
+  display: none;
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  width: 100%;
+  height: calc(100% + 50vh);
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+.mypage-modal.show {
+  display: flex;
+}
+
+#passwordModal .modal-content {
+  background: #111;
+  color: white;
+  width: 30%;
+  position: relative;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.modal-content {
+  background: #111;
+  color: white;
+  width: 50%;
+  position: relative;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow-y: auto;
+}
+
+#editModal h2 {
+  margin-top: 50px;
+}
+
+/* ✅ 닫기 버튼 */
+.mypage-modal .modal-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* ✅ 공통 입력 폼 */
+.mypage-modal .profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 60%;
+  margin: 70px;
+}
+
+/* ✅ 저장/확인 버튼 */
+.mypage-modal .save-btn,
+.mypage-modal .btn.btn-primary {
+  padding: 8px 16px;
+  background: transparent;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.mypage-modal .save-btn:hover,
+.mypage-modal .btn.btn-primary:hover {
+  background: #ffffff1e;
+}
+
+/* ✅ 입력창들 */
+.mypage-modal input[type="password"],
+.mypage-modal input[type="text"],
+.mypage-modal input[type="date"],
+.mypage-modal select {
+  width: 85%;
+  padding: 12px 16px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #1c1c1c;
+  color: white;
+  font-size: 15px;
+  margin-bottom: 10px;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mypage-modal .profile-form input[type="text"],
+.mypage-modal .profile-form input[type="password"],
+.mypage-modal .profile-form input[type="date"],
+.mypage-modal .profile-form select {
+  display: block;
+  /* ✅ 한 줄 차지 */
+  box-sizing: border-box;
+  /* ✅ 패딩 포함 너비 유지 */
+  width: 100%;
+  /* ✅ 너비 고정 */
+  max-width: 100%;
+  /* ✅ 줄어들지 않게 */
+  min-width: 0;
+  /* ✅ overflow 방지 */
+  margin-bottom: 0;
+  /* 줄어듦 방지 */
+}
+
+.mypage-modal input::placeholder {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+.mypage-modal input:focus,
+.mypage-modal select:focus {
+  border: 1px solid #888;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* ✅ 프로필 미리보기 */
+.profile-preview {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-top: 10px;
+}
+
+/* ✅ 모든 입력창 바로 아래 삽입되는 .error 요소 대응 */
+.mypage-modal .error {
+  display: block;
+  height: 20px;
+  /* ✅ 고정 높이로 줄어들거나 밀리지 않게 */
+  font-size: 0.85rem;
+  color: red;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  word-break: keep-all;
+}
+
+.image-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-modal img {
+  max-width: 50%;
+  max-height: 50%;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+/* ✅ X 버튼 스타일 */
+.close-btn {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  z-index: 10000;
+  font-weight: bold;
+}
+
+.clickable-title {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.clickable-title:hover {
+  color: #ffd452;
+  /* 노란색 계열 강조 */
+  text-decoration: underline;
+}

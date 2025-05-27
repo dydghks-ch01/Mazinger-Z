@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google" content="notranslate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}MUSICTASTE{% endblock %}</title>
+
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xpressengine/xeicon@2.3.3/xeicon.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+  <svg class="svg-sprite" style="position: absolute; width: 0; height: 0;">
+    <defs>
+      <filter id="filter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.000001 0.000001" numOctaves="1" result="warp" seed="1" />
+        <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="30" in="SourceGraphic" in2="warp" />
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="nav-bar">
+    <div class="logo-box" id="logoBox">
+      <a href="{% url 'main' %}">
+        <img id="logo-image" src="{% static 'images/logo-white.png' %}">
+        <span id="logo-text">SOSIC</span>
+      </a>
+    </div>
+    <div class="right-box">
+      <div class="sign-box">
+        {% if user.is_authenticated %}
+        <!-- 로그인된 경우에만 로그아웃 및 마이페이지 버튼을 표시 -->
+        <div class="sign-btn btn-glitch" id="myPageBtn">
+          <a class="mypageBtn-content" href="{% url 'mypage' %}">
+            {% if user.profile_picture %}
+            <img src="{% static 'images/profiles/'|add:user.profile_picture %}" alt="Profile Picture"
+              class="profile-picture">
+            {% else %}
+            <img src="{% static 'images/logo-black.png' %}" alt="Default Picture" class="profile-picture">
+            {% endif %}
+            <p class="nickname-display">{{ user.nickname }}</p>
+          </a>
+        </div>
+        <div class="sign-btn btn-glitch" id="logOutBtn">
+          <a href="{% url 'logout' %}?next={{ request.get_full_path|urlencode }}">
+            Log out
+          </a>
+        </div>
+        {% else %}
+        <!-- 로그인 안 된 경우 로그인 및 회원가입 버튼을 표시 -->
+        <div class="sign-btn btn-glitch" id="signInBtn">
+          <a href="{% url 'login' %}?next={{ request.get_full_path }}">
+            Sign in
+          </a>
+        </div>
+        <div class="sign-btn btn-glitch" id="signUpBtn">
+          <a href="{% url 'signup' %}">
+            Sign up
+          </a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="nav-icon" id="navIcon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper">
+
+    <div class="container">
+      <div id="lp"><img src="{% static 'images/lp_no_shadow.png' %}"></div>
+      <div id="tonearm"><img src="{% static 'images/tonearm.png' %}"></div>
+
+      {% block content %}
+      <!-- 자식 템플릿이 이 부분을 덮어씀 -->
+      {% endblock %}
+      
+    </div>
+    <nav class="side-menu">
+      <ul>
+        <li><a href="{% url 'main' %}">Home</a></li>
+        <li><a href="{% url 'lyrics_root' %}">Lyrics</a></li>
+        <li><a href="{% url 'music_search' %}">Search</a></li>
+        <li><a href="{% url 'search_song' %}">Recommend</a></li>
+        <li><a href="{% url 'analyze' %}">Analyze</a></li>
+        <li><a href="{% url 'post_list' %}">Board</a></li>
+        <li><a href="{% url 'support_board_list' %}">Support</a></li>
+        <li><a href="{% url 'main' %}#section4">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <footer class="footer-container">
+      <div class="footer-list">
+        <div class="footer-logo"><img id="logo-image" src="{% static 'images/logo-white.png' %}"></div>
+        <div class="footer_1">
+          <h2 class="footer-title">SOSIC</h2>
+          <ul>
+            <li>Music search</li>
+            <li>Top 100</li>
+            <li>Translate</li>
+            <li>Song community</li>
+          </ul>
+        </div>
+        <div class="footer_2">
+          <h2 class="footer-title">MY PAGE</h2>
+          <ul>
+            <li>My playlist</li>
+            <li>My lyrics</li>
+            <li>Minigame</li>
+          </ul>
+        </div>
+        <div class="footer_3">
+          <h2 class="footer-title">COMMUNITY</h2>
+          <ul>
+            <li>My playlist</li>
+            <li>My lyrics</li>
+            <li>Minigame</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <div id="footerRequest">© 2025 Our SOSIC Project. All rights reserved.</div>
+        <div id="footerLink">
+          <a href="https://youtube.com/"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://github.com/"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+    </footer>
+
+  {% block extra_script %}{% endblock %}
+</body>
+
+</html>

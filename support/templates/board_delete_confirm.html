@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}게시글 삭제 확인{% endblock %}
+
+{% block extra_script %}
+<link rel="stylesheet" href="{% static 'css/board_delete_confirm.css' %}">
+<script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="contact-container">
+    <div class="board-container">
+        <h2>📢 정말 삭제하시겠습니까?</h2>
+        <p><strong>제목 : {{ post.title }}</strong></p>
+        <p>내용 : {{ post.message }}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="sub-button">🗑 삭제하기</button>
+            <a href="{% url 'support_board_detail' post.pk %}" class="sub-button">취소</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

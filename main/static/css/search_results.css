@@ -1,0 +1,136 @@
+.search-results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  color: white;
+  padding: 120px 60px 60px;
+  text-align: center;
+}
+
+.search-box {
+  margin-bottom: 2px;
+}
+
+.search-title {
+  margin-bottom: 30px;
+}
+
+.search-result-list {
+  list-style: none;
+  padding: 0;
+}
+
+.search-result-list li {
+  margin-bottom: 25px;
+}
+
+.search-result-list a {
+  color: white;
+  text-decoration: none;
+}
+
+.search-result-list small {
+  color: #aaa;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.pagination a,
+.pagination strong,
+.pagination .dots {
+  display: inline-block;
+  min-width: 30px;
+  text-align: center;
+  color: white;
+  font-size: 1rem;
+  text-decoration: none;
+  line-height: 1.8;
+  border-bottom: 2px solid transparent;
+}
+
+.pagination a:hover {
+  border-bottom: 2px solid white;
+}
+
+.pagination strong.current {
+  font-weight: bold;
+  border-bottom: 2px solid white;
+}
+
+.pagination .dots {
+  color: #999;
+  pointer-events: none;
+  user-select: none;
+}
+
+.no-result {
+  color: #ccc;
+}
+
+
+.popular-tags {
+  margin-top: 2px;  /* ✅ 여백 최소화 */
+  margin: 20px auto;
+  margin-bottom: 40px;
+  text-align: center;
+  color: rgb(255, 187, 0);
+  font-size: 1rem;
+}
+
+.popular-tags span {
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+.tag-btn {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 6px 12px;
+  margin: 5px 6px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.tag-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* 유튜브 검색 페이지로 버튼 */
+.goto-youtube-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid #fff;
+  border-radius: 8px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.goto-youtube-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.divider {
+  width: 60%;
+  height: 2px;
+  background-color: white;
+  opacity: 0.4;
+  margin: 10px auto 30px; /* 위: 인기 검색어 여백, 아래: 검색결과 제목 여백 */
+  border-radius: 1px;
+}

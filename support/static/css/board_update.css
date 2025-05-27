@@ -1,0 +1,116 @@
+/* 공통 배경 */
+.contact-container {
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px;
+  background-color: #000000;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+/* 박스 형태의 폼 컨테이너 */
+.board-container {
+  background-color: #272727;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 700px;
+  z-index: 10;
+}
+
+/* 제목 */
+.board-container h1 {
+  font-size: 1.6rem;
+  margin-bottom: 30px;
+  border-left: 6px solid #444;
+  padding-left: 12px;
+}
+
+form {
+  padding-bottom: 0;
+  display: block;
+}
+
+/* 폼 입력 영역 */
+.form-group {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 12px 14px;
+  font-size: 1rem;
+  color: white;
+  border: 1px solid #7e7e7e;
+  border-radius: 6px;
+  background-color: #414141;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #444;
+  outline: none;
+}
+
+/* 저장/취소 버튼 묶음 정렬 */
+.button-save,
+.button-cancel {
+  display: inline-block;
+  margin-top: 30px;
+}
+
+.button-save {
+  margin-right: 10px;
+}
+
+.button-save .sub-button,
+.button-cancel .sub-button {
+  color: white;
+  background-color: #444;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.button-save .sub-button:hover,
+.button-cancel .sub-button:hover {
+  background-color: #666;
+}
+
+/* 카테고리 드롭다운 글자색을 하얀색으로 */
+.form-group select {
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #444;
+  color: white;
+  transition: border-color 0.3s ease;
+}
+
+.form-group select:focus {
+  border-color: #444;
+  outline: none;
+}
+
+.form-group textarea {
+  resize: none;
+}

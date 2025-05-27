@@ -1,0 +1,173 @@
+/* ✅ 추천 결과 페이지 전용 CSS */
+/* 공통 배경 및 폰트는 base.css에서 적용됨 */
+
+.analyze-container {
+  height: 100vh;
+}
+
+
+/* ✅ 전체 감싸는 래퍼 */
+.recommendation-wrapper {
+  background-color: transparent;
+  color: #fff;
+  padding: 10px;
+  width: 90%;
+  max-width: 800px;
+  margin: 120px auto 60px;
+  z-index: 1;
+  position: relative;
+  /* LP보다 위로 */
+  text-align: center;
+}
+
+/* ✅ 추천 곡 리스트 */
+.song-list {
+  list-style: none;
+  padding: 0;
+  margin: 30px auto;
+  text-align: left;
+}
+
+/* ✅ 각 곡 항목 */
+.song-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background-color: #000;
+  padding: 16px 24px;
+  margin: 16px 0;
+  font-size: 17px;
+  border-bottom: 2px solid white;
+}
+
+/* ✅ 앨범 커버 */
+.cover img {
+  width: 125px;
+  height: 125px;
+  border-radius: 6px;
+  object-fit: cover;
+  background-color: #222;
+}
+
+/* ✅ 텍스트 묶음 */
+.info {
+  flex: 1;
+}
+
+/* ✅ 곡 제목 */
+.info .title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* ✅ 아티스트 */
+.info .artist {
+  font-size: 22px;
+  color: #aaa;
+  margin: 6px 0 8px;
+}
+
+/* ✅ 감정 태그 묶음 */
+.info .tags {
+  font-size: 18px;
+  color: #ccc;
+  margin-top: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  /* ✅ 태그 간 간격을 명확히 */
+  margin-right: 1px;
+}
+
+/* ✅ 개별 감정 태그 */
+.info .tag {
+  display: inline-block;
+  color: #ccc;
+  font-size: 18px;
+  margin-left: 4px;
+
+}
+
+/* ✅ 감정 태그가 없을 경우 */
+.tag.none {
+  color: #666;
+  font-style: italic;
+  margin-right: 6px;
+}
+
+/* ✅ 결과 없음 메시지 */
+.no-result {
+  text-align: center;
+  padding: 40px;
+  color: #ccc;
+  font-size: 26px;
+}
+
+/* ✅ 버튼 영역 */
+.button-group {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ✅ 공통 버튼 스타일 */
+.button {
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 6px;
+  border: none;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s;
+  max-width: 250px;
+}
+
+/* ✅ hover 효과 */
+.button:hover {
+  background-color: rgb(0, 0, 0);
+}
+
+/* ✅ 레이아웃 정렬을 위한 스타일 */
+.song-link-wrapper {
+  display: flex;
+  gap: 20px;
+  text-decoration: none;
+  color: inherit;
+  align-items: center;
+}
+
+.song-link-wrapper:hover .title {
+  text-decoration: underline;
+}
+
+.egg-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+.egg {
+  position: relative;
+  font-size: 5px;
+  z-index: -1;
+  text-align: center;
+}
+
+.fa-skull {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  transition: left 0.5s;
+  font-size: 1.8rem;
+}
+
+.egg-wrapper:hover .fa-skull {
+  left: -25px;
+}

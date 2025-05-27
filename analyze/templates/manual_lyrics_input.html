@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}가사 수동 입력 | AI 뮤직 분석기{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'CSS/manual_lyrics_input.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="analyze-container">
+  <div class="lyrics-form-wrapper">
+    <p id="errorMessage"><i class="fa-solid fa-triangle-exclamation" style="color: yellow;"></i> 자동으로 가사를 가져오는 데 실패했어요.
+    </p>
+    <h2>가사를 직접 입력해주세요</h2>
+    <p><strong>제목:</strong> {{ title }}</p>
+    <p><strong>아티스트:</strong> {{ artist }}</p>
+
+    <form method="post" action="{% url 'analyze' %}">
+      {% csrf_token %}
+      <input type="hidden" name="title" value="{{ title }}">
+      <input type="hidden" name="artist" value="{{ artist }}">
+
+      <div class="form-group">
+        <textarea name="manual_lyrics" rows="10" placeholder="가사를 입력해주세요" required></textarea>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="button submit"><i class="fa-solid fa-magnifying-glass"></i> 감성 분석하기</button>
+        <a href="{% url 'analyze' %}" class="button cancel"><i class="fa-solid fa-arrow-rotate-left"></i> 다시 입력하기</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="{% static 'js/base.js' %}"></script>
+<script defer src="{% static 'JS/manual_lyrics_input.js' %}"></script>
+{% endblock %}

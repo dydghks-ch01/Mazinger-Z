@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Music_info{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/results_music_info.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="results-container">
+  <!-- 🔍 검색창 -->
+  <div class="search-box" id="searchBox">
+    <input type="search" placeholder="와 씨 그냥 집에 가고 싶다" />
+    <button><i class="fa-solid fa-magnifying-glass"></i></button>
+  </div>
+
+  <!-- 🎯 Grid 레이아웃 -->
+  <div class="results-grid">
+    <!-- (1,1): 앨범 커버 -->
+    <div class="album-cover">
+      <img src="{{ song.cover_url }}" alt="앨범 커버">
+    </div>
+
+    <!-- (1,2): 곡 정보 -->
+    <div class="song-info">
+
+      <!-- 동건 변경 -->
+      <div class="title-row">
+        <h2 class="song-title">{{ song.title }}</h2>
+        <div class="like-wrapper">
+          <button id="likeButton" class="like-btn" data-title="{{ song.title }}" data-artist="{{ song.artist }}">
+            {% if is_liked %}❤️{% else %}🤍{% endif %}
+          </button>
+          <span id="likeCountDisplay">
+            <span id="likeCountValue">{{ like_count|default:"0" }}</span>명
+          </span>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <span class="label">가수</span>
+        <span class="colon">:</span>
+        <span class="value">{{ song.artist }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">발매일</span>
+        <span class="colon">:</span>
+        <span class="value">{{ song.release_date }}</span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">장르</span>
+        <span class="colon">:</span>
+        <span class="value">{{ song.genre }}</span>
+      </div>
+
+      <div class="info-row tag-row">
+        <span class="label">곡 태그</span>
+        <span class="colon">:</span>
+        <span class="value">
+          {% if song.keywords %}
+          {% for tag in song.keywords %}
+          <a href="/search/?q={{ tag|urlencode }}" class="tag-btn">{{ tag }}</a>
+          {% endfor %}
+          {% else %}
+          없음
+          {% endif %}
+        </span>
+      </div>
+
+      <div class="info-row">
+        <span class="label">감정 태그</span>
+        <span class="colon">:</span>
+        <span class="value">
+          {% if song.emotion_tags %}
+          {% for tag in song.emotion_tags %}
+          <a href="/search/?q={{ tag|urlencode }}" class="tag-btn">{{ tag }}</a>
+          {% endfor %}
+          {% else %}
+          없음
+          {% endif %}
+        </span>
+      </div>
+    </div>
+    <!-- 동건 변경 끝 -->
+
+
+    <!-- (1~2,3): 좋아요 목록 -->
+    <div class="like-box">
+      <h3 class="like-box-title">❤️ 좋아요 목록</h3>
+      <div class="like-box-scroll">
+        <ul class="like-list" id="likeList">
+          {% for liked_song in liked_songs %}
+          <li>
+            <a href="/music-info/?title={{ liked_song.title|urlencode }}&artist={{ liked_song.artist|urlencode }}">
+              <strong>{{ liked_song.title }}</strong><br>
+              <span class="artist-name">{{ liked_song.artist }}</span>
+            </a>
+          </li>
+          {% empty %}
+          <li>좋아요한 곡이 없습니다.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- (2,1~2): 가사 -->
+    <div class="lyrics-box">
+      <h3> 가사</h3><br>
+      <div id="lyrics-preview">
+        {% for line in song.lyrics.splitlines %}
+        <div>{{ line }}</div>
+        {% endfor %}
+      </div>
+      <button id="toggle-lyrics" class="toggle-lyrics-btn">더보기 ▼</button>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

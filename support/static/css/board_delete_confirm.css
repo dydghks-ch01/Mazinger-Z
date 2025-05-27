@@ -1,0 +1,72 @@
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.board-container {
+  background-color: #272727;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 700px;
+  position: relative;
+  z-index: 10;
+}
+
+.contact-container h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #ff0000; /* 삭제 경고 색상 */
+}
+
+.contact-container p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+  text-align: center;
+  line-height: 1.6;
+}
+
+form {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.sub-button {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+}
+
+/* 삭제 버튼 강조 */
+button.sub-button {
+  background-color: #b02b2b;
+}
+button.sub-button:hover {
+  background-color: #d14343;
+}
+
+/* 취소 버튼 */
+a.sub-button {
+  background-color: #888;
+}
+a.sub-button:hover {
+  background-color: #aaa;
+}

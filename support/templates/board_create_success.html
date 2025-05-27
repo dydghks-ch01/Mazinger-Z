@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}작성 완료{% endblock %}
+
+{% block extra_script %}
+<link rel="stylesheet" href="{% static 'css/board_create_success.css' %}">
+<script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="contact-wrapper">
+    <div class="contact-container">
+        <div class="board-container">
+            <h1>문의가 성공적으로 등록되었습니다.</h1>
+            <p class="contact-message">게시판 목록에서 확인하실 수 있습니다.</p>
+            <form action="{% url 'support_board_list' %}">
+                <button type="submit" class="back-button">📋 게시판 목록으로 이동</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

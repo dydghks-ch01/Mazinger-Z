@@ -1,0 +1,93 @@
+.analyze-container {
+  height: 100vh;
+}
+
+
+.lyrics-form-wrapper {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 40px;
+  /* border-radius: 16px; */
+  width: 90%;
+  max-width: 600px;
+
+  /* ✅ 화면 정중앙 배치 */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
+  text-align: center;
+  z-index: 10;
+  border-bottom: 2px solid white;  /* ✅ 얇은 흰선 추가 */
+  border-top: 2px solid white;
+}
+
+.lyrics-form-wrapper h2 {
+  margin: 20px 0;
+}
+
+#errorMessage {
+  color: rgb(255, 255, 127, 0.8);
+}
+
+.lyrics-form-wrapper p {
+  margin: 5px 0;
+  color: #999;
+}
+
+/* 텍스트 필드 */
+textarea {
+  width: 100%;
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 15px;
+  min-height: 200px;
+  resize: vertical;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+/* 버튼 영역 */
+.button-group,
+.form-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* 버튼 공통 스타일 */
+.button {
+  flex: 1;
+  min-width: 140px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: none;
+}
+
+/* 감성 분석 버튼 */
+.button.submit {
+  background-color: rgba(255, 255, 255, 0);
+  color: white;
+}
+.button.submit:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 다시 입력 버튼 */
+.button.cancel {
+  background-color: rgba(255, 255, 255, 0);
+  color: rgb(255, 255, 255);
+}
+.button.cancel:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
