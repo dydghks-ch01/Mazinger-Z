@@ -13,9 +13,9 @@
     <h1>FIND USERNAME</h1>
     <form method="POST">
       {% csrf_token %}
-      <label for="phone" style="color: white;">가입한 전화번호</label>
+      <label for="phone" style="color: white;">Phone Number</label>
       <input type="text" name="phone" id="phone" placeholder="010-0000-0000" required>
-      <button type="submit">아이디 찾기</button>
+      <button type="submit">Find_username</button>
     </form>
 
     {% if messages %}
