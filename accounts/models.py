@@ -12,6 +12,11 @@ class CustomUser(AbstractUser):
     nickname = models.CharField(max_length=50, unique=True, blank=True, null=True)
     birthday = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
+    gender = models.CharField(
+        max_length=1,
+        choices=[('M', '남자'), ('F', '여자')],
+        blank=True,
+        null=True)
 
     profile_picture = models.CharField(
         max_length=100,

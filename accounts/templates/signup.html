@@ -12,52 +12,25 @@
 <div class="signup-container">
   <div class="signup-form">
     <h1>SIGN UP</h1>
-    <form method="POST" enctype="multipart/form-data">
+    <form class="signup-content" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
 
-      <!-- Username -->
+      <!-- ID -->
       <p>
-        {{ form.username.label_tag }}
+        <label for="id_username">ID</label>
         {{ form.username }}
-        {% if form.username.errors %}
-        <span id="username-check" class="error-msg">{{ form.username.errors.0 }}</span>
-        {% else %}
         <span id="username-check" class="check-msg"></span>
-        {% endif %}
       </p>
       <ul class="input-info">
         <li>영문, 숫자, @/./+/-/_ 가능</li>
         <li>중복 불가, 최대 150자</li>
       </ul>
 
-      <!-- Email + 인증번호 -->
-      <div class="email-verification-group">
-        <p class="email-row">
-          <label for="id_email">이메일:</label>
-        <div class="email-input-group">
-          <input type="email" name="email" id="id_email" class="signup-input" required>
-          <button type="button" id="send-code-btn">인증번호 발송</button>
-        </div>
-        <span id="email-send-msg" class="check-msg"></span>
-        </p>
-        <p>
-          <label for="email-code-input">인증번호 입력</label>
-          <input type="text" id="email-code-input" name="email_code" maxlength="6" />
-          <button type="button" id="verify-code-btn" class="btn-glitch">인증 확인</button>
-          <span id="email-verify-msg" class="check-msg"></span>
-        </p>
-      </div>
-
-
-
       <!-- Password -->
       <p>
-        {{ form.password1.label_tag }}
+        <label for="id_password1">Password</label>
         {{ form.password1 }}
         <span id="password-check" class="check-msg"></span>
-        {% if form.password1.errors %}
-      <div class="error-msg">{{ form.password1.errors.0 }}</div>
-      {% endif %}
       </p>
       <ul class="input-info">
         <li>8자 이상</li>
@@ -65,35 +38,51 @@
       </ul>
 
       <p>
-        {{ form.password2.label_tag }}
+        <label for="id_password2">Confirm Password</label>
         {{ form.password2 }}
-        {% if form.password2.errors %}
-      <div class="error-msg">{{ form.password2.errors.0 }}</div>
-      {% endif %}
       </p>
+
+      <!-- Email -->
+      <p>
+        <label for="id_email">Email</label>
+      </p>
+      <div class="inline-input-row">
+        <input type="email" id="id_email" name="email" required>
+        <button type="button" id="send-code-btn">인증번호 발송</button>
+      </div>
+      <span id="email-send-msg" class="check-msg"></span>
+
+      <!-- 인증번호 입력 -->
+      <p>
+        <label for="email-code-input">인증번호 입력</label>
+      </p>
+      <div class="inline-input-row">
+        <input type="text" id="email-code-input" name="email_code" maxlength="6">
+        <button type="button" id="verify-code-btn">인증 확인</button>
+      </div>
+      <span id="email-verify-msg" class="check-msg"></span>
 
       <!-- Birthday -->
       <p>
-        {{ form.birthday.label_tag }}
+        <label for="id_birthday">Birthday</label>
         {{ form.birthday }}
-        {% if form.birthday.errors %}
-      <div class="error-msg">{{ form.birthday.errors.0 }}</div>
-      {% endif %}
+      </p>
+
+      <!-- Gender -->
+      <p>
+        <label for="id_gender">성별</label>
+        {{ form.gender }}
       </p>
 
       <!-- Phone Number -->
       <p>
-        {{ form.phone_number.label_tag }}
+        <label for="id_phone_number">Phone Number</label>
         {{ form.phone_number }}
-        <small class="input-info">예: 010-1234-5678 형식으로 입력하세요</small>
-        {% if form.phone_number.errors %}
-      <div class="error-msg">{{ form.phone_number.errors.0 }}</div>
-      {% endif %}
       </p>
 
       <!-- Profile Picture -->
       <p>
-        {{ form.profile_picture.label_tag }}
+        <label for="id_profile_picture">Profile Picture</label>
         {{ form.profile_picture }}
       </p>
 

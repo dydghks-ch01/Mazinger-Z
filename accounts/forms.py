@@ -13,9 +13,21 @@ PROFILE_CHOICES = [
     ("profile5.png", "5번 이미지"),
 ]
 
+GENDER_CHOICES = [
+    ('M', '남자'),
+    ('F', '여자'),
+]
+
 class CustomUserCreationForm(UserCreationForm):
 
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'})) 
+
+    gender = forms.ChoiceField(
+        choices=GENDER_CHOICES,
+        required=True,
+        widget=forms.RadioSelect,  # 라디오 버튼으로 선택
+        label="성별"
+    )
 
     birthday = forms.DateField(
         widget=forms.SelectDateWidget(years=range(1950, 2024)),
@@ -34,7 +46,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'birthday', 'phone_number', 'profile_picture']
+        fields = ['username', 'email', 'gender','password1', 'password2', 'birthday', 'phone_number', 'profile_picture']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -905,13 +905,14 @@ iframe {
   width: 60%;
   height: 80%;
   margin: 0;
-  background: #111;
+  background: transparent;
   padding: 30px;
   border-radius: 10px;
   gap: 10px;
   text-align: center;
   z-index: 5;
   overflow-y: auto;
+  border: 1px solid white;
 }
 
 .signup-form h1 {
@@ -922,6 +923,7 @@ iframe {
   margin: 80px;
   margin-top: 30px;
   letter-spacing: 0.5rem;
+  
 }
 
 .signup-form p {

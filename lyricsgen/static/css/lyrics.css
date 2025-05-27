@@ -132,6 +132,7 @@ pre.lyrics-box {
   background: #000;
   color: white;
   font-size: 16px;
+  font-family: monospace;
   line-height: 1.6;
   border-radius: 10px;
   box-sizing: border-box;
@@ -146,6 +147,7 @@ textarea.lyrics-edit-box {
   background: #000;
   color: white;
   font-size: 16px;
+  font-family: monospace;
   line-height: 1.6;
   border-radius: 10px;
   box-sizing: border-box;
@@ -353,63 +355,231 @@ textarea.lyrics-box-edit-box {
   color: white;
 }
 
-/* @media (max-width: 768px) {
+/* ✅ 데스크탑 ~ 태블릿 중간 (1440px 이하) */
+@media (max-width: 1440px) {
+  .header-center {
+    top: 5%;
+  }
+
   .lyrics-content {
+    width: 90%;
+    margin-top: 180px;
+  }
+
+  .album-image-wrapper {
+    width: 220px;
+    height: 220px;
+  }
+
+  pre.lyrics-box,
+  textarea.lyrics-edit-box {
+    width: 320px;
+    height: 320px;
+  }
+
+  .lyrics-buttons {
+    width: auto;
+  }
+
+  .recent-lyrics {
+    right: 50px;
+    width: 220px;
+  }
+}
+
+/* ✅ 1440px ~ 1024px 사이 */
+@media (max-width: 1440px) and (min-width: 1025px) {
+  .header-center {
+    position: static;
+    transform: none;
+    margin-top: 100px; /* 위에 충분한 여백으로 header-center를 밀어내려줌 */
+    display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .lyrics-content {
+    flex-direction: column; /* 세로정렬 */
+    margin-top: 60px; /* header-center 아래로 자연스럽게 시작 */
+    width: 90%;
     gap: 20px;
-    margin-top: 100px;
-    margin-bottom: 30px;
-    width: 100%;
-    max-width: none;
-    padding: 0 16px;
+    align-items: center;
   }
 
   .lyricsbox-created,
   .created_lyrics {
     width: 100%;
-    max-width: 100%;
+    max-width: 600px; /* 좀 더 넉넉한 폭 제한 */
+  }
+
+  .album-image-wrapper {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+  }
+
+  pre.lyrics-box,
+  textarea.lyrics-edit-box {
+    width: 500px;
+    max-width: 500px;
+    height: 700px;
   }
 
   .recent-lyrics {
     position: static;
     width: 100%;
     height: auto;
-    padding: 0 16px;
     border-left: none;
     border-right: none;
     border-top: 2px solid white;
     margin-top: 30px;
-  }
-
-  .mylyrics-img {
-    width: 100%;
-    height: auto;
-  }
-
-  .lyrics-buttons {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+  }
+
+  .recent-scroll-box {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
   }
 
+  /* 📌 최근 내 목록 카드 크기 줄이기 (공통) */
+  .mylyrics-card {
+    width: 100px; /* 기본 100px 유지 */
+    padding: 6px; /* 패딩 줄여서 작아지도록 */
+    font-size: 0.85rem; /* 텍스트 크기 줄이기 */
+  }
+
+  .mylyrics-img {
+    border-radius: 4px;
+  }
+}
+
+/* ✅ 태블릿 크기 (1024px 이하) - 가운데 정렬 */
+@media (max-width: 1024px) {
   .header-center {
     position: static;
     transform: none;
-    margin-top: 30px;
-    width: 100%;
-    padding: 0 16px;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가운데 정렬 */
   }
 
   .header-form {
     flex-direction: column;
     width: 100%;
+    align-items: center; /* 가운데 정렬 */
   }
 
+  .lyrics-content {
+    flex-direction: column;
+    margin-top: 50px;
+    width: 100%;
+    gap: 20px;
+    align-items: center; /* 가운데 정렬 */
+  }
+
+  .lyricsbox-created,
+  .created_lyrics {
+    width: 100%;
+    max-width: 500px; /* 적당한 폭 제한 */
+  }
+
+  pre.lyrics-box,
+  textarea.lyrics-edit-box {
+    width: 500px;
+    max-width: 500px;
+    height: 700px;
+    margin: 0 auto; /* 가운데 정렬 */
+  }
+
+  .album-image-wrapper {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto; /* 가운데 정렬 */
+  }
+
+  .lyrics-buttons {
+    justify-content: center;
+  }
+
+  .recent-lyrics {
+    position: static;
+    width: 100%;
+    height: auto;
+    border-left: none;
+    border-right: none;
+    border-top: 2px solid white;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가운데 정렬 */
+  }
+
+  .recent-scroll-box {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  /* 📌 최근 내 목록 카드 크기 줄이기 (공통) */
+  .mylyrics-card {
+    width: 100px; /* 기본 100px 유지 */
+    padding: 6px; /* 패딩 줄여서 작아지도록 */
+    font-size: 0.85rem; /* 텍스트 크기 줄이기 */
+  }
+
+  .mylyrics-img {
+    border-radius: 4px;
+  }
+  .header-center select,
+  .header-center button {
+    width: 140px; /* 원하는 통일 크기 */
+    padding: 10px 0;
+    text-align: center;
+  }
+}
+
+/* ✅ 모바일 (768px 이하) - 그대로 유지 + 추가 가운데 정렬 */
+@media (max-width: 768px) {
   .header-form input,
   .header-form select,
   .header-form button {
     width: 100%;
-    margin-bottom: 10px;
+    margin: 0 auto; /* 가운데 정렬 */
   }
-} */
+
+  .lyrics-btn {
+    padding: 8px 14px;
+    margin: 0 auto; /* 가운데 정렬 */
+  }
+
+  .mylyrics-card {
+    width: 80px;
+    padding: 4px;
+    font-size: 0.8rem;
+  }
+
+  .mylyrics-img {
+    width: 100%;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header-center select,
+  .header-center button {
+    width: 140px; /* 원하는 통일 크기 */
+    padding: 10px 0;
+    text-align: center;
+  }
+}

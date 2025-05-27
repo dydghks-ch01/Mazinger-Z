@@ -1,111 +1,95 @@
-/* 🚀 오류 메시지 */
+/* 메시지 스타일 */
 .error-msg {
   font-size: 0.85em;
   color: red;
 }
 
-/* 🚀 확인 메시지 (성공 등) */
 .check-msg {
   font-size: 0.85em;
   color: yellowgreen;
 }
 
-/* 🚀 추가 입력 정보 안내 (예: 형식 안내) */
 .input-info {
   font-size: 0.8em;
-  color: gray;
-  margin-top: -10px;
+  color: rgba(167, 167, 156, 0.897) !important; 
+  margin-top: -30px;
   margin-bottom: 10px;
 }
 
-/* 🚀 이메일 입력 행 - 레이블과 입력 그룹을 가로로 정렬 */
-.email-row {
-  display: flex;           /* 가로 정렬 */
-  align-items: center;     /* 세로 중앙 정렬 */
-  gap: 10px;               /* 요소 간격 */
-  margin-bottom: 15px;     /* 아래 여백 */
-  width: 100%;             /* 사용자 이름 입력칸과 동일 너비 */
+/* 사용자 이름, 이메일 등의 라벨 스타일 (공통) */
+.signup-form label {
+  display: inline-block;
+  min-width: 100px;
+  color: white;
+  margin-right: 10px;
+  font-weight: bold;
+  vertical-align: middle;
 }
 
-/* 🚀 이메일 입력칸 + 발송 버튼을 감싸는 그룹 */
-.email-input-group {
-  display: flex;           /* 가로 정렬 */
-  flex: 1;                 /* 가로 길이를 사용자 이름 입력칸과 동일하게 */
-  gap: 10px;               /* 간격 */
-  align-items: center;     /* ⭐ 여기가 추가됨 */
-  width: 100%; /* 사용자 이름 입력칸과 정확히 일치 */
+.signup-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
 }
 
-/* 🚀 이메일 입력칸 스타일 */
-.email-input-group .signup-input {
-  flex: 2;                 /* 2:1 비율 - 이메일 입력칸 */
-  height: 42px;            /* 버튼과 동일 높이 */
-  box-sizing: border-box;  /* border + padding 포함 */
-  padding: 10px;           /* 내용 여백 */
-  font-size: 1rem;
+/* 입력줄 전체 - 한 줄로 배치 */
+.inline-input-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 60%;
+}
+
+/* 입력칸 스타일 (공통) */
+.inline-input-row input {
+  height: 42px;
+  padding: 0 8px;
+  border: 1px solid #444;
   border-radius: 4px;
-  border: 1px solid #ccc;
-  background-color: #333;  /* 어두운 배경 */
-  color: #fff;             /* 흰색 글씨 */
-  width: 100%;             /* 꽉 채우기 */
+  background-color: #222;
+  color: #fff;
+  font-size: 1rem;
+  width: 85%;
 }
 
-/* 🚀 인증번호 발송 버튼 스타일 */
-.email-input-group #send-code-btn {
-  flex: 1;                 /* 2:1 비율 - 버튼 */
-  height: 42px;            /* 입력칸과 동일 높이 */
-  padding: 0 16px;         /* 좌우 여백만 (위아래 없음) */
-  white-space: nowrap;     /* 버튼 글자가 줄바꿈되지 않도록 */
-  cursor: pointer;
+/* 버튼 스타일 */
+.inline-input-row button{
+  flex-shrink: 0;
+  width: 15%;
+  height: 42px;
+  margin-top: 30px;
+  margin-left: 10px;
+  padding: 0 5px;
+  font-weight: bold;
   background-color: #222;
   color: white;
   border: none;
-  font-weight: bold;
-  font-size: 1rem;
   border-radius: 4px;
-  transition: background-color 0.3s ease; /* hover 부드럽게 */
-  flex-shrink: 0;          /* 버튼 크기 유지 */
-  position: relative;      /* ⭐ 버튼 위치를 살짝 조정할 준비 */
-  top: -10px;               /* ⭐ 버튼을 1px 위로 올리기 */
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
 }
 
-/* 🚀 버튼 hover 효과 */
-#send-code-btn:hover,
-#verify-code-btn:hover {
+.inline-input-row button:hover {
   background-color: #555;
 }
 
-/* 🚀 인증번호 입력칸 (2번째 단계) */
-#email-code-input {
-  flex-grow: 1;
-  height: 42px;            /* 버튼과 동일 높이 */
-  box-sizing: border-box;
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  background-color: #333;
-  color: #fff;
-  min-width: 0;            /* flexbox 레이아웃 안정성 */
+/* 다른 p 태그 (예: 비밀번호, 생일 등)는 그대로 block */
+.signup-form p {
+  margin-bottom: 15px;
+  width: 100%;
 }
 
-/* 🚀 인증번호 확인 버튼 (2번째 단계) */
-#verify-code-btn {
-  height: 42px;
-  padding: 0 16px;         /* 좌우 여백만 */
-  cursor: pointer;
-  background-color: #222;
-  color: white;
-  border: none;
-  font-weight: bold;
-  font-size: 1rem;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-  flex-shrink: 0;
+.input-info {
+  list-style-type: none;
 }
 
-/* 🚀 이메일 인증번호 입력 라벨 */
-.email-verification-group label {
-  min-width: 100px;
-  color: white;
+/* 라디오 버튼 일자로 정렬 */
+#id_gender {
+  display: flex;
+  flex-direction: row;    /* 가로로 정렬 */
+  gap: 20px;              /* 버튼 사이 간격 */
+  justify-content: center; /* 중앙정렬 */
 }

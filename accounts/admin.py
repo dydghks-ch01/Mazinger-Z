@@ -8,7 +8,7 @@ class CustomUserAdmin(UserAdmin):
 
     # ✅ 리스트에서 보여줄 필드
     list_display = (
-        'username', 'nickname', 'birthday', 'phone_number',
+        'username', 'email','nickname', 'birthday', 'phone_number', 'gender',
         'is_staff', 'is_active', 'profile_picture'
     )
 
@@ -19,8 +19,8 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                'username', 'password', 'nickname',
-                'birthday', 'phone_number', 'profile_picture'
+                'username', 'password', 'email', 'nickname',
+                'birthday', 'phone_number', 'gender', 'profile_picture'
             )
         }),
         ('권한', {
@@ -37,7 +37,7 @@ class CustomUserAdmin(UserAdmin):
             'classes': ('wide',),
             'fields': (
                 'username', 'password1', 'password2', 'nickname',
-                'birthday', 'phone_number', 'profile_picture',
+                'birthday', 'phone_number', 'gender',  'profile_picture',
                 'is_staff', 'is_active'
             )
         }),
