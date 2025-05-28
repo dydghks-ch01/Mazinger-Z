@@ -2,10 +2,11 @@
 .contact-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 80px 20px;
   background-color: #000000;
   min-height: 100vh;
-  color: #ffffff;
+  color: #fff;
 }
 
 /* 박스 형태의 폼 컨테이너 */
@@ -17,19 +18,23 @@
   width: 100%;
   max-width: 700px;
   z-index: 10;
+  height: 100%;
 }
 
 /* 제목 */
 .board-container h1 {
   font-size: 1.6rem;
-  margin-bottom: 0px;
+  margin-bottom: 30px;
   border-left: 6px solid #444;
   padding-left: 12px;
 }
 
 form {
   position: relative;
-  padding-bottom: 60px; /* 버튼이 가려지지 않게 아래 여백 확보 */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* 폼 입력 영역 */
@@ -51,48 +56,27 @@ form {
   padding: 12px 14px;
   font-size: 1rem;
   color: white;
-  border: 1px solid #7e7e7e;
-  border-radius: 6px;
   background-color: #414141;
-  transition: border-color 0.3s ease;
+  border: none;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #444;
   outline: none;
 }
 
-/* 버튼 */
-form .sub-button {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  color: white;
-  background-color: #444;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
 
 
 /* 카테고리 드롭다운 글자색을 하얀색으로 */
 .form-group select {
   padding: 12px 14px;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
   background-color: #444; /* 배경색을 어두운 색으로 설정 */
   color: white; /* 글자색을 하얀색으로 설정 */
-  transition: border-color 0.3s ease;
 }
 
 .form-group select:focus {
-  border-color: #444;
   outline: none;
 }
 
@@ -101,29 +85,91 @@ form .sub-button {
 }
 
 /* 버튼 스타일 */
+.button-container {
+  width: fit-content;
+  display: flex;
+  margin: 20px 0;
+  margin-left: auto;
+  gap: 10px;
+}
+
+/* 버튼 */
+.button-container .sub-button {
+  color: white;
+  background-color: #444;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.8vw;
+  transition: background-color 0.1s ease;
+}
+
+form .sub-button:hover {
+  background-color: #333;
+}
+
+
 .back-arrow {
-  display: inline-block;
-  background-color: #ffcc00;
-  color: rgb(0, 0, 0) !important;
-  font-size: 0.95rem;
-  padding: 8px 16px;
+  background-color: #444;
+  color: #fff;
+  font-size: 0.8vw;
+  padding: 10px 20px;
   border-radius: 6px;
   text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  
+  transition: background-color 0.1s ease;
+  width: fit-content;
 }
 
 .back-arrow:hover {
-  background-color: #e9ba00;
-  color: black !important;
+  background-color: #333;
 }
 
+/* --- 기존 CSS 생략 --- */
 
-.header-box {
-  display: flex;
-  justify-content: space-between; /* 제목 왼쪽, 버튼 오른쪽 */
-  align-items: center; /* 높이 맞추기 */
-  margin-bottom: 30px; /* 아래 여백 */
-  align-items: baseline; /* baseline으로 세로 기준 맞추기 */
+@media (max-width: 900px) {
+  .board-container {
+    padding: 32px 18px;
+    max-width: 98vw;
+  }
+  .header-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 40px 5px;
+  }
+  .board-container {
+    padding: 18px 6px;
+    border-radius: 6px;
+    min-width: 0;
+    box-shadow: none;
+  }
+  .board-container h1 {
+    font-size: 1.12rem;
+    padding-left: 8px;
+    border-left-width: 3px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 0.97rem;
+    padding: 9px 10px;
+  }
+  .form-group label {
+    font-size: 0.99rem;
+  }
+  form .sub-button {
+    position: static;
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+  .back-arrow {
+    font-size: 0.92rem;
+    padding: 7px 10px;
+    border-radius: 4px;
+  }
 }

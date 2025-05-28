@@ -24,13 +24,20 @@
 .board-container h1 {
   font-size: 1.6rem;
   margin-bottom: 20px;
-  color: #00aaff;
+  color: #fff;
+}
+
+.user-post-box {
+  background-color: #1e1e1e;
+  padding: 20px;
+  line-height: 2;
 }
 
 /* 본문 표시 */
-.board-container p {
-  font-size: 1rem;
-  line-height: 1.6;
+.post-message {
+  border-top: 1px solid white;
+  font-size: 1vw;
+  padding: 10px;
   margin-bottom: 10px;
 }
 
@@ -50,8 +57,7 @@
 .form-group textarea {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #666;
-  border-radius: 6px;
+  border: none;
   background-color: #1e1e1e;
   color: #fff;
   resize: none;
@@ -62,35 +68,71 @@
 .ans-button {
   display: block;
   margin: 0 auto;
-  background-color: #007acc;
+  background-color: #333;
   color: white;
   border: none;
   padding: 12px 28px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.1s ease;
 }
 
 .ans-button:hover {
-  background-color: #1a8cff;
+  background-color: #444;
 }
 
 /* 제목과 카테고리 라벨 */
 .reply-label {
-  color: #4fc3f7;
+  color: #444;
   font-weight: bold;
   margin-right: 6px;
 }
 
 /* 제목 텍스트 */
 .reply-title {
-  color: #4fc3f7; /* 노란색 계열 */
+  color: #666; /* 노란색 계열 */
   font-weight: bold;
 }
 
 /* 카테고리 텍스트 */
 .reply-category {
-  color: #4fc3f7; /* 하늘색 계열 */
+  color: #666; /* 하늘색 계열 */
   font-weight: bold;
+}
+
+@media (max-width: 900px) {
+  .board-container {
+    padding: 26px 7px;
+    max-width: 98vw;
+  }
+}
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 18px 2px;
+  }
+  .board-container {
+    padding: 12px 1vw;
+    border-radius: 6px;
+    box-shadow: none;
+  }
+  .board-container h1 {
+    font-size: 1.09rem;
+    margin-bottom: 14px;
+  }
+  .board-container p,
+  .form-group label,
+  .form-group textarea {
+    font-size: 0.96rem;
+  }
+  .ans-button {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.97rem;
+    padding: 12px 0;
+    border-radius: 6px;
+  }
+  .form-group textarea {
+    padding: 8px 8px;
+  }
 }

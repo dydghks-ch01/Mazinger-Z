@@ -11,12 +11,10 @@
 {% block content %}
 <div class="contact-container">
     <div class="board-container">
-        <div class="header-box">
-            <h1>고객지원 / 문의글 작성</h1>
-            <a href="{% url 'support_board_list' %}" class="back-arrow">← 뒤로가기</a>
-            </div>
+        <h1>고객지원 / 문의글 작성</h1>
         <form method="POST" action="{% url 'support_board_create' %}">
             {% csrf_token %}
+
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" id="title" name="title" required>
@@ -36,10 +34,12 @@
 
             <div class="form-group">
                 <label for="message">문의 내용</label>
-                <textarea id="message" name="message" rows="6" required></textarea>
+                <textarea id="message" name="message" rows="9" required></textarea>
             </div>
-
-            <button type="submit" class="sub-button">작성 완료</button>
+            <div class="button-container">
+                <a href="{% url 'support_board_list' %}" class="back-arrow"><i class="fa-solid fa-arrow-rotate-left"></i> &nbsp;뒤로가기</a>
+                <button type="submit" class="sub-button">작성하기</button>
+            </div>
         </form>
     </div>
 </div>

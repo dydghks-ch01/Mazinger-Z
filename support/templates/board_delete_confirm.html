@@ -11,13 +11,16 @@
 {% block content %}
 <div class="contact-container">
     <div class="board-container">
-        <h2>📢 정말 삭제하시겠습니까?</h2>
-        <p><strong>제목 : {{ post.title }}</strong></p>
-        <p>내용 : {{ post.message }}</p>
+        <h2>정말 삭제하시겠습니까?</h2>
+        <div class="user-post-box">
+            <p><strong>제목 : {{ post.title }}</strong></p>
+            <p>내용 : {{ post.message }}</p>
+        </div>
         <form method="POST">
             {% csrf_token %}
-            <button type="submit" class="sub-button">🗑 삭제하기</button>
-            <a href="{% url 'support_board_detail' post.pk %}" class="sub-button">취소</a>
+            <button type="sub" class="sub-button"><i class="fa-solid fa-trash-can"></i> 삭제</button>
+            <a href="{% url 'support_board_detail' post.pk %}" class="sub-button"><i
+                    class="fa-solid fa-arrow-rotate-left"></i> 돌아가기</a>
         </form>
     </div>
 </div>

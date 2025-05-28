@@ -25,6 +25,53 @@ document.addEventListener('click', (event) => {
 });
 
 // ----------------- CARD SLIDER -----------------
+// ---------------- TITLE ANIMATION -------------
+document.addEventListener('DOMContentLoaded', () => {
+  const section2Title = document.querySelector('.section2-title');
+  const section2 = document.querySelector('#section2');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startCustomFlicker(section2Title);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(section2);
+
+  function startCustomFlicker(element) {
+    // 각각의 켜짐 상태와 꺼짐 상태 시간 배열
+    const onTimes = [150, 60, 80, 50, 170, 0];
+    const offTimes = [250, 100, 100, 50, 100, 450];
+
+    let flickerIndex = 0;
+
+    function flickerOn() {
+      element.classList.add('visible'); // 켜기
+      if (flickerIndex >= onTimes.length) {
+         // 마지막 켜짐은 부드럽게 켜지도록 트랜지션 활성화!
+        element.style.transition = 'opacity 0.3s, text-shadow 0.5s';
+        element.classList.add('visible'); // 마지막엔 부드럽게 켜짐
+        return;
+      }
+      setTimeout(() => {
+        flickerOff();
+      }, onTimes[flickerIndex]);
+    }
+
+    function flickerOff() {
+      element.classList.remove('visible'); // 끄기
+      setTimeout(() => {
+        flickerIndex++;
+        flickerOn();
+      }, offTimes[flickerIndex]);
+    }
+
+    flickerOn(); // 첫 깜빡임 시작
+  }
+});
+
 const cards = document.querySelectorAll('.card');
 let currentIndex = 0;
 

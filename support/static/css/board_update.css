@@ -2,10 +2,11 @@
 .contact-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 80px 20px;
   background-color: #000000;
   min-height: 100vh;
-  color: #ffffff;
+  color: #fff;
 }
 
 /* 박스 형태의 폼 컨테이너 */
@@ -17,6 +18,7 @@
   width: 100%;
   max-width: 700px;
   z-index: 10;
+  height: 100%;
 }
 
 /* 제목 */
@@ -28,8 +30,11 @@
 }
 
 form {
-  padding-bottom: 0;
-  display: block;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* 폼 입력 영역 */
@@ -51,17 +56,22 @@ form {
   padding: 12px 14px;
   font-size: 1rem;
   color: white;
-  border: 1px solid #7e7e7e;
-  border-radius: 6px;
   background-color: #414141;
-  transition: border-color 0.3s ease;
+  border: none;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #444;
   outline: none;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin: 20px 0;
 }
 
 /* 저장/취소 버튼 묶음 정렬 */
@@ -78,13 +88,13 @@ form {
 .button-save .sub-button,
 .button-cancel .sub-button {
   color: white;
-  background-color: #444;
+  background-color: #333;
   border: none;
   padding: 12px 24px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.1s ease;
   text-decoration: none;
   display: inline-block;
   white-space: nowrap;
@@ -92,15 +102,14 @@ form {
 
 .button-save .sub-button:hover,
 .button-cancel .sub-button:hover {
-  background-color: #666;
+  background-color: #444;
 }
 
 /* 카테고리 드롭다운 글자색을 하얀색으로 */
 .form-group select {
   padding: 12px 14px;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border: none;
   background-color: #444;
   color: white;
   transition: border-color 0.3s ease;
@@ -113,4 +122,80 @@ form {
 
 .form-group textarea {
   resize: none;
+}
+
+form[action*="reply"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px;
+  margin-bottom: 10px;
+  width: 100%;
+  position: static !important;  /* 혹시 position 남아 있으면 무효화 */
+  left: auto !important;
+  bottom: auto !important;
+}
+
+form[action*="reply"] .ans-button {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 340px;
+  min-width: 120px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .board-container {
+    padding: 28px 6px;
+    max-width: 98vw;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 16px 2px;
+  }
+
+  .board-container {
+    padding: 10px 1vw;
+    border-radius: 6px;
+    box-shadow: none;
+  }
+
+  .board-container h1 {
+    font-size: 1.09rem;
+    margin-bottom: 10px;
+    padding-left: 7px;
+    border-left-width: 3px;
+  }
+
+  .form-group label {
+    font-size: 0.97rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 0.97rem;
+    padding: 8px 8px;
+  }
+
+  .button-save,
+  .button-cancel {
+    margin-top: 12px;
+    display: block;
+    width: 100%;
+  }
+
+  .button-save .sub-button,
+  .button-cancel .sub-button {
+    width: 100%;
+    margin: 0 0 7px 0;
+    font-size: 0.96rem;
+    padding: 12px 0;
+    border-radius: 6px;
+    text-align: center;
+  }
 }

@@ -140,21 +140,17 @@
       </section>
 
       <section class="section" id="section2">
-        {% if user.is_authenticated %}
-          <h2 class="section2-title">나만의 추천곡</h2>
-        {% else %}
-          <h2 class="section2-title">랜덤 추천곡</h2>
-        {% endif %}
-        <div class="card-container">
+        <h2 class="section2-title">This might be your <span style="color: rgb(255, 187, 0)">TASTE</span></h2> <!--동건 고침-->
+        <div class="card-container"> <!--동건 고침-->
           {% for song in cover_songs %}
-            <div class="card" data-index="{{ forloop.counter0 }}"
-              data-link="/music-info/?title={{ song.title|urlencode }}&artist={{ song.artist|urlencode }}"
-              style="background-image: url('{{ song.album_cover_url }}');">
-              <div class="card-info">
-                <p class="card-title">{{ song.title }}</p>
-                <p class="card-artist">{{ song.artist }}</p>
-              </div>
+          <div class="card" data-index="{{ forloop.counter0 }}"
+            data-link="/music-info/?title={{ song.title|urlencode }}&artist={{ song.artist|urlencode }}"
+            style="background-image: url('{{ song.album_cover_url }}');">
+            <div class="card-info">
+              <p class="card-title">{{ song.title }}</p>
+              <p class="card-artist">{{ song.artist }}</p>
             </div>
+          </div>
           {% endfor %}
         </div>
       </section>
@@ -167,11 +163,11 @@
           <!-- 이 안쪽에 콘텐츠가 있어야 자동차 지나간 뒤 보임 -->
           <div class="content-wrapper">
             <div class="content-menu">
-              <button data-type="preference">🎧 음악 취향 검사</button>
-              <button data-type="quiz_song">🎤 가사 제목 맞추기</button>
+              <button data-type="preference">🎧 Guess your TASTE</button>
+              <button data-type="quiz_song">🎤 Guess our TASTE</button>
             </div>
             <div class="content-display" id="section3Content">
-              <h2>왼쪽 메뉴에서 콘텐츠를 선택하세요</h2>
+              <h2>Pick the CONTENT you want</h2>
             </div>
           </div>
         </div>
@@ -184,22 +180,22 @@
             <h1>CONTACT</h1>
             <form id="contactForm">
               <div class="card-box">
-                <a href="#">
+                <a href="https://github.com/ddasil" target="_blank">
                   <div class="contact-card" id="dayoung"></div>
                 </a>
-                <a href="#">
+                <a href="https://github.com/tutle2179" target="_blank">
                   <div class="contact-card" id="jinseop"></div>
                 </a>
-                <a href="#">
+                <a href="https://github.com/Sinzo99" target="_blank">
                   <div class="contact-card" id="sanghun"></div>
                 </a>
-                <a href="#">
+                <a href="https://github.com/Donggun-Kim" target="_blank">
                   <div class="contact-card" id="donggun"></div>
                 </a>
-                <a href="#">
+                <a href="https://github.com/skalstn426" target="_blank">
                   <div class="contact-card" id="minsu"></div>
                 </a>
-                <a href="#">
+                <a href="https://github.com/dydghks-ch01" target="_blank">
                   <div class="contact-card" id="yonghwan"></div>
                 </a>
               </div>
@@ -239,9 +235,9 @@
           <div class="footer-contact">
             <div id="footerRequest">© 2025 Our SOSIC Project. All rights reserved.</div>
             <div id="footerLink">
-              <a href="https://youtube.com/"><i class="fa-brands fa-youtube"></i></a>
-              <a href="https://instagram.com/"><i class="fa-brands fa-instagram"></i></a>
-              <a href="https://github.com/"><i class="fa-brands fa-github"></i></a>
+              <a href="https://youtube.com/" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+              <a href="https://instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://github.com/" target="_blank"><i class="fa-brands fa-github"></i></a>
             </div>
           </div>
         </footer>

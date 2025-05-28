@@ -135,3 +135,20 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// 프로필 아이콘 선택 로직
+document.addEventListener("DOMContentLoaded", function () {
+  const iconOptions = document.querySelectorAll('.icon-option');
+  const hiddenInput = document.getElementById('selected-profile-picture');
+
+  iconOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      // 선택된 아이콘 표시
+      iconOptions.forEach(o => o.classList.remove('selected'));
+      option.classList.add('selected');
+
+      // 선택된 값 저장
+      const selectedValue = option.getAttribute('data-value');
+      hiddenInput.value = selectedValue;
+    });
+  });
+});

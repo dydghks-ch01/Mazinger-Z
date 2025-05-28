@@ -12,8 +12,11 @@
 /* ✅ 상단 버튼: 뒤로가기 / 글쓰기 */
 .post-detail-actions {
   display: flex;
+  padding-top: 5px;
   justify-content: space-between;
   margin-bottom: 30px;
+  height: 38px;
+  white-space: nowrap;
 }
 
 .btn-back,
@@ -26,6 +29,7 @@
   text-decoration: none;
   font-size: 0.9rem;
 }
+
 .btn-back:hover,
 .btn-write:hover {
   background-color: #555;
@@ -38,13 +42,16 @@
   align-items: flex-start;
   gap: 20px;
 }
+
 .title-area {
   flex: 1;
 }
+
 .post-title {
   font-size: 2rem;
   margin-bottom: 10px;
 }
+
 .post-meta {
   color: #bbb;
   font-size: 0.9rem;
@@ -62,6 +69,7 @@
 .post-body {
   margin-top: 30px;
 }
+
 .post-description {
   white-space: pre-wrap;
   word-break: break-word;
@@ -78,7 +86,9 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  white-space: nowrap;
 }
+
 .btn-like:hover {
   background-color: #666;
 }
@@ -100,7 +110,8 @@
 }
 
 .comment .comment-text {
-  max-height: 7.5em;     /* 줄당 약 1.5em x 5줄 */
+  max-height: 7.5em;
+  /* 줄당 약 1.5em x 5줄 */
   overflow-y: auto;
   line-height: 1.5;
   white-space: pre-wrap;
@@ -125,7 +136,8 @@
   background-color: #1e1e1e;
   border: 1px solid #444;
   border-radius: 6px;
-  resize: none; /* ✅ 크기 조절 비활성화 */
+  resize: none;
+  /* ✅ 크기 조절 비활성화 */
   color: white;
   font-size: 0.95rem;
 }
@@ -139,7 +151,9 @@
   border-radius: 6px;
   cursor: pointer;
   right: 10px;
+  width: 100px;
   transition: background-color 0.2s ease;
+  white-space: nowrap;
 }
 
 #comment-form button:hover {
@@ -231,6 +245,7 @@
   bottom: 20px;
   display: flex;
   gap: 8px;
+  white-space: nowrap;
 }
 
 /* ✅ 글쓰기/스크랩 묶기 */
@@ -247,6 +262,7 @@
   cursor: pointer;
   padding: 0;
 }
+
 .btn-scrap.top-scrap img {
   width: 36px;
   height: 36px;
@@ -378,7 +394,8 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 10px 0;
-  max-width: 700px; /* 적절히 조정 */
+  max-width: 700px;
+  /* 적절히 조정 */
 }
 
 .arrow-btn {
@@ -401,7 +418,8 @@
 
 /* 댓글 */
 .comment-list-scrollable {
-  max-height: 25em; /* 약 5개의 댓글 높이 기준 (개당 약 7em 예상) */
+  max-height: 25em;
+  /* 약 5개의 댓글 높이 기준 (개당 약 7em 예상) */
   overflow-y: auto;
   margin-top: 20px;
   padding-right: 6px;
@@ -411,6 +429,7 @@
 .comment-list-scrollable::-webkit-scrollbar {
   width: 6px;
 }
+
 .comment-list-scrollable::-webkit-scrollbar-thumb {
   background-color: #666;
   border-radius: 3px;

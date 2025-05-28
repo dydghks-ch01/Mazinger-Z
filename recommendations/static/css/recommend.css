@@ -5,7 +5,10 @@
 /* 추천 입력 화면 */
 .recommend-container {
   min-height: 100vh;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding-top: var(--navbar-height);
 }
 
@@ -15,11 +18,7 @@
   -webkit-text-fill-color: transparent;
   font-size: 2.5rem;
   margin-bottom: 50px;
-
-}
-
-.icon-music {
-  margin-right: 10px;
+  text-align: center; /* 중앙 정렬 */
 }
 
 .recommend-form {
@@ -27,6 +26,10 @@
   gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.icon-music {
+  margin-right: 10px;
 }
 
 .input-wrapper {

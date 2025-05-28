@@ -27,13 +27,13 @@
 .board-container h1 {
   font-size: 1.6rem;
   margin-bottom: 20px;
-  color: #ffc107; /* 초록색으로 성공 강조 */
+  color: #fff; /* 초록색으로 성공 강조 */
 }
 
 .contact-message {
   font-size: 1rem;
   margin-bottom: 40px;
-  color: #ffffff;
+  color: #777;
 }
 
 /* 버튼 */
@@ -41,7 +41,7 @@ form .back-button[type="submit"] {
   display: block;
   margin: 0 auto;
   margin-top: 20px;
-  background-color: #555;
+  background-color: #444;
   color: white;
   border: none;
   padding: 12px 28px;
@@ -49,9 +49,42 @@ form .back-button[type="submit"] {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.1s ease;
 }
 
 form .back-button[type="submit"]:hover {
-  background-color: #444;
+  background-color: #222;
+}
+
+/* --- 기존 CSS 생략 --- */
+
+@media (max-width: 700px) {
+  .contact-container {
+    max-width: 98vw;
+    padding: 50px 5px;
+  }
+  .board-container {
+    padding: 24px 8px;
+    border-radius: 7px;
+  }
+  .board-container h1 {
+    font-size: 1.12rem;
+  }
+  .contact-message {
+    font-size: 0.96rem;
+    margin-bottom: 28px;
+  }
+}
+@media (max-width: 480px) {
+  .contact-wrapper {
+    padding: 15px 1px;
+  }
+  .board-container {
+    padding: 12px 2px;
+  }
+  form .back-button[type="submit"] {
+    padding: 10px 6px;
+    font-size: 0.95rem;
+    border-radius: 6px;
+  }
 }

@@ -6,6 +6,7 @@
   align-items: flex-start;
   padding: 0px 20px 60px 80px;
   max-width: 1100px;
+  min-width: 500px;
   margin: 0 auto;
 }
 
@@ -18,11 +19,12 @@
 
 /* ✅ 사이드바 전체 박스 */
 .board-sidebar {
-  width: 280px;
+  width: 20%;
   color: white;
   background-color: transparent;
   padding: 0;
   margin-top: 170px;
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -82,7 +84,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 1100px;
+  min-width: 400px;
 }
 
 .board-title {
@@ -94,6 +97,14 @@
 
 /* ✅ 페이지 제목 링크 스타일 초기화 */
 .page-title-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;      /* 2줄로 제한 */
+  -webkit-box-orient: vertical;
+  line-clamp: 2;              /* 표준 속성 (일부 브라우저) */
+  max-height: 2.8em;          /* 줄 수 * 줄간격 */
+  white-space: normal;
   color: white;
   text-decoration: none;
 }
@@ -112,16 +123,19 @@
   background-color: #333;             /* 기본 배경 */
   color: white;
   padding: 8px 16px;
+  width: 70px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
   overflow: hidden;
   text-decoration: none;
+  text-align: center;
   z-index: 1;
   transition: color 0.3s ease, background-color 0.3s ease;
   font-size: 0.9rem;
   margin-left: 20px;
+  white-space: nowrap;
 }
 
 .btn-write::before {
@@ -368,6 +382,7 @@ textarea {
 
 .search-form input[type="text"] {
   align-items: center;
+  width: 150px;
   /* padding: 6px 10px; */
   border-radius: 6px;
   border: 1px solid #444;
