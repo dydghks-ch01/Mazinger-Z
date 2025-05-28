@@ -122,7 +122,7 @@
   display: inline-block;              /* ✅ before 효과 보이게 하려면 필요 */
   background-color: #222;             /* 기본 배경 */
   color: white;
-  padding: 8px 16px;
+  padding: 12px 16px;
   width: 100px;
   height: 40px;
   border: none;
@@ -333,7 +333,7 @@ textarea {
   text-decoration: none;
   width: 60px;      /* ✅ 너비 통일 (원하는 너비로!)*/
   text-align: center; /* ✅ 글씨 위치 중앙 */
-  font-size: 1rem;  /* ✅ 글씨 크기도 통일 */
+  font-size: 0.8rem;  /* ✅ 글씨 크기도 통일 */
 }
 
 

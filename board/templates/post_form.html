@@ -17,7 +17,7 @@
     <div class="lovelist-select">
       {% for song in lovelist %}
       <label >
-        <input type="checkbox" name="songs" value="{{ song.id }}">
+        <input type="checkbox" name="songs" class="song-checkbox" value="{{ song.id }}">
         {{ song.title }} - {{ song.artist }}
       </label><br>
       {% empty %}

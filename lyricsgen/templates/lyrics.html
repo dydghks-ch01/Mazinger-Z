@@ -21,7 +21,7 @@
     <form method="POST" action="{% url 'generate_lyrics' %}" class="header-form">
       {% csrf_token %}
       <div class="input-wrapper">
-        <input type="text" name="prompt" id="prompt-input" placeholder="Enter song topic" required>
+        <input type="text" name="prompt" id="prompt-input" placeholder="주제 입력" required>
         <i class="fa-solid fa-microphone mic-icon" id="mic-btn" title="Start voice recognition"></i>
         <i class="fa-solid fa-stop mic-icon" id="stop-recognition" style="display: none;"
           title="Stop voice recognition"></i>
@@ -35,7 +35,7 @@
         <option value="jazz">jazz</option>
       </select>
       <select name="language" required>
-        <option value="none">No preference</option>
+        <option value="none">상관없음</option>
         <option value="korean">한국어</option>
         <option value="english">English</option>
         <option value="japanese">日本語</option>
@@ -43,10 +43,10 @@
         <option value="thai">ไทย</option>
       </select>
       <select name="image_mode" required>
-        <option value="generate" selected>Generate album image</option>
-        <option value="skip">Quick generate without image</option>
+        <option value="generate" selected>앨범 이미지 생성</option>
+        <option value="skip">앨범 이미지 미생성</option>
       </select>
-      <button type="submit" class="generate-btn">Generate lyrics</button>
+      <button type="submit" class="generate-btn">가사 생성</button>
     </form>
   </div>
 
@@ -54,12 +54,12 @@
   {% if new_lyrics %}
   <div class="lyrics-content">
     <div class="lyricsbox-created">
-      <h3>Album image</h3>
+      <h3>앨범 이미지</h3>
       <div class="album-image-wrapper" style="background-image: url('{{ new_lyrics.image_file.url }}');"
         onclick="window.location.href='{{ new_lyrics.image_file.url }}'">
         <div class="album-hover-content">
           <span class="download-icon">📥</span>
-          <p>⏱ {{ elapsed_time }}seconds</p>
+          <p>⏱ {{ elapsed_time }}초</p>
         </div>
       </div>
 
@@ -67,7 +67,7 @@
       <form method="POST" action="{% url 'regenerate_image' new_lyrics.id %}" class="ai-image-form"
         style="margin-top: 10px;">
         {% csrf_token %}
-        <button type="submit" class="lyrics-btn">Generate AI image</button>
+        <button type="submit" class="lyrics-btn">앨범 이미지 생성</button>
       </form>
       {% endif %}
 
@@ -91,7 +91,7 @@
         {% csrf_token %}
         <textarea name="lyrics" class="lyrics-box lyrics-edit-box">{{ new_lyrics.lyrics }}</textarea>
         <div class="lyrics-buttons">
-          <button type="submit" class="lyrics-btn">Save</button>
+          <button type="submit" class="lyrics-btn">저장</button>
         </div>
       </form>
       {% else %}
@@ -100,11 +100,11 @@
         <form method="GET" action="{% url 'lyrics_root' %}">
           <input type="hidden" name="open_id" value="{{ new_lyrics.id }}">
           <input type="hidden" name="edit" value="true">
-          <button type="submit" class="lyrics-btn">Edit</button>
+          <button type="submit" class="lyrics-btn">수정</button>
         </form>
         <form method="POST" action="{% url 'delete_lyrics' new_lyrics.id %}" onsubmit="return confirm('정말 삭제하시겠습니까?');">
           {% csrf_token %}
-          <button type="submit" class="lyrics-btn">Delete</button>
+          <button type="submit" class="lyrics-btn">삭제</button>
         </form>
         {% if user.is_authenticated %}
         <form method="POST" action="{% url 'toggle_favorite' new_lyrics.id %}">

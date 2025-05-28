@@ -119,11 +119,11 @@ function fetchTrackFromApple(query) {
         const track = data.results[0];
         albumCover.src = track.artworkUrl100.replace('100x100', '600x600');
         infoContent.innerHTML = `
-          <h3>Song title: ${track.trackName}</h3>
-          <p><strong>Artist:</strong> ${track.artistName}</p>
-          <p><strong>Album:</strong> ${track.collectionName}</p>
-          <p><strong>Release date:</strong> ${new Date(track.releaseDate).toLocaleDateString()}</p>
-          <p><strong>Genre:</strong> ${track.primaryGenreName}</p>
+          <h3>제목: ${track.trackName}</h3>
+          <p><strong>가수:</strong> ${track.artistName}</p>
+          <p><strong>앨범:</strong> ${track.collectionName}</p>
+          <p><strong>발매일:</strong> ${new Date(track.releaseDate).toLocaleDateString()}</p>
+          <p><strong>장르:</strong> ${track.primaryGenreName}</p>
         `;
       } else {
         albumCover.src = '/static/images/default_album.png';

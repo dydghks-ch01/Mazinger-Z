@@ -5,7 +5,10 @@
 /* 추천 입력 화면 */
 .recommend-container {
   min-height: 100vh;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding-top: var(--navbar-height);
 }
 
@@ -239,7 +242,7 @@
   text-align: center;
   max-width: 600px;
   width: 80%;
-  z-index: 9999;
+  z-index: 999;
   line-height: 1.8;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   display: none;
@@ -252,6 +255,34 @@
   margin-bottom: 12px;
   color: #ffda6b;
 }
+
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+
+
+/* ✅ 로딩 텍스트 */
+#loadingText {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+#loadingText i {
+  font-size: 4vw;
+}
+
 
 /* 반응형 */
 @media (max-width: 900px) {

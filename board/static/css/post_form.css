@@ -68,20 +68,27 @@ textarea::placeholder {
 }
 
 .btn-submit {
-  display: block;
-  margin: 30px auto 0;
-  padding: 12px 40px;
-  background-color: #222;
+  position: relative;
+  display: inline-block;
   color: white;
+  background: #222;
+  border: none;
   border-radius: 6px;
-  font-size: 1rem;
+  height: 44px;
+  padding: 0 16px;
+  overflow: hidden;
+  z-index: 1;
+  text-align: center;
+  line-height: 20px; /* 버튼 높이에 맞춰서 텍스트 수직 정렬 */
   cursor: pointer;
-  border: none; /* ✅ 테두리 제거 */
+  display: block; /* ✅ 중앙정렬을 위해 block으로 */
+  margin: 30px auto 0; /* ✅ margin auto로 중앙정렬 */
 }
 
 .btn-submit:hover {
-  background-color:#555;
+  background-color: #555;
 }
+
 
 .hidden {
   display: none;
@@ -185,13 +192,13 @@ textarea::placeholder {
 }
 
 #openLovelistModal {
-  display: inline-block;
+  display: flex;
   background-color: #222;
   color: #fff;
   padding: 8px 16px;
   border-radius: 10px;
   font-size: 0.9rem;
-  margin-left: 10px;
+  margin-left: auto;
   text-decoration: none;
   border: none;
   cursor: pointer;
@@ -204,7 +211,9 @@ textarea::placeholder {
   display: flex;
   align-items: center;
   margin: 20px 0 10px;
+  width: 100%;
 }
+
 
 .playlist-label-button-wrapper label {
   margin: 0;
