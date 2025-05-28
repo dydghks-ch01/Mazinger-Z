@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import SupportPost, SupportReply
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import HttpResponseForbidden
 
 def support_board_list(request):
     category = request.GET.get('category')
@@ -34,8 +34,6 @@ def support_board_list(request):
     })
 
 
-
-
 @login_required
 def support_board_create(request):
     if request.method == 'POST':
@@ -43,15 +41,22 @@ def support_board_create(request):
         message = request.POST.get('message')
         category = request.POST.get('category')
 
+        # 글 작성
         SupportPost.objects.create(
             user=request.user,
             title=title,
             message=message,
             category=category
         )
-        return render(request, 'board_create_success.html')
+
+        # 여기서 바로 render하지 말고 redirect!
+        return redirect('support_board_create_success')
+
     return render(request, 'board_create.html')
 
+
+def support_board_create_success(request):
+    return render(request, 'board_create_success.html')
 
 
 def support_board_detail(request, pk):
@@ -59,17 +64,30 @@ def support_board_detail(request, pk):
     reply = getattr(post, 'supportreply', None)
     return render(request, 'board_detail.html', {'post': post, 'reply': reply})
 
+
 @user_passes_test(lambda u: u.is_staff)
 def support_board_reply(request, pk):
     post = get_object_or_404(SupportPost, pk=pk)
+    reply = getattr(post, 'supportreply', None)
+
     if request.method == 'POST':
         reply_text = request.POST.get('reply_text')
-        SupportReply.objects.create(post=post, responder=request.user, reply_text=reply_text)
+
+        if reply:  # 답변이 있으면 수정
+            reply.reply_text = reply_text
+            reply.save()
+        else:      # 답변이 없으면 새로 작성
+            SupportReply.objects.create(
+                post=post,
+                responder=request.user,
+                reply_text=reply_text
+            )
+
         return redirect('support_board_detail', pk=pk)
-    return render(request, 'board_reply.html', {'post': post})
 
+    # GET: 답변 작성 or 수정 폼 표시
+    return render(request, 'board_reply.html', {'post': post, 'reply': reply})
 
-from django.http import HttpResponseForbidden
 
 @login_required
 def support_board_delete(request, pk):

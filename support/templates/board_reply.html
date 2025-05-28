@@ -14,7 +14,8 @@
     <div class="board-container">
         <h1><i class="fa-solid fa-pen-to-square"></i> &nbsp;답변 작성</h1>
         <div class="user-post-box">
-            <p><strong class="reply-label">카테고리 :</strong> <span class="reply-category">{{post.get_category_display}}</span></p>
+            <p><strong class="reply-label">카테고리 :</strong> <span
+                    class="reply-category">{{post.get_category_display}}</span></p>
             <p><strong class="reply-label">문의 제목 :</strong> <span class="reply-title">{{ post.title }}</span></p>
             <p class="post-message">{{ post.message }}</p>
         </div>
@@ -22,9 +23,12 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="reply_text">답변</label>
-                <textarea name="reply_text" id="reply_text" rows="6" required></textarea>
+                <textarea name="reply_text" id="reply_text" rows="6"
+                    required>{% if reply %}{{ reply.reply_text }}{% endif %}</textarea>
             </div>
-            <button type="sub" class="ans-button">답변 등록</button>
+            <button type="sub" class="ans-button">
+                {% if reply %}답변 수정하기{% else %}답변 등록{% endif %}
+            </button>
         </form>
     </div>
 </div>

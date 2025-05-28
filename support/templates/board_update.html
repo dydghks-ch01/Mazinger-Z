@@ -19,11 +19,11 @@
             <div class="form-group">
                 <label for="category">문의 유형</label>
                 <select name="category" id="category" required>
-                    <option value="general">일반 문의</option>
-                    <option value="bug">버그 제보</option>
-                    <option value="feature">기능 요청</option>
-                    <option value="account">계정 관련</option>
-                    <option value="other">기타</option>
+                    <option value="general" {% if post.category == 'general' %}selected{% endif %}>일반 문의</option>
+                    <option value="bug" {% if post.category == 'bug' %}selected{% endif %}>버그 제보</option>
+                    <option value="feature" {% if post.category == 'feature' %}selected{% endif %}>기능 요청</option>
+                    <option value="account" {% if post.category == 'account' %}selected{% endif %}>계정 관련</option>
+                    <option value="other" {% if post.category == 'other' %}selected{% endif %}>기타</option>
                 </select>
             </div>
             <div class="form-group">

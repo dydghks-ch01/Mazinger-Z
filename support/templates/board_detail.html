@@ -22,16 +22,25 @@
             {% if reply %}
             <h3 class="admin-reply-title"><i class="fa-solid fa-comment-dots"></i>&nbsp; 관리자 답변</h3>
             <p class="admin-reply-text">{{ reply.reply_text }}</p>
-            <small class="admin-reply-meta">{{ reply.responder.username }} · {{ reply.replied_at|date:"Y-m-d H:i"}}</small>
+            <small class="admin-reply-meta">{{ reply.responder.username }} · {{ reply.replied_at|date:"Y-m-d
+                H:i"}}</small>
             {% else %}
             <p><em>아직 답변이 등록되지 않았습니다.</em></p>
             {% endif %}
 
             <div class="button-container">
                 {% if user.is_staff %}
+                {% if reply %}
+                <!-- 답변이 있으면 "답변 수정" 버튼 표시 -->
+                <form action="{% url 'support_board_reply' post.pk %}" method="get" class="button-form">
+                    <button type="sub" class="ans-button"><i class="fa-solid fa-pen-to-square"></i> 답변 수정하기</button>
+                </form>
+                {% else %}
+                <!-- 답변이 없으면 "답변 작성" 버튼 표시 -->
                 <form action="{% url 'support_board_reply' post.pk %}" method="get" class="button-form">
                     <button type="sub" class="ans-button"><i class="fa-solid fa-comments"></i> 답변 작성</button>
                 </form>
+                {% endif %}
                 {% endif %}
                 <div class="sub-button-box">
                     {% if request.user == post.user %}
@@ -47,7 +56,8 @@
                 </div>
             </div>
         </div>
-        <a href="{% url 'support_board_list' %}" class="back-arrow"><i class="fa-solid fa-arrow-rotate-left"></i>뒤로가기</a>
+        <a href="{% url 'support_board_list' %}" class="back-arrow"><i
+                class="fa-solid fa-arrow-rotate-left"></i>뒤로가기</a>
     </div>
 </div>
 {% endblock %}
