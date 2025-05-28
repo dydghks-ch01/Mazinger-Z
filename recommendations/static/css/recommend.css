@@ -201,24 +201,10 @@
   z-index: 1;
   text-decoration: none;
   text-align: center;
-  width: 150px;
+  width: 200px;
   align-self: flex-end;
 }
-.retry-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -50px;
-  width: 0;
-  height: 100%;
-  background: linear-gradient(45deg, yellow, #9d5d18);
-  z-index: -10;
-  transform: skewX(45deg);
-  transition: width 0.5s;
-}
-.retry-btn:hover::before {
-  width: 200%;
-}
+
 
 .hover-box {
   position: relative;
