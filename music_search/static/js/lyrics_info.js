@@ -43,29 +43,23 @@ window.onload = function () {
     }, 500);
   }
 
-  // ✅ 검색 입력 이벤트
-  const searchInput = document.getElementById('searchInput');
-  const suggestionsDiv = document.getElementById('suggestions');
+  // ✅ 검색 버튼 클릭 (자동완성 제거)
   const searchButton = document.querySelector('.search-btn');
-
-  searchInput.addEventListener('input', () => handleInputChange(searchInput, suggestionsDiv));
-  searchInput.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      hideSuggestions();
-      redirectSearch();
-    }
-  });
-
   if (searchButton) {
     searchButton.addEventListener('click', function () {
-      hideSuggestions();
       redirectSearch();
     });
   }
 
-  hideSuggestions(); // 초기엔 추천어창 숨김
-};
+  // ✅ 엔터 입력 시 검색 실행 (자동완성 제거)
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      redirectSearch();
+    }
+  });
+}
 
 // ✅ 가사 및 태그 분석
 async function fetchLyricsTranslateAndTag(artist, title) {

@@ -278,6 +278,9 @@ def clean_lyrics(raw_lyrics: str) -> str:
     # ✅ 2. 가사 외 영어 설명, 특수문자 라인 제거 (예: "To ma so special lady" 등)
     lines = [line for line in lines if not re.match(r'^[a-zA-Z]', line.strip())]
 
+    # ✅ 2.5. [Verse], [Chorus] 등 섹션 태그 제거
+    lines = [line for line in lines if not re.match(r'^\[.*\]$', line.strip())]
+
     # ✅ 3. 빈 줄 제거
     lines = [line.strip() for line in lines if line.strip()]
 

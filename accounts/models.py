@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     gender = models.CharField(
         max_length=1,
-        choices=[('M', '남자'), ('F', '여자')],
+        choices=[('M', 'Male'), ('F', 'Female')],
         blank=True,
         null=True)
 

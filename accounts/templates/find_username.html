@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Find_username{% endblock %}
+{% block title %}Find Username{% endblock %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/find_username.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -13,21 +14,35 @@
     <h1>FIND USERNAME</h1>
     <form method="POST">
       {% csrf_token %}
-      <label for="phone" style="color: white;">Phone Number</label>
+
+      <!-- 전화번호 입력 -->
+      <label for="phone">Phone Number</label>
       <input type="text" name="phone" id="phone" placeholder="010-0000-0000" required>
-      <button type="submit">Find_username</button>
+
+      <!-- 이메일 입력 -->
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" placeholder="example@example.com" required>
+
+      <!-- 이메일 인증번호 입력줄 -->
+      <div class="inline-input-row">
+        <input type="text" name="email_code" id="email-code-input" placeholder="Enter verification code" maxlength="6" required>
+        <button type="button" id="send-code-btn">Send</button>
+      </div>
+
+      <!-- 이메일 인증 메시지 -->
+      <span id="email-verify-msg" class="check-msg"></span>
+
+      {% if messages %}
+        {% for message in messages %}
+          <p class="error-msg">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+
+      <!-- 찾기 버튼 -->
+      <button class="sign font_color" type="submit">Find Username</button>
     </form>
-
-    {% if messages %}
-      {% for message in messages %}
-        <p style="color: red;">{{ message }}</p>
-      {% endfor %}
-    {% endif %}
-
-    <a class="btn-glitch" href="{% url 'login' %}">로그인으로 돌아가기</a>
-  </div>
-</div>
 {% endblock %}
 {% block extra_script %}
 <script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/find_username.js' %}"></script>
 {% endblock %}
