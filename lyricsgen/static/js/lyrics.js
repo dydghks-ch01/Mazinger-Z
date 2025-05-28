@@ -133,23 +133,3 @@ document.querySelectorAll('form.ai-image-form').forEach(form => {
   });
 });
 
-// ✅ 로딩 애니메이션 연결
-window.addEventListener('DOMContentLoaded', () => {
-  const overlay = document.getElementById('loadingOverlay');
-
-  // 가사 생성 시 로딩
-  const mainForm = document.querySelector('form.header-form');
-  mainForm?.addEventListener('submit', () => {
-    loadingText.textContent = "가사 생성 중";
-    overlay.style.display = 'flex';
-  });
-
-  // AI 이미지 생성 시 로딩
-  document.querySelectorAll('form.ai-image-form').forEach(form => {
-    form.addEventListener('submit', () => {
-      loadingText.textContent = "이미지 생성 중";
-      overlay.style.display = 'flex';
-    });
-  });
-});
-

@@ -11,7 +11,7 @@
 {% block content %}
 <div class="analyze-container">
   <div class="recommendation-wrapper">
-    <h1><i class="fa-solid fa-headphones-simple"></i>&nbsp; "{{ tag }}" 의 다른 추천 곡들</h1>
+    <h1><i class="fa-solid fa-headphones-simple"></i>&nbsp; Other songs recommended for "{{ tag }}"</h1>
 
     <ul class="song-list">
       {% for song in songs %}
@@ -50,8 +50,8 @@
 
     <div class="button-group">
       <button onclick="window.history.back()" class="button go-back"><i class="fa-solid fa-arrow-rotate-left"></i>
-        돌아가기</button>
-      <a href="{% url 'analyze' %}" class="button retry"><i class="fa-solid fa-magnifying-glass"></i>&nbsp; 다른 노래 분석</a>
+        back</button>
+      <a href="{% url 'analyze' %}" class="button retry"><i class="fa-solid fa-magnifying-glass"></i>&nbsp; Analyze another song</a>
     </div>
   </div>
 </div>

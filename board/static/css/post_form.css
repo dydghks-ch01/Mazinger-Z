@@ -139,6 +139,10 @@ textarea::placeholder {
   display: block;
 }
 
+#lovelistModal {
+  margin-top: 11vh;
+}
+
 .selected-songs-preview {
   margin-top: 15px;
   padding: 12px;

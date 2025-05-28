@@ -172,12 +172,12 @@
 
 /* 감정 추천 버튼 스타일 */
 .button.recommend {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #222;
   color: white;
 }
 
 .button.recommend:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #555;
 }
 
 /* 다시 분석하기 버튼 */

@@ -9,20 +9,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>추천 결과</title>
+    <title>Recommend results</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {% endblock %}
 
     {% block content %}
     <link rel="stylesheet" href="{% static 'css/recommend.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <div class="result-container">
         <div class="result-title">
-            <h1><i class="fa-solid fa-headphones"></i> '{{ song }}' 관련 추천</h1>
+            <h1><i class="fa-solid fa-headphones"></i> '{{ song }}' Related recommendations</h1>
         </div>
         <div class="result-box">
             <!-- 책 추천 -->
             <div class="sec">
-                <h2><i class="fa-solid fa-book-open"></i> 책</h2>
+                <h2><i class="fa-solid fa-book-open"></i>Book</h2>
                 <div class="items">
                     {% for book in books %}
                     <div class="item">
@@ -40,7 +41,7 @@
 
             <!-- 여행지 추천 -->
             <div class="sec">
-                <h2><i class="fa-solid fa-person-walking-luggage"></i> 여행지</h2>
+                <h2><i class="fa-solid fa-person-walking-luggage"></i>Travel destinations</h2>
                 <div class="items">
                     {% for travel in travels %}
                     <div class="item">
@@ -55,7 +56,7 @@
                 </div>
             </div>
             <div class="btn-sec">
-                <a href="/recommend/" class="retry-btn"><i class="fa-solid fa-magnifying-glass"></i> 다른 검색</a>
+                <a href="/recommend/" class="retry-btn btn-glitch"><i class="fa-solid fa-magnifying-glass"></i>Other searches</a>
             </div>
             <div id="reason-popup" class="reason-popup-hidden">
                 <h3 id="reason-title" class="popup-title"></h3>

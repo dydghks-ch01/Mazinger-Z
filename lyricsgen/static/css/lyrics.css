@@ -39,10 +39,11 @@
 .header-form button {
   color: white;
   background-color: #222;
-  border: 1px solid #555;
+  border: none;
   padding: 6px 10px;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 1rem;
+  outline: none;       /* ✅ 버튼 클릭 시 생기는 외곽선 제거 */
 }
 
 .input-wrapper {
@@ -132,7 +133,6 @@ pre.lyrics-box {
   background: #000;
   color: white;
   font-size: 16px;
-  font-family: monospace;
   line-height: 1.6;
   border-radius: 10px;
   box-sizing: border-box;
@@ -147,7 +147,6 @@ textarea.lyrics-edit-box {
   background: #000;
   color: white;
   font-size: 16px;
-  font-family: monospace;
   line-height: 1.6;
   border-radius: 10px;
   box-sizing: border-box;
@@ -169,7 +168,7 @@ textarea.lyrics-box-edit-box {
 .lyrics-buttons {
   margin-top: 20px;
   display: flex;
-  gap: 16px;
+  gap: 10px;
   justify-content: center;
   width: 250px;
   flex-wrap: wrap;
@@ -181,13 +180,13 @@ textarea.lyrics-box-edit-box {
   border: 2px solid crimson;
   background-color: rgba(255, 255, 255, 0.2) !important;
   color: white;
+  background-color: #222;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .lyrics-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  color: rgb(255, 255, 255) !important;
+  background-color: #555 !important;
 }
 
 .recent-lyrics {
@@ -291,33 +290,25 @@ textarea.lyrics-box-edit-box {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
   z-index: 9999;
   display: none;
+  background-color: rgba(0, 0, 0);
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.loading-spinner {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: conic-gradient(#ffffff, #ff9d2f, #ffffff);
-  -webkit-mask: radial-gradient(farthest-side, transparent 40%, black 41%);
-  mask: radial-gradient(farthest-side, transparent 40%, black 41%);
-  animation: spin 1s linear infinite;
-}
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
+/* ✅ 로딩 텍스트 */
 #loadingText {
+  text-align: center;
   color: white;
   font-size: 18px;
   margin-top: 20px;
+}
+
+#loadingText i {
+  font-size: 4vw;
 }
 
 .generate-btn {
@@ -354,7 +345,10 @@ textarea.lyrics-box-edit-box {
 .generate-btn:hover {
   color: white;
 }
-
+.mylyrics-card-link {
+  text-decoration: none !important;  /* 🔥 밑줄 제거 */
+  color: inherit;                     /* 🔥 링크 색상도 부모 상속 */
+}
 /* ✅ 데스크탑 ~ 태블릿 중간 (1440px 이하) */
 @media (max-width: 1440px) {
   .header-center {
@@ -571,10 +565,6 @@ textarea.lyrics-box-edit-box {
     width: 100%;
   }
 
-  .loading-spinner {
-    width: 40px;
-    height: 40px;
-  }
 
   .header-center select,
   .header-center button {
@@ -583,3 +573,4 @@ textarea.lyrics-box-edit-box {
     text-align: center;
   }
 }
+

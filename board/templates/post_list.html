@@ -18,11 +18,11 @@
       </h1>
       <div class="board-actions">
         <form method="get" action="{% url 'post_list' %}" class="search-form">
-          <input type="text" name="q" placeholder="제목 검색" value="{{ query }}">
+          <input type="text" name="q" placeholder="Search by title" value="{{ query }}">
         </form>
         <a href="{% if user.is_authenticated %}{% url 'post_create' %}{% else %}#{% endif %}"
           class="btn-write{% if not user.is_authenticated %} not-logged-in-write{% endif %}">
-          글쓰기
+          New Post
         </a>
       </div>
     </div>
@@ -33,10 +33,10 @@
         <input type="hidden" name="q" value="{{ query }}">
         <label for="sort"></label>
         <select name="sort" id="sort" onchange="this.form.submit()">
-          <option value="likes" {% if sort == "likes" %}selected{% endif %}>좋아요 높은 순</option>
-          <option value="views" {% if sort == "views" %}selected{% endif %}>조회수 높은 순</option>
-          <option value="scraps" {% if sort == "scraps" %}selected{% endif %}>스크랩 많은 순</option>
-          <option value="created" {% if sort == "created" %}selected{% endif %}>최신순</option>
+          <option value="likes" {% if sort == "likes" %}selected{% endif %}>Most liked</option>
+          <option value="views" {% if sort == "views" %}selected{% endif %}>Most viewed</option>
+          <option value="scraps" {% if sort == "scraps" %}selected{% endif %}>Most saved</option>
+          <option value="created" {% if sort == "created" %}selected{% endif %}>Newest</option>
         </select>
       </form>
     </div>
@@ -62,18 +62,19 @@
           <div class="post-info">
             <h2 class="post-title">{{ post.title }}</h2>
             <p class="post-description">{{ post.description }}</p>
-            <p class="post-meta">{{ post.user.nickname }} · {{ post.created_at|date:"Y년 n월 j일 g:i A" }}</p>
+            <p class="post-meta">{{ post.user.nickname }} · {{ post.created_at|date:"Y-m-d H:i" }}</p>
+
           </div>
         </a>
       </div>
 
       <div class="post-actions">
         {% if user == post.user %}
-        <a href="{% url 'post_edit' post.pk %}" class="edit-btn">수정</a>
+        <a href="{% url 'post_edit' post.pk %}" class="edit-btn">Edit</a>
         <form method="post" action="{% url 'post_delete' post.pk %}" onsubmit="return confirm('정말로 삭제하시겠습니까?')"
           style="display:inline;">
           {% csrf_token %}
-          <button type="sub" class="delete-btn">삭제</button>
+          <button type="sub" class="delete-btn">Delete</button>
         </form>
         {% else %}
         <div style="height: 24px;"></div>
@@ -85,7 +86,7 @@
     {% if posts.paginator.num_pages > 1 %}
     <div class="pagination">
       {% if posts.has_previous %}
-      <a href="?page={{ posts.previous_page_number }}&q={{ query }}&sort={{ sort }}">이전</a>
+      <a href="?page={{ posts.previous_page_number }}&q={{ query }}&sort={{ sort }}">Back</a>
       {% endif %}
       {% for num in posts.paginator.page_range %}
       {% if posts.number == num %}
@@ -95,7 +96,7 @@
       {% endif %}
       {% endfor %}
       {% if posts.has_next %}
-      <a href="?page={{ posts.next_page_number }}&q={{ query }}&sort={{ sort }}">다음</a>
+      <a href="?page={{ posts.next_page_number }}&q={{ query }}&sort={{ sort }}">Next</a>
       {% endif %}
     </div>
     {% endif %}
@@ -104,39 +105,39 @@
   <!-- 사이드바 그대로 유지 -->
   <div class="board-sidebar">
     <div class="sidebar-section">
-      <h3>스크랩</h3>
+      <h3>Saved</h3>
       <div class="scroll-box">
         <ul class="sidebar-list">
           {% for post in scrapped_posts %}
           <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
           {% empty %}
-          <li style="opacity: 0.3;">스크랩한 글 없음</li>
+          <li style="opacity: 0.3;">No saved posts</li>
           {% endfor %}
         </ul>
       </div>
     </div>
 
     <div class="sidebar-section">
-      <h3>최근 본</h3>
+      <h3>Recently viewed</h3>
       <div class="scroll-box">
         <ul class="sidebar-list">
           {% for post in recent_posts %}
           <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
           {% empty %}
-          <li style="opacity: 0.3;">최근 본 글 없음</li>
+          <li style="opacity: 0.3;">No recently viewed posts</li>
           {% endfor %}
         </ul>
       </div>
     </div>
 
     <div class="sidebar-section">
-      <h3>내가 쓴 글</h3>
+      <h3>My posts</h3>
       <div class="scroll-box">
         <ul class="sidebar-list">
           {% for post in my_posts %}
           <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
           {% empty %}
-          <li style="opacity: 0.3;">작성한 글 없음</li>
+          <li style="opacity: 0.3;">No posts written</li>
           {% endfor %}
         </ul>
       </div>

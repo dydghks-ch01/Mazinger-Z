@@ -73,7 +73,7 @@ async function fetchLyricsTranslateAndTag(artist, title) {
     });
     const data = await res.json();
     if (!data.lyrics) {
-      lyricsContent.innerHTML = "❌ 가사를 불러올 수 없습니다.";
+      lyricsContent.innerHTML = "❌ Unable to load lyrics.";
       return;
     }
 
@@ -83,7 +83,7 @@ async function fetchLyricsTranslateAndTag(artist, title) {
     translatedLyrics.ja = data.ja_lyrics ? data.ja_lyrics.replace(/(\r\n|\r|\n)/g, '<br>') : '';
     translatedLyrics.zh = data.zh_lyrics ? data.zh_lyrics.replace(/(\r\n|\r|\n)/g, '<br>') : '';
 
-    lyricsContent.innerHTML = translatedLyrics.original || "⚠️ 가사를 불러올 수 없습니다.";
+    lyricsContent.innerHTML = translatedLyrics.original || "⚠️ Unable to load lyrics.";
 
     await fetch('/music/save-tagged-song/', {
       method: 'POST',
@@ -102,7 +102,7 @@ async function fetchLyricsTranslateAndTag(artist, title) {
 
   } catch (err) {
     console.error("🔥 가사 요청 또는 번역 실패:", err);
-    lyricsContent.innerHTML = "⚠️ 가사 로딩 중 오류 발생!";
+    lyricsContent.innerHTML = "⚠️ An error occurred while loading the lyrics!";
   }
 }
 
@@ -110,7 +110,7 @@ async function fetchLyricsTranslateAndTag(artist, title) {
 function fetchTrackFromApple(query) {
   const infoContent = document.getElementById('infoContent');
   const albumCover = document.getElementById('albumCover');
-  infoContent.innerHTML = "🎵 Apple Music 정보 로딩 중...";
+  infoContent.innerHTML = "🎵 Loading Apple Music information...";
 
   fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&entity=musicTrack&limit=1`)
     .then(res => res.json())
@@ -119,19 +119,21 @@ function fetchTrackFromApple(query) {
         const track = data.results[0];
         albumCover.src = track.artworkUrl100.replace('100x100', '600x600');
         infoContent.innerHTML = `
-          <h3>노래 제목 : ${track.trackName}</h3>
-          <p><strong>아티스트 :</strong> ${track.artistName}</p>
-          <p><strong>앨범 :</strong> ${track.collectionName}</p>
-          <p><strong>발매일 :</strong> ${new Date(track.releaseDate).toLocaleDateString()}</p>
-          <p><strong>장르 :</strong> ${track.primaryGenreName}</p>
+          <h3>Song title: ${track.trackName}</h3>
+          <p><strong>Artist:</strong> ${track.artistName}</p>
+          <p><strong>Album:</strong> ${track.collectionName}</p>
+          <p><strong>Release date:</strong> ${new Date(track.releaseDate).toLocaleDateString()}</p>
+          <p><strong>Genre:</strong> ${track.primaryGenreName}</p>
         `;
       } else {
-        infoContent.innerHTML = "🎵 곡 정보를 찾을 수 없습니다.";
+        albumCover.src = '/static/images/default_album.png';
+        infoContent.innerHTML = "🎵 Unable to find song information.";
       }
     })
     .catch(err => {
       console.error("🔥 Apple Music 검색 실패:", err);
-      infoContent.innerHTML = "⚠️ Apple Music 정보 로딩 실패!";
+      albumCover.src = '/static/images/default_album.png';
+      infoContent.innerHTML = "⚠️ Failed to load Apple Music information!";
     });
 }
 
@@ -192,7 +194,7 @@ function hideSuggestions() {
 // ✅ 가사 번역 버튼 처리
 function translateLyrics(lang) {
   const lyricsContent = document.getElementById('lyricsContent');
-  const selectedLyrics = translatedLyrics[lang] || `⚠️ 해당 언어 가사가 없습니다.`;
+  const selectedLyrics = translatedLyrics[lang] || `⚠️ No lyrics for this language.`;
   lyricsContent.innerHTML = `<p>${selectedLyrics}</p>`;
 }
 

@@ -953,7 +953,7 @@ iframe {
 .login-form button {
   margin-top: 50px;
   margin-bottom: 20px;
-  width: 60%;
+  width: 85%;
   padding: 10px;
   color: white;
   border: none;
@@ -985,8 +985,8 @@ iframe {
 }
 
 .signup-form {
-  width: 60%;
-  height: 80%;
+  width: 50%;
+  height: 71%;
   margin: 0;
   background: #111;
   padding: 30px;
@@ -1557,12 +1557,14 @@ button[type="submit"]:hover {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background: #ffffff33;
+  background: #222;
   color: white;
   cursor: pointer;
   width: auto;
 }
-
+.quiz-container button:hover{
+  background-color: #555;
+}
 /* 노래퀴즈 수정 */
 .game-cover {
   position: absolute;

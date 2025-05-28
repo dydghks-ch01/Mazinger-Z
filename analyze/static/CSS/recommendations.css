@@ -122,14 +122,14 @@
   text-decoration: none;
   color: white;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #222;
   transition: background-color 0.2s;
   max-width: 250px;
 }
 
 /* ✅ hover 효과 */
 .button:hover {
-  background-color: rgb(0, 0, 0);
+  background-color: #555;
 }
 
 /* ✅ 레이아웃 정렬을 위한 스타일 */

@@ -13,7 +13,7 @@
 <div class="info-container">
   <div class="search-bar">
     <div class="input-wrapper">
-      <input type="text" id="searchInput" placeholder="youtube로 검색하기"
+      <input type="text" id="searchInput" placeholder="Search on YouTube"
         onkeypress="if(event.key==='Enter'){redirectSearch();}" autocomplete="off">
       <button id="micBtn"><i class="fas fa-microphone"></i></button>
       <button id="stopBtn" style="display: none;"><i class="fas fa-stop"></i></button>
@@ -30,28 +30,28 @@
 
       <div class="album-info">
         <div class="album-cover">
-          <img id="albumCover" src="" alt="앨범 커버">
+          <img id="albumCover" src="" alt="Album cover">
         </div>
         <div class="song-info">
           <div class="info-title">
-            <h2><i class="fa-duotone fa-solid fa-record-vinyl"></i> 곡 정보 </h2>
+            <h2><i class="fa-duotone fa-solid fa-record-vinyl"></i>  Song information </h2>
           </div>
-          <div id="infoContent">정보 로딩 중...</div>
+          <div id="infoContent">Loading information...</div>
         </div>
       </div>
     </div>
 
     <!-- 오른쪽 정보 영역 -->
     <div id="lyricsSection">
-      <h2><i class="xi-paper"></i> 가사</h2>
+      <h2><i class="xi-paper"></i> Lyrics</h2>
       <div class="translation-buttons">
-        <button onclick="translateLyrics('original')">원본</button>
-        <button onclick="translateLyrics('ko')">한국어</button>
-        <button onclick="translateLyrics('en')">영어</button>
-        <button onclick="translateLyrics('ja')">일본어</button>
-        <button onclick="translateLyrics('zh')">중국어</button>
+        <button onclick="translateLyrics('original')">Original</button>
+        <button onclick="translateLyrics('ko')">ko</button>
+        <button onclick="translateLyrics('en')">en</button>
+        <button onclick="translateLyrics('ja')">ja</button>
+        <button onclick="translateLyrics('zh')">zh</button>
       </div>
-      <div id="lyricsContent"><i class="xi-spinner-3 xi-spin"></i> 가사 로딩 중...</div>
+      <div id="lyricsContent"><i class="xi-spinner-3 xi-spin"></i> Loading lyrics...</div>
     </div>
   </div>
 </div>

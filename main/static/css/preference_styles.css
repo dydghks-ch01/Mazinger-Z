@@ -154,8 +154,7 @@
   width: 140px;
   height: 45px;
   margin: 0;
-  background-color: #666;
-  /* 밝은 회색 */
+  background-color: #222;
   color: white;
   border: none;
   border-radius: 10px;
@@ -165,7 +164,7 @@
 }
 
 .nav-buttons button:hover {
-  background-color: #888;
+  background-color: #555
 }
 
 /* ✅ 진행도 바 */

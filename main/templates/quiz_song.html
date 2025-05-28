@@ -26,14 +26,16 @@
     </p>
 
     <div class="form-row">
-      <input type="text" id="answerInput" placeholder="노래 제목 입력" autocomplete="off">
-      <button id="retryButton">새로운 문제</button>
-      <button id="submitAnswer">제출</button>
+      <input type="text" id="answerInput" placeholder="Enter the title of the song" autocomplete="off">
+      <button id="retryButton">New Question</button>
+      <button id="submitAnswer">Submit</button>
     </div>
 
-    <button id="retryButton" style="display:none; margin-top:10px;">새로운 문제</button>
+    <button id="retryButton" style="display:none; margin-top:10px;">New Question</button>
     {% else %}
-    <p class="quiz-empty">퀴즈 데이터가 없습니다.</p>
+    <p class="quiz-empty">No quiz data available.
+
+</p>
     {% endif %}
 
   </div>

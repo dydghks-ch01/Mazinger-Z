@@ -16,7 +16,7 @@
   <div class="post-detail-actions">
     <a href="{% url 'post_list' %}?q={{ request.GET.q }}&sort={{ request.GET.sort }}" class="btn-back">← 게시판으로</a>
     <div class="top-buttons">
-      <a href="{% url 'post_create' %}" class="btn-write {% if not user.is_authenticated %}not-logged-in-write{% endif %}">글쓰기</a>
+      <a href="{% url 'post_create' %}" class="btn-write {% if not user.is_authenticated %}not-logged-in-write{% endif %}">New Post</a>
       <form method="post" action="{% if user.is_authenticated %}{% url 'scrap_post' post.pk %}{% else %}#{% endif %}">
         {% csrf_token %}
         <button type="sub" class="btn-scrap top-scrap {% if not user.is_authenticated %}not-logged-in{% endif %}">
