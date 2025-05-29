@@ -78,7 +78,7 @@
   color: white;
   background: transparent;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   height: 44px;
   padding: 0 16px;
   overflow: hidden;
@@ -98,7 +98,7 @@
   transition: width 0.5s;
 }
 .submit-btn:hover::before {
-  width: 200%;
+  width: 255%;
 }
 
 /* 결과 화면 메인 */

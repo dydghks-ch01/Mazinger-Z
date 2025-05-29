@@ -1,4 +1,8 @@
 /* ✅ 전체 컨테이너 */
+.post-container {
+  height: 100vh;
+}
+
 .post-detail-container {
   max-width: 850px;
   margin: 120px auto;

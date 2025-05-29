@@ -18,7 +18,7 @@ html, body, button, input, select, textarea {
 
 html,
 body {
-  min-height: 100%;
+  min-height: 100vh;
   overflow-y: auto;
 }
 
@@ -1548,7 +1548,7 @@ button[type="submit"]:hover {
 
 .quiz-container input {
   padding: 10px;
-  width: 60%;
+  width: 57.5%;
   border-radius: 5px;
   border: none;
 }

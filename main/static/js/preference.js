@@ -59,8 +59,8 @@ function loadQuestion() {
       `).join("")}
     </div>
     <div class="nav-buttons">
-      <button id="prev-btn" onclick="prevQuestion()">Back</button>
-      <button id="next-btn" onclick="loadQuestion()">Next</button>
+      <button id="prev-btn" onclick="prevQuestion()">이전</button>
+      <button id="next-btn" onclick="loadQuestion()">다음</button>
     </div>
   `;
 

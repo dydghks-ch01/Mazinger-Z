@@ -10,119 +10,126 @@
 {% endblock %}
 
 {% block content %}
-<div class="post-detail-container">
+<div class="post-container">
+  <div class="post-detail-container">
 
-  <!-- 킨추: 뒤로가기 / 글쓰기 / 스크래프 -->
-  <div class="post-detail-actions">
-    <a href="{% url 'post_list' %}?q={{ request.GET.q }}&sort={{ request.GET.sort }}" class="btn-back">← 게시판으로</a>
-    <div class="top-buttons">
-      <a href="{% url 'post_create' %}" class="btn-write {% if not user.is_authenticated %}not-logged-in-write{% endif %}">게시물 작성</a>
-      <form method="post" action="{% if user.is_authenticated %}{% url 'scrap_post' post.pk %}{% else %}#{% endif %}">
+    <!-- 킨추: 뒤로가기 / 글쓰기 / 스크래프 -->
+    <div class="post-detail-actions">
+      <a href="{% url 'post_list' %}?q={{ request.GET.q }}&sort={{ request.GET.sort }}" class="btn-back">← 게시판으로</a>
+      <div class="top-buttons">
+        <a href="{% url 'post_create' %}"
+          class="btn-write {% if not user.is_authenticated %}not-logged-in-write{% endif %}">게시물 작성</a>
+        <form method="post" action="{% if user.is_authenticated %}{% url 'scrap_post' post.pk %}{% else %}#{% endif %}">
+          {% csrf_token %}
+          <button type="sub" class="btn-scrap top-scrap {% if not user.is_authenticated %}not-logged-in{% endif %}">
+            <img
+              src="{% static 'images/' %}{% if user.is_authenticated and post|scrapped:user %}scrap_on.png{% else %}scrap_off.png{% endif %}"
+              alt="스크래프" class="scrap-icon">
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 제목 + 작성자 + 써밀남 -->
+    <div class="post-header">
+      <div class="title-area">
+        <h1 class="post-title">{{ post.title }}</h1>
+        <p class="post-meta">{{ post.user.nickname }} · {{ post.created_at|date:"Y년 n월 j일 g:i A" }}</p>
+      </div>
+      {% if post.thumbnail %}
+      <img src="{{ post.thumbnail.url }}" alt="써밀" class="post-thumbnail">
+      {% endif %}
+    </div>
+
+    <!-- 본문 -->
+    <div class="post-body">
+      <pre class="post-description">{{ post.description }}</pre>
+    </div>
+
+    <!-- 선택된 곡 정보 -->
+    {% if selected_songs %}
+    <div class="selected-songs-container">
+      <h3>🎵 선택된 곡</h3>
+      <div class="arrow-wrapper">
+        <button class="arrow-btn left-arrow">◀</button>
+        <div class="selected-song-list">
+          {% for song in selected_songs %}
+          <div class="song-card">
+            <a href="{% url 'music_info' %}?title={{ song.title|urlencode }}&artist={{ song.artist|urlencode }}"
+              class="song-info-link">
+              {% if song.cover_url %}
+              <img src="{{ song.cover_url }}" alt="앨범 커버" class="album-cover">
+              {% endif %}
+              <div class="song-info">
+                <p><strong style="color: white">{{ song.title }}</strong></p>
+                <p>{{ song.artist }}</p>
+              </div>
+            </a>
+            <form method="post" action="{% url 'toggle_lovelist' %}">
+              {% csrf_token %}
+              <input type="hidden" name="title" value="{{ song.title }}">
+              <input type="hidden" name="artist" value="{{ song.artist }}">
+              <input type="hidden" name="cover_url" value="{{ song.cover_url }}">
+              <button type="submit" class="like-btn">
+                {% if song.is_liked %}❤️ 좋아요 취소{% else %}🤍 좋아요 추가{% endif %}
+              </button>
+            </form>
+          </div>
+          {% endfor %}
+        </div>
+        <button class="arrow-btn right-arrow">▶</button>
+      </div>
+    </div>
+    {% else %}
+    <p style="margin-top: 20px; color: #ccc;">선택된 곡이 없습니다.</p>
+    {% endif %}
+
+    <!-- 좋아요 + 수정/삭제 -->
+    {% if user.is_authenticated or user == post.user %}
+    <div class="post-footer-actions-container">
+      {% if user.is_authenticated %}
+      <form method="post" action="{% url 'like_post' post.id %}">
         {% csrf_token %}
-        <button type="sub" class="btn-scrap top-scrap {% if not user.is_authenticated %}not-logged-in{% endif %}">
-          <img src="{% static 'images/' %}{% if user.is_authenticated and post|scrapped:user %}scrap_on.png{% else %}scrap_off.png{% endif %}" alt="스크래프" class="scrap-icon">
+        <button type="submit" class="btn-like">
+          {% if liked %}❤️ 추천 취소{% else %}🤍 추천{% endif %} ({{ post.post_likes.count }})
         </button>
       </form>
+      {% endif %}
+      {% if user == post.user %}
+      <div class="post-actions">
+        <form method="get" action="{% url 'post_edit' post.pk %}" style="display:inline;">
+          <button type="submit" class="delete-btn">수정</button>
+        </form>
+        <form method="post" action="{% url 'post_delete' post.pk %}" onsubmit="return confirm('정말로 삭제하시겠습니까?')"
+          style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="delete-btn">삭제</button>
+        </form>
+      </div>
+      {% endif %}
     </div>
-  </div>
-
-  <!-- 제목 + 작성자 + 써밀남 -->
-  <div class="post-header">
-    <div class="title-area">
-      <h1 class="post-title">{{ post.title }}</h1>
-      <p class="post-meta">{{ post.user.nickname }} · {{ post.created_at|date:"Y년 n월 j일 g:i A" }}</p>
-    </div>
-    {% if post.thumbnail %}
-    <img src="{{ post.thumbnail.url }}" alt="써밀" class="post-thumbnail">
     {% endif %}
-  </div>
 
-  <!-- 본문 -->
-  <div class="post-body">
-    <pre class="post-description">{{ post.description }}</pre>
-  </div>
+    <!-- 댓글 -->
+    <div class="comment-section">
+      <h3>댓글</h3>
 
-  <!-- 선택된 곡 정보 -->
-  {% if selected_songs %}
-  <div class="selected-songs-container">
-    <h3>🎵 선택된 곡</h3>
-    <div class="arrow-wrapper">
-      <button class="arrow-btn left-arrow">◀</button>
-      <div class="selected-song-list">
-        {% for song in selected_songs %}
-        <div class="song-card">
-          <a href="{% url 'music_info' %}?title={{ song.title|urlencode }}&artist={{ song.artist|urlencode }}" class="song-info-link">
-            {% if song.cover_url %}
-            <img src="{{ song.cover_url }}" alt="앨범 커버" class="album-cover">
-            {% endif %}
-            <div class="song-info">
-              <p><strong style="color: white">{{ song.title }}</strong></p>
-              <p>{{ song.artist }}</p>
-            </div>
-          </a>
-          <form method="post" action="{% url 'toggle_lovelist' %}">
-            {% csrf_token %}
-            <input type="hidden" name="title" value="{{ song.title }}">
-            <input type="hidden" name="artist" value="{{ song.artist }}">
-            <input type="hidden" name="cover_url" value="{{ song.cover_url }}">
-            <button type="submit" class="like-btn">
-              {% if song.is_liked %}❤️ 좋아요 취소{% else %}🤍 좋아요 추가{% endif %}
-            </button>
-          </form>
-        </div>
+      <!-- 댓글 작성 -->
+      <form id="comment-form" method="post" novalidate>
+        {% csrf_token %}
+        {{ comment_form.parent }}
+        <textarea name="text" id="id_content" placeholder="댓글을 입력하세요..." required></textarea>
+        <button type="submit">댓글 달기</button>
+      </form>
+
+      <!-- 댓글 5개 정렬 + 스크롤 -->
+      <div class="comment-list-scrollable">
+        {% for comment in post.comments.all %}
+        {% if not comment.parent %}
+        {% include "comment_item.html" with comment=comment %}
+        {% endif %}
         {% endfor %}
       </div>
-      <button class="arrow-btn right-arrow">▶</button>
-    </div>
-  </div>
-  {% else %}
-  <p style="margin-top: 20px; color: #ccc;">선택된 곡이 없습니다.</p>
-  {% endif %}
-
-  <!-- 좋아요 + 수정/삭제 -->
-  {% if user.is_authenticated or user == post.user %}
-  <div class="post-footer-actions-container">
-    {% if user.is_authenticated %}
-    <form method="post" action="{% url 'like_post' post.id %}">
-      {% csrf_token %}
-      <button type="submit" class="btn-like">
-        {% if liked %}❤️ 추천 취소{% else %}🤍 추천{% endif %} ({{ post.post_likes.count }})
-      </button>
-    </form>
-    {% endif %}
-    {% if user == post.user %}
-    <div class="post-actions">
-      <form method="get" action="{% url 'post_edit' post.pk %}" style="display:inline;">
-        <button type="submit" class="delete-btn">수정</button>
-      </form>
-      <form method="post" action="{% url 'post_delete' post.pk %}" onsubmit="return confirm('정말로 삭제하시겠습니까?')" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit" class="delete-btn">삭제</button>
-      </form>
-    </div>
-    {% endif %}
-  </div>
-  {% endif %}
-
-  <!-- 댓글 -->
-  <div class="comment-section">
-    <h3>댓글</h3>
-
-    <!-- 댓글 작성 -->
-    <form id="comment-form" method="post" novalidate>
-      {% csrf_token %}
-      {{ comment_form.parent }}
-      <textarea name="text" id="id_content" placeholder="댓글을 입력하세요..." required></textarea>
-      <button type="submit">댓글 달기</button>
-    </form>
-
-    <!-- 댓글 5개 정렬 + 스크롤 -->
-    <div class="comment-list-scrollable">
-      {% for comment in post.comments.all %}
-        {% if not comment.parent %}
-          {% include "comment_item.html" with comment=comment %}
-        {% endif %}
-      {% endfor %}
     </div>
   </div>
 </div>
