@@ -4,26 +4,32 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/recommend.css' %}">
+
+
+
+<div id="loadingOverlay">
+  <p id="loadingText"><i class="xi-spinner-3 xi-spin"></i><br><br>추천 고민 중..</p>
+</div>
 <div class="recommend-container">
     <h1 class="recommend-title">
         <i class="fa-solid fa-music icon-music"></i>
         What are you listening to?
     </h1>
-    <form method="get" action="/recommend/" class="recommend-form">
+    <form method="get" action="/recommend/" class="recommend-form" id="recommendForm">
         <div class="input-wrapper">
-            <input type="text" name="q" id="prompt-input" placeholder="ex) 노래제목 - 가수" required>
+            <input type="text" name="q" id="prompt-input" placeholder="Song title - Artist" required>
             <button type="button" id="mic-btn" title="음성인식 시작">
                 <i class="fa-solid fa-microphone mic-icon"></i>
             </button>
         </div>
         <select name="count" class="select-count">
-            <option value="1">1개</option>
-            <option value="2">2개</option>
-            <option value="3" selected>3개</option>
-            <option value="4">4개</option>
-            <option value="5">5개</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
         </select>s
-        <button type="submit" class="submit-btn">검색</button>
+        <button type="submit" class="submit-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
 </div>
 {% endblock %}

@@ -10,3 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+// ✅ 로딩 오버레이 트리거
+document.addEventListener('DOMContentLoaded', () => {
+  const analyzeForm = document.getElementById('analyzeForm');
+  if (analyzeForm) {
+    analyzeForm.addEventListener('submit', () => {
+      document.getElementById('loadingOverlay').style.display = 'flex';
+    });
+  }
+});

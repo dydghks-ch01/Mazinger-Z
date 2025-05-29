@@ -1,7 +1,9 @@
+
 .search-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh; /* ✅ 고정 높이 대신 최소 높이로! */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,10 +43,11 @@ button {
   box-sizing: border-box;
   border: none;
   transition: all 0.2s ease;
+  background-color: #222;
 }
 
 button:hover {
-  background-color: #ddd;
+  background-color: #555;
   transform: scale(1.05);
 
 }
@@ -107,8 +110,8 @@ button:active {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto;
-  max-height: 80vh;
+  overflow-y: visible;  /* auto -> visible로! */
+  max-height: none; 
   position: relative;
   width: 100vw;
 }
@@ -195,7 +198,8 @@ audio {
 .right-panel {
   flex: 1;
   min-width: 0;
-  overflow-y: auto;
+  overflow-y: visible;  /* auto -> visible */
+  max-height: none;
   box-sizing: border-box;
 }
 
@@ -407,7 +411,7 @@ audio {
   height: 44px;
   padding: 0 16px;
   border: none;
-  background-color: #444;
+  background-color: #222;
   color: white;
   border-radius: 6px;
   cursor: pointer;
@@ -462,7 +466,7 @@ audio {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 92vh;
+  min-height: 100vh;
   overflow: hidden;
   z-index: 10;
   padding: 1%;
@@ -582,10 +586,11 @@ audio {
   cursor: pointer;
   color: #fff;
   width: 10%;
+  background-color: #222;
 }
 
 .translation-buttons button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #555;
 }
 
 .material-symbols-outlined {
@@ -615,4 +620,112 @@ audio {
 .suggestion-item.active {
   background: #222;
   color: #fff;
+}
+
+
+@media screen and (max-width: 768px) {
+  .search-container {
+    top: 0;
+    height: auto;
+    padding: 10px;
+    padding-top: 80px; /* ✅ 네비바 아래로 여백 추가 */
+  }
+
+  .search-title {
+    font-size: 2rem;
+    margin-bottom: 10px; /* ✅ 제목과 검색창 간격 */
+  }
+
+  .search-bar {
+    flex-direction: column;
+    width: 50%;
+    margin-bottom: 20px; /* ✅ 검색창 밑에 영상 간격 */
+  }
+
+  .input-wrapper {
+    width: 100%;
+  }
+
+  #searchInput {
+    width: 100%;
+    font-size: 14px;
+    height: 36px;
+    padding: 8px 10px;
+  }
+
+  #micBtn,
+  #stopBtn,
+  .search-btn {
+    height: 36px;
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
+  .results-box {
+    width: 100%;
+    margin-top: 10px; /* ✅ 검색창과 영상 간격 */
+  }
+
+  #results {
+    width: 100%;
+  }
+
+  .info-container {
+    height: auto; /* ✅ 고정 높이 대신 내용에 따라 자동으로 */
+    overflow: visible; /* ✅ 부모의 오버플로 숨김 해제 */
+  }
+
+  .info-box {
+    flex-direction: column;
+    height: auto; /* ✅ 고정 높이 대신 자동 */
+    min-height: auto; /* ✅ 최소높이 제한도 해제 */
+  }
+
+  .album-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .album-cover,
+  .song-info {
+    width: 50%;
+  }
+
+  #infoSection {
+    width: 100%;
+    border: none;
+    padding: 10px;
+  }
+  #lyricsSection {
+  flex: 1;
+  max-width: 600px;  /* ✅ 최대 너비 지정 (예: 600px) */
+  margin: 0 auto;     /* ✅ 가운데 정렬 */
+  padding: 20px;
+  color: white;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.5); /* ✅ 살짝 배경색 (선택) */
+  border-radius: 8px;  /* ✅ 박스 모서리 둥글게 (선택) */
+}
+
+  /* 긴 가사가 스크롤 되도록! */
+  #lyricsContent {
+    max-height: 500px;  /* ✅ 예: 가사 영역 높이 제한 */
+    overflow-y: auto;   /* ✅ 세로 스크롤 */
+    padding: 2rem;
+    letter-spacing: 0.1rem;
+    line-height: 2rem;
+}
+
+  .translation-buttons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .translation-buttons button {
+    width: auto;
+    flex: 1 1 auto;
+  }
 }

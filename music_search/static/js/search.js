@@ -1,152 +1,80 @@
-// ✅ 1. 페이지 로드 시 초기 실행: 검색창 초기화, 자동완성 바인딩, 쿼리 파라미터로 자동검색 처리
+let allResults = [];
+let currentPage = 1;
+const RESULTS_PER_PAGE = 5;
+// ✅ 디바운스 함수 추가
+let debounceTimer;
+let autocompleteController;  // 🔥 컨트롤러 변수 추가
+
 window.onload = function () {
   const urlParams = new URLSearchParams(window.location.search);
   const q = urlParams.get('q');
 
   if (q) {
     document.getElementById('searchInput').value = q;
-    searchMusic(); // URL에 쿼리 있으면 자동 검색 실행
+    searchMusic();
   }
 
-  hideSuggestions();
+  const searchInput = document.getElementById('searchInput');
+  const suggestionsDiv = document.getElementById('suggestions');
+  const searchButton = document.querySelector('.search-btn');  // 🔥 여기 위치!
 
-  // ✅ 검색창 입력 시: 검색어 없으면 추천어창 숨기기, 검색어 있으면 자동완성 로직 실행
-  document.getElementById('searchInput').addEventListener('input', function () {
-    const input = document.getElementById('searchInput');
-    const suggestionsDiv = document.getElementById('suggestions');
-
-    if (!input.value.trim()) {
-      // 검색어 없으면 추천창 무조건 숨김
+  // ✅ input 이벤트: 입력 없으면 추천어 숨기기, 있으면 debounce로 요청
+  searchInput.addEventListener('input', () => {
+    if (!searchInput.value.trim()) {
       hideSuggestions();
-      return;
-    }
-
-    // 검색어 있으면 자동완성 로직 실행
-    handleInputChange();
-  });
-
-  // ✅ Enter 키 입력 시 추천어창 무조건 숨기고 검색 실행
-  document.getElementById('searchInput').addEventListener('keydown', function (event) {
-    const suggestionsDiv = document.getElementById('suggestions');
-    if (suggestionsDiv.style.display === 'block' && suggestionItems.length > 0) {
-      if (event.key === 'ArrowDown') {
-        event.preventDefault();
-        selectedSuggestionIndex = (selectedSuggestionIndex + 1) % suggestionItems.length;
-        updateSuggestionActive();
-      } else if (event.key === 'ArrowUp') {
-        event.preventDefault();
-        selectedSuggestionIndex = (selectedSuggestionIndex - 1 + suggestionItems.length) % suggestionItems.length;
-        updateSuggestionActive();
-      } else if (event.key === 'Enter') {
-        if (selectedSuggestionIndex >= 0 && suggestionItems[selectedSuggestionIndex]) {
-          event.preventDefault();
-          document.getElementById('searchInput').value = suggestionItems[selectedSuggestionIndex].textContent;
-          hideSuggestions();
-          searchMusic();
-          return;
-        }
-      }
-    }
-
-    // 엔터 기본 동작 (자동완성창 없을 때도)
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      hideSuggestions();
-      searchMusic();
+    } else {
+      debouncedInputChange();
     }
   });
 
-  // ✅ 검색 버튼 클릭 시에도 추천어창 숨기고 검색 실행
-  const searchButton = document.querySelector('.search-btn');
+  // ✅ focus 이벤트: 입력 없으면 추천어 숨김
+  searchInput.addEventListener('focus', () => {
+    if (!searchInput.value.trim()) {
+      hideSuggestions();
+    }
+  });
+
+  // ✅ 검색 버튼 클릭
   if (searchButton) {
     searchButton.addEventListener('click', function () {
+      if (autocompleteController) autocompleteController.abort();
+      clearTimeout(debounceTimer);
       hideSuggestions();
       searchMusic();
+      searchInput.value = '';
     });
   }
-};
 
-function updateSuggestionActive() {
-  suggestionItems.forEach((item, idx) => {
-    if (idx === selectedSuggestionIndex) {
-      item.classList.add('active');
-      item.scrollIntoView({ block: "nearest" });
-    } else {
-      item.classList.remove('active');
-    }
-  });
-}
-
-// ✅ 2. 검색창 입력 시 자동완성 API 요청 함수
-function handleInputChange() {
-  const input = document.getElementById('searchInput');
-  const suggestionsDiv = document.getElementById('suggestions');
-
-  if (!suggestionsDiv) return;
-
-  const query = input.value.trim();
-  if (!query) {
-    hideSuggestions();
-    return;
-  }
-
-  if (document.activeElement !== input) return; // 검색창이 포커스 상태일 때만 실행
-
-  fetch(`/music/autocomplete/?q=${encodeURIComponent(query)}`)
-    .then(response => response.json())
-    .then(data => handleSuggestions(data))
-    .catch(err => console.error("🔥 자동완성 요청 실패:", err));
-}
-
-// ✅ 3. 추천어 목록을 HTML로 표시하는 함수
-function handleSuggestions(data) {
-  const suggestionsDiv = document.getElementById('suggestions');
-  if (!suggestionsDiv) return;
-
-  suggestionsDiv.innerHTML = '';
-  const suggestions = data.suggestions || [];
-
-  if (suggestions.length === 0) {
-    hideSuggestions();
-    return;
-  }
-
-  suggestionItems = [];
-
-  suggestions.forEach((suggestion, idx) => {
-    const item = document.createElement('div');
-    item.textContent = suggestion;
-    item.classList.add('suggestion-item');
-    item.onclick = () => {
-      document.getElementById('searchInput').value = suggestion;
+  // ✅ 엔터 입력 시 검색
+  searchInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (autocompleteController) autocompleteController.abort();
+      clearTimeout(debounceTimer);
       hideSuggestions();
       searchMusic();
-    };
-    suggestionsDiv.appendChild(item);
-    suggestionItems.push(item);
+      searchInput.value = '';
+    }
   });
+};
 
-  selectedSuggestionIndex = -1;
-  suggestionsDiv.style.display = 'block';
-}
 
-let allResults = [];
-let currentPage = 1;
-const RESULTS_PER_PAGE = 5;
 
-// ✅ 4. 검색 실행 함수 - 유튜브 API 호출 후 결과 렌더링
+// 🔥 검색 실행 함수
+// 🔥 검색 실행 함수
 function searchMusic() {
-  hideSuggestions();
-
-  const query = document.getElementById('searchInput').value.trim();
+  const inputEl = document.getElementById('searchInput');
+  const query = inputEl.value.trim();
   if (!query) return;
 
-  hideSuggestions(); // 검색 시 자동완성 닫기
+  // 🔥 자동완성 숨김 처리
+  hideSuggestions();
 
   fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(query)}&videoCategoryId=10&maxResults=50&key=${API_KEY}`)
     .then(res => res.json())
     .then(data => {
       console.log("🔥 API 응답 결과:", data);
+
       if (!data.items || data.items.length === 0) {
         document.getElementById('results').innerHTML = '<p style="color:white;">검색 결과가 없습니다.</p>';
         document.getElementById('pagination').style.display = 'none';
@@ -158,19 +86,19 @@ function searchMusic() {
       renderResultsPage(currentPage);
       document.querySelector('.results-box').style.display = 'block';
       document.getElementById('pagination').style.display = 'block';
-      document.getElementById('searchInput').value = '';
-
-      hideSuggestions(); // ⭐️ 결과 나올 때도 무조건 닫기! (여기 추가!)
     })
     .catch(err => {
       console.error("🔥 유튜브 검색 실패:", err);
-      document.getElementById('searchInput').value = '';
-
-      hideSuggestions(); // ⭐️ 결과 나올 때도 무조건 닫기! (여기 추가!)
     });
 }
 
-// ✅ 🔥 페이지별 결과 렌더링
+// // 🔥 검색창 focus 시 자동완성 복구
+// document.getElementById('searchInput').addEventListener('focus', function () {
+//   handleInputChange(this, document.getElementById('suggestions'));
+// });
+
+
+// 🔥 페이지별 결과 렌더링
 function renderResultsPage(page) {
   const results = document.getElementById('results');
   results.innerHTML = "";
@@ -195,13 +123,12 @@ function renderResultsPage(page) {
   renderPagination();
 }
 
-// ✅ 🔥 페이지네이션 바 렌더링
+// 🔥 페이지네이션
 function renderPagination() {
   const pagination = document.getElementById('pagination');
   if (!pagination) return;
 
   pagination.innerHTML = "";
-
   const pageCount = Math.ceil(allResults.length / RESULTS_PER_PAGE);
 
   for (let i = 1; i <= pageCount; i++) {
@@ -219,7 +146,7 @@ function renderPagination() {
   }
 }
 
-// ✅ 5. 썸네일 클릭 시 AI로 곡 제목 분석 후 상세 페이지 이동
+// 🔥 AI 분석
 function openPanel(videoId, originalTitle) {
   analyzeTitleWithAI(originalTitle).then(({ artist, title }) => {
     if (artist && title) {
@@ -231,7 +158,6 @@ function openPanel(videoId, originalTitle) {
   });
 }
 
-// ✅ 6. 영상 제목을 GPT에게 보내서 artist/title 추출하는 함수
 function analyzeTitleWithAI(title) {
   return fetch('/music/analyze-title/', {
     method: 'POST',
@@ -245,7 +171,8 @@ function analyzeTitleWithAI(title) {
     });
 }
 
-// ✅ 7. 추천어창 숨기는 유틸 함수
+
+// ✅ 자동완성 숨김 처리
 function hideSuggestions() {
   const suggestions = document.getElementById('suggestions');
   if (suggestions) {
@@ -254,74 +181,81 @@ function hideSuggestions() {
   }
 }
 
-// ✅ 8. 음성 인식 기능 (마이크 버튼 클릭 시 검색어 받아오기)
-let recognition = null;
-let isManuallyStopped = false;
+// ✅ 입력 시 추천어 처리
+function handleInputChange(input, suggestionsDiv) {
+  if (!suggestionsDiv) return;
 
-const micBtn = document.getElementById('micBtn');
-const stopBtn = document.getElementById('stopBtn');
-const searchInput = document.getElementById('searchInput');
-
-micBtn.addEventListener('click', () => {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    alert("이 브라우저는 음성 인식을 지원하지 않습니다.");
+  if (!input.value.trim()) {
+    suggestionsDiv.style.display = 'none';
+    suggestionsDiv.innerHTML = '';
     return;
   }
 
-  recognition = new SpeechRecognition();
-  recognition.lang = 'ko-KR';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
+  if (document.activeElement !== input) return;
 
-  recognition.start();
-  micBtn.style.display = "none";
-  stopBtn.style.display = "inline";
-
-  recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript;
-    searchInput.value = transcript;
-    stopMicRecognitionUI();
-  };
-
-  recognition.onerror = (event) => {
-    if (!isManuallyStopped) {
-      alert("음성 인식 오류: " + event.error);
-    }
-    stopMicRecognitionUI();
-  };
-
-  recognition.onend = () => {
-    stopMicRecognitionUI();
-    isManuallyStopped = false;
-  };
-});
-
-stopBtn.addEventListener('click', () => {
-  if (recognition) {
-    isManuallyStopped = true;
-    recognition.stop();
+  // 🔥 이전 autocomplete 요청이 있으면 취소
+  if (autocompleteController) {
+    autocompleteController.abort();
   }
-  stopMicRecognitionUI();
-});
 
-function stopMicRecognitionUI() {
-  micBtn.style.display = "inline";
-  stopBtn.style.display = "none";
+  // 🔥 새로운 AbortController 생성
+  autocompleteController = new AbortController();
+  const signal = autocompleteController.signal;
+
+  const query = input.value;
+  fetch(`/music/autocomplete/?q=${encodeURIComponent(query)}`, { signal })
+    .then(res => res.json())
+    .then(data => handleSuggestions(data, suggestionsDiv, input))
+    .catch(err => {
+      if (err.name === 'AbortError') {
+        console.log("🔥 자동완성 요청 취소됨");
+      } else {
+        console.error("🔥 자동완성 요청 실패:", err);
+      }
+    });
 }
 
-// 자동완성창 닫기용 바디 클릭 리스너
-document.addEventListener('click', function (e) {
-  const searchInput = document.getElementById('searchInput');
-  const suggestionsDiv = document.getElementById('suggestions');
-  // 두 영역이 없으면 아무것도 하지 않음
-  if (!suggestionsDiv || !searchInput) return;
+function handleSuggestions(data, suggestionsDiv, input) {
+  if (!suggestionsDiv) return;
 
-  // e.target이 검색창, 추천창, 추천창의 자식이 아니면 닫기
-  if (
-    !searchInput.contains(e.target) &&      // 검색창 클릭 X
-    !suggestionsDiv.contains(e.target)      // 추천창 클릭 X
-  ) {
-    hideSuggestions();
+  suggestionsDiv.innerHTML = '';
+  const suggestions = data.suggestions || [];
+
+  if (suggestions.length === 0) {
+    suggestionsDiv.style.display = 'none';
+    return;
   }
-});
+
+  suggestions.forEach(suggestion => {
+    const item = document.createElement('div');
+    item.textContent = suggestion;
+    item.onclick = () => {
+      input.value = suggestion;
+      suggestionsDiv.innerHTML = '';
+      suggestionsDiv.style.display = 'none';
+    };
+    suggestionsDiv.appendChild(item);
+  });
+
+  suggestionsDiv.style.display = 'block';
+}
+
+
+
+function debounce(func, delay) {
+  return function (...args) {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+// ✅ 검색창 입력 시 자동완성 요청
+const searchInput = document.getElementById('searchInput');
+const suggestionsDiv = document.getElementById('suggestions');
+
+const debouncedInputChange = debounce(() => {
+  handleInputChange(searchInput, suggestionsDiv);
+}, 100);
+
+searchInput.addEventListener('input', debouncedInputChange);
+

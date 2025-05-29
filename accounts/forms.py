@@ -14,8 +14,8 @@ PROFILE_CHOICES = [
 ]
 
 GENDER_CHOICES = [
-    ('M', '남자'),
-    ('F', '여자'),
+    ('M', 'Male'),
+    ('F', 'Female'),
 ]
 
 class CustomUserCreationForm(UserCreationForm):
@@ -58,7 +58,12 @@ class CustomUserCreationForm(UserCreationForm):
         if phone and not re.match(r'^010-\d{4}-\d{4}$', phone):
             raise ValidationError("전화번호는 010-1234-5678 형식으로 입력해주세요.")
         return phone
-
+    
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if username and len(username) < 2:
+            raise ValidationError("아이디는 최소 2글자 이상이어야 합니다.")
+        return username
 
 class CustomUserChangeForm(UserChangeForm):
     nickname = forms.CharField(

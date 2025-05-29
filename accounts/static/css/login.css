@@ -9,8 +9,11 @@
   padding-left: 0;        /* 왼쪽 들여쓰기 제거 */
 }
 
+
+
 .form-group {
   margin-bottom: 15px;
+  width: 85%;
 }
 
 .form-group label {
@@ -20,9 +23,14 @@
 }
 
 .form-group input {
-  width: 100%;
-  padding: 8px;
+  height: 42px;
+  padding: 0 8px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background-color: #222;
+  color: #fff;
   font-size: 1rem;
+  width: 100%;
 }
 
 .login-form h1 {
@@ -33,16 +41,69 @@
 }
 
 .login-form {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-bottom: 10px; 
-  border: 1px solid white;       /* 흰색 테두리 */
-  background: transparent;       /* 배경 투명 */
-  min-height: 500px; /* 필요에 따라 조절 */
+  width: 50%;
+  height: 71%;
+  margin: 0;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid white; /* 흰색 테두리 (회원가입에도 동일 적용!) */
+  background: transparent; /* 로그인처럼 투명 (회원가입에도 적용 가능) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 세로 가운데 정렬 */
+  align-items: center;     /* 가로 가운데 정렬 */
+  gap: 10px;
+  text-align: center;
+  z-index: 5;
+  overflow-y: auto;        /* 세로 스크롤 필요시 */
+}
+
+.login-form form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sign{
   margin-top: 10px !important; /* 10px → 5px */
+}
+/* login.css: 기존 sign 버튼 스타일링 + 호버 효과 */
+.sign {
+  position: relative;
+  display: inline-block;
+  color: white;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  height: 44px;
+  padding: 0 16px;
+  overflow: hidden;
+  transition: color 0.5s;
+  z-index: 1;
+  text-align: center;
+  line-height: 25px; /* 버튼 높이에 맞춰서 텍스트 수직 정렬 */
+}
+
+.sign::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(45deg, yellow, #9d5d18);
+  z-index: -1;
+  transform: skewX(45deg);
+  transition: width 0.5s;
+}
+
+.sign:hover::before {
+  width: 200%;
+}
+
+.sign:hover {
+  color: #fff !important;
 }
 
 .signup {

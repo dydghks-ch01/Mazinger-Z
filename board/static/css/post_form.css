@@ -4,17 +4,22 @@
   align-items: flex-start;
   padding-top: 100px;  /* 헤더와 겹치지 않도록 */
   width: 100%;
+  height: 100%;
 }
 
 .post-form-container {
-  background-color: #222;
+  background-color: transparent;
   padding: 40px;
   border-radius: 12px;
-  width: 90%;
-  max-width: 600px; /* ✅ 가로 최대 폭 제한 */
+  width: 85%;
+  max-width: 600px;
+  overflow-y: auto; /* ✅ 내부 스크롤 가능 */
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   color: white;
+  border: 1px solid white;
 }
+
+
 
 .post-form-title {
   font-size: 2rem;
@@ -29,6 +34,20 @@ label {
   color: #fff;
 }
 
+#id_description {
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+  font-size: 1.13rem !important;
+  min-height: 48px !important;
+  border-radius: 10px !important;
+  width: 100%;
+  resize: none !important;
+  box-sizing: border-box;
+  background-color:transparent;
+  border: 1px solid #444;
+  
+}
+
 input[type="text"],
 textarea,
 input[type="file"] {
@@ -40,6 +59,7 @@ input[type="file"] {
   font-size: 1rem;
   border: 1px solid #444;
   box-sizing: border-box;
+  resize: none;
 }
 
 input[type="text"]::placeholder,
@@ -48,21 +68,27 @@ textarea::placeholder {
 }
 
 .btn-submit {
-  display: block;
-  margin: 30px auto 0;
-  padding: 12px 30px;
-  background-color: transparent;
+  position: relative;
+  display: inline-block;
   color: white;
-  border: 1px solid #fff;
-  border-radius: 8px;
-  font-size: 1rem;
+  background: #222;
+  border: none;
+  border-radius: 6px;
+  height: 44px;
+  padding: 0 16px;
+  overflow: hidden;
+  z-index: 1;
+  text-align: center;
+  line-height: 20px; /* 버튼 높이에 맞춰서 텍스트 수직 정렬 */
   cursor: pointer;
-  transition: background-color 0.3s;
+  display: block; /* ✅ 중앙정렬을 위해 block으로 */
+  margin: 30px auto 0; /* ✅ margin auto로 중앙정렬 */
 }
 
 .btn-submit:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #555;
 }
+
 
 .hidden {
   display: none;
@@ -71,25 +97,12 @@ textarea::placeholder {
 .lovelist-select {
   margin-top: 10px;
   padding: 12px;
-  background-color: #2a2a2a;
+  background: none; /* ✅ 완전히 제거 */
   border-radius: 8px;
   max-height: 20em; /* 줄당 약 2.1em x 5줄 */
   overflow-y: auto;
 }
 
-.modal-backdrop {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,0.6);
-  z-index: 1000;
-  display: none;
-}
-
-.modal-backdrop.show {
-  display: block;
-}
 
 .modal {
   position: fixed;
@@ -100,8 +113,9 @@ textarea::placeholder {
   border-radius: 12px;
   z-index: 1001;
   width: 90%;
+  height: 50%;
   max-width: 400px;
-  overflow-y: visible;  
+  /* overflow-y: visible;   */
   color: white;
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
   display: none;
@@ -124,6 +138,10 @@ textarea::placeholder {
 /* show 클래스가 붙으면 보이게 함 */
 #lovelistModal.show, #lovelistModalBackdrop.show {
   display: block;
+}
+
+#lovelistModal {
+  margin-top: 11vh;
 }
 
 .selected-songs-preview {
@@ -161,15 +179,46 @@ textarea::placeholder {
 
 .back-to-board-btn {
   display: inline-block;
-  background-color: #2a2a2a;
+  background-color: #222;
   color: #fff;
   padding: 8px 16px;
   border-radius: 10px;
   font-size: 0.9rem;
   margin-bottom: 20px;
   text-decoration: none;
-  transition: background-color 0.2s;
 }
 .back-to-board-btn:hover {
-  background-color: #444;
+  background-color: #555;
 }
+
+#openLovelistModal {
+  display: flex;
+  background-color: #222;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  margin-left: auto;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+#openLovelistModal:hover {
+  background-color: #555;
+}
+
+.playlist-label-button-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 10px;
+  width: 100%;
+}
+
+
+.playlist-label-button-wrapper label {
+  margin: 0;
+  margin-right: 10px;
+  font-weight: bold;
+  color: #fff;
+}
+

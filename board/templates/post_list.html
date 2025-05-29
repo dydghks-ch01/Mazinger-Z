@@ -18,11 +18,11 @@
       </h1>
       <div class="board-actions">
         <form method="get" action="{% url 'post_list' %}" class="search-form">
-          <input type="text" name="q" placeholder="제목 검색" value="{{ query }}">
+          <input type="text" name="q" placeholder="Search by title" value="{{ query }}">
         </form>
         <a href="{% if user.is_authenticated %}{% url 'post_create' %}{% else %}#{% endif %}"
           class="btn-write{% if not user.is_authenticated %} not-logged-in-write{% endif %}">
-          글쓰기
+          게시물 작성
         </a>
       </div>
     </div>
@@ -33,10 +33,10 @@
         <input type="hidden" name="q" value="{{ query }}">
         <label for="sort"></label>
         <select name="sort" id="sort" onchange="this.form.submit()">
-          <option value="likes" {% if sort == "likes" %}selected{% endif %}>좋아요 높은 순</option>
-          <option value="views" {% if sort == "views" %}selected{% endif %}>조회수 높은 순</option>
-          <option value="scraps" {% if sort == "scraps" %}selected{% endif %}>스크랩 많은 순</option>
-          <option value="created" {% if sort == "created" %}selected{% endif %}>최신순</option>
+          <option value="likes" {% if sort == "likes" %}selected{% endif %}>좋아요</option>
+          <option value="views" {% if sort == "views" %}selected{% endif %}>조회수</option>
+          <option value="scraps" {% if sort == "scraps" %}selected{% endif %}>스크랩</option>
+          <option value="created" {% if sort == "created" %}selected{% endif %}>최근</option>
         </select>
       </form>
     </div>
@@ -62,7 +62,8 @@
           <div class="post-info">
             <h2 class="post-title">{{ post.title }}</h2>
             <p class="post-description">{{ post.description }}</p>
-            <p class="post-meta">{{ post.user.nickname }} · {{ post.created_at|date:"Y년 n월 j일 g:i A" }}</p>
+            <p class="post-meta">{{ post.user.nickname }} · {{ post.created_at|date:"Y-m-d H:i" }}</p>
+
           </div>
         </a>
       </div>
@@ -104,39 +105,39 @@
   <!-- 사이드바 그대로 유지 -->
   <div class="board-sidebar">
     <div class="sidebar-section">
-      <h3>스크랩</h3>
+      <h3>스크랩한 게시물</h3>
       <div class="scroll-box">
         <ul class="sidebar-list">
           {% for post in scrapped_posts %}
           <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
           {% empty %}
-          <li style="opacity: 0.3;">스크랩한 글 없음</li>
+          <li style="opacity: 0.3;">스크랩한 게시물이 없습니다.</li>
           {% endfor %}
         </ul>
       </div>
     </div>
 
     <div class="sidebar-section">
-      <h3>최근 본</h3>
+      <h3>최근 본 게시물</h3>
       <div class="scroll-box">
         <ul class="sidebar-list">
           {% for post in recent_posts %}
           <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
           {% empty %}
-          <li style="opacity: 0.3;">최근 본 글 없음</li>
+          <li style="opacity: 0.3;">최근 본 게시물이 없습니다.</li>
           {% endfor %}
         </ul>
       </div>
     </div>
 
     <div class="sidebar-section">
-      <h3>내가 쓴 글</h3>
+      <h3>내가 쓴 게시물</h3>
       <div class="scroll-box">
         <ul class="sidebar-list">
           {% for post in my_posts %}
           <li><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></li>
           {% empty %}
-          <li style="opacity: 0.3;">작성한 글 없음</li>
+          <li style="opacity: 0.3;">작성한 게시물이 없습니다.</li>
           {% endfor %}
         </ul>
       </div>

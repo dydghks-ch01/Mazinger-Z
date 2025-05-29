@@ -3,57 +3,74 @@
   display: flex;
   justify-content: center;
   padding: 60px 20px;
-  min-height: 100vh;
+  top: 8vh;
+  height: 100vh;
   color: white;
   position: relative;
 }
 
 /* 게시글 박스 */
 .board-container {
-  background-color: #272727;
-  padding: 40px 50px;
+  background-color: transparent;
+  padding: 10px 10px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 700px;
-  position: relative;
+  max-width: 50vw;
   z-index: 10;
-  margin-top: 40px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-content {
+  background-color: #222;
+  border-radius: 5px;
+  padding: 2vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* 제목 */
-.board-container h1 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-  border-left: 6px solid #444;
-  padding-left: 12px;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-}
-
 .post-title {
-  color: #fffb00;
+  font-size: 1.8vw;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #fff;
+  padding-left: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1vw;
+  color: #fff;
 }
 
-/* 작성자 */
-.board-container p strong {
-  color: #ffc107;
-  margin-right: 8px;
-}
 
 /* 본문 */
-.board-container p {
+.post-username {
   font-size: 1rem;
   line-height: 1.6;
-  margin: 10px 0 20px;
+  margin-left: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  color: #888;
 }
 
-/* 관리자 답변 */
-.board-container h3 {
-  margin-top: 30px;
-  color: #222;
-  font-size: 1.2rem;
+.user-post-box {
+  background-color: #1a1a1a;
+  padding: 20px;
+  margin-bottom: 30px;
+  height: 30%;
 }
+
+.user-post-box p {
+  text-indent: 1.2vw;
+  color: #fffb;
+  font-size: 1vw;
+  line-height: 1.6;
+}
+
+
 
 .board-container small {
   display: block;
@@ -63,127 +80,180 @@
 }
 
 /* 버튼 스타일 */
-.sub-button {
-  background-color: #444;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  margin-top: 20px;
-  margin-right: 10px;
-  transition: background-color 0.3s ease;
+.button-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0;
 }
 
-.sub-button:hover {
-  background-color: #666;
-}
-
-/* 삭제 버튼만 오른쪽 아래 고정 */
-form[action*="delete"] .sub-button {
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
-  background-color: #b02b2b;
-}
-
-form[action*="update"] .sub-button {
-  position: absolute;
-  bottom: 30px;
-  right: 160px;
-  background-color: #ffc107;
-  color: black;
-}
-
-form[action*="delete"] .sub-button:hover {
-  background-color: #d14343;
-}
-
-form[action*="update"] .sub-button:hover {
-  background-color: #ffd454;
-}
-
-form[action*="reply"] {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  margin-top: 40px;
+.sub-button-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .ans-button {
-  background-color: #039aff;
+  background-color: #333;
   color: white;
-  font-weight: bold;
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1vw;
   transition: background-color 0.3s ease;
 }
 
 .ans-button:hover {
-  background-color: #1684f1;
+  background-color: #444;
 }
 
-.user-post-box {
-  background-color: #1e1e1e;
-  padding: 20px;
-  border-radius: 10px;
-  border-left: 5px solid #ffc107;
-  margin-bottom: 30px;
+
+.sub-button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1vw;
+  transition: background-color 0.1s ease;
 }
 
-.user-post-box .post-title {
-  color: #ffeb3b;
-  font-size: 1.4rem;
-  margin-bottom: 10px;
+.sub-button:hover {
+  background-color: #444;
 }
 
-.user-post-box p {
-  color: #e0e0e0;
-  font-size: 1rem;
-  line-height: 1.6;
+form[action*="delete"] .sub-button {
+  color: rgb(255, 65, 65);
 }
+
 
 .admin-reply-title {
   margin-top: 30px;
-  font-size: 1.2rem;
-  color: #00ff6a !important;
+  font-size: 1vw;
+  color: white;
+  font-weight: 500;
 }
 
 .admin-reply-text {
-  background-color: #1b1b1b;
+  text-indent: 2vw;
+  background-color: #1a1a1a;
   padding: 16px;
-  border-left: 6px solid #00c853;
-  border-radius: 6px;
-  margin-top: 10px;
-  color: #e0ffe0;
+  margin-top: 15px;
+  color: #fff;
   line-height: 1.6;
 }
 
 .admin-reply-meta {
-  display: block;
+  display: flex;
+  margin-left: auto;
   margin-top: 8px;
   font-size: 0.85rem;
-  color: #80e27e !important;
+  color: #ffff10;
 }
 
 .back-arrow {
-  display: inline-block;
-  background-color: #ffcc00;
-  color: rgb(0, 0, 0) !important;
-  font-size: 0.95rem;
+  display: block;
+  background-color: #333;
+  color: #aaa;
+  font-size: 1vw;
   padding: 8px 16px;
   border-radius: 6px;
   text-decoration: none;
-  margin-bottom: 20px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  transition: background-color 0.1s ease;
+  margin-top: 20px;
+  width: fit-content;
+  margin-left: auto;
 }
 
 .back-arrow:hover {
-  background-color: #e9ba00;
-  color: black !important;
+  background-color: #222;
+}
+
+@media (max-width: 900px) {
+  .board-container {
+    padding: 30px 14px;
+    max-width: 98vw;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-container {
+    padding: 18px 3px;
+  }
+
+  .board-container {
+    margin-top: 15px;
+    padding: 12px 2vw;
+    border-radius: 6px;
+    box-shadow: none;
+  }
+
+  .board-container h1,
+  .post-title,
+  .user-post-box .post-title {
+    font-size: 1.12rem;
+    padding-left: 8px;
+    border-left-width: 3px;
+  }
+
+  .board-container p,
+  .user-post-box p,
+  .admin-reply-text {
+    font-size: 0.97rem;
+  }
+
+  .sub-button,
+  .ans-button {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 0;
+    margin-right: 0;
+    margin-top: 10px;
+    font-size: 0.97rem;
+    position: static !important;
+  }
+
+  form[action*="delete"] .sub-button,
+  form[action*="update"] .sub-button {
+    position: static !important;
+    width: 100%;
+    margin: 10px 0 0 0;
+    right: auto;
+    bottom: auto;
+  }
+
+  .user-post-box {
+    padding: 12px 8px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+  }
+
+  .back-arrow {
+    padding: 7px 10px;
+    font-size: 0.93rem;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+
+  form[action*="reply"] {
+    position: static !important;
+    width: 100%;
+    margin: 10px 0 0 0;
+    right: auto;
+    bottom: auto;
+  }
+
+  form[action*="reply"] .ans-button {
+    position: static !important;
+    width: 100%;
+    margin: 10px 0 0 0;
+    right: auto;
+    bottom: auto;
+  }
+
 }

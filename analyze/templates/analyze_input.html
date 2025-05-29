@@ -8,15 +8,21 @@
 {% endblock %}
 
 {% block content %}
+
+<div id="loadingOverlay">
+  <p id="loadingText"><i class="xi-spinner-3 xi-spin"></i><br><br>가사 로딩 중...</p>
+</div>
+
+
 <div class="analyze-container">
   <div class="lyrics-form-wrapper">
     <h1>Heard the mood?</h1>
 
     <form method="POST" action="{% url 'analyze' %}" id="analyzeForm">
       {% csrf_token %}
-      <input type="text" class="input-title" name="title" placeholder="노래 제목을 입력" required>
-      <input type="text" class="input-artist" name="artist" placeholder="가수 이름을 입력" required>
-      <button type="submit">분석하기</button>
+      <input type="text" class="input-title" name="title" placeholder="Enter song title" required>
+      <input type="text" class="input-artist" name="artist" placeholder="Enter artist name" required>
+      <button type="submit">Analyze</button>
     </form>
   </div>
 </div>

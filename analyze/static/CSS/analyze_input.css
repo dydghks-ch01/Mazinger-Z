@@ -35,18 +35,74 @@
 }
 
 .lyrics-form-wrapper button {
-  width: 50%;
-  margin: 40px 0;
-  padding: 12px;
-  background-color: transparent;
-  border: none;
+  position: relative;
+  display: inline-block;
   color: white;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  height: 44px;
+  padding: 0 16px;
+  overflow: hidden;
+  transition: color 0.5s;
+  z-index: 1;
+  text-align: center;
+  line-height: 25px; /* 버튼 높이에 맞춰서 텍스트 수직 정렬 */
   font-weight: bold;
-  border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
+  margin: 40px 0;
+  width: 50%;
 }
 
+/* 효과: 노란색 → 브라운 그라디언트 */
+.lyrics-form-wrapper button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(45deg, yellow, #9d5d18);
+  z-index: -1;
+  transform: skewX(45deg);
+  transition: width 0.5s;
+}
+
+/* hover 시 배경 그라디언트 효과 */
+.lyrics-form-wrapper button:hover::before {
+  width: 200%;
+}
+
+/* hover 시 글자 색상도 변경 */
 .lyrics-form-wrapper button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
+}
+
+
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+
+
+/* ✅ 로딩 텍스트 */
+#loadingText {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+#loadingText i {
+  font-size: 4vw;
 }

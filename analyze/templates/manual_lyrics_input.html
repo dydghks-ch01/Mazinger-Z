@@ -13,8 +13,8 @@
     <p id="errorMessage"><i class="fa-solid fa-triangle-exclamation" style="color: yellow;"></i> 자동으로 가사를 가져오는 데 실패했어요.
     </p>
     <h2>가사를 직접 입력해주세요</h2>
-    <p><strong>제목:</strong> {{ title }}</p>
-    <p><strong>아티스트:</strong> {{ artist }}</p>
+    <p><strong>title:</strong> {{ title }}</p>
+    <p><strong>artist:</strong> {{ artist }}</p>
 
     <form method="post" action="{% url 'analyze' %}">
       {% csrf_token %}

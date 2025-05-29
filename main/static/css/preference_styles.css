@@ -29,22 +29,24 @@
 /* ✅ 답변 버튼 영역 */
 .answer-buttons {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-wrap: nowrap;
+  gap: 1vw;
   justify-content: center;
   margin-bottom: 30px;
+  flex: 0 1 0;
 }
 
 
 .svg-border-button {
   position: relative;
   padding: 10px 30px;
-  font-size: 14px;
+  font-size: 1vw;
   color: white;
   background: black;
   border: none;
   cursor: pointer;
   overflow: hidden;
+  text-wrap: nowrap;
 }
 
 .svg-border-button svg {
@@ -100,13 +102,13 @@
 }
 
 .agree:hover {
-  color: #2a9d8f;
-  stroke: #2a9d8f;
+  color: #ffbb00;
+  stroke: #ffbb00;
 }
 
 .strong-agree:hover {
-  color: #002d40;
-  stroke: #002d40;
+  color: #ffdd00;
+  stroke: #ffdd00;
 }
 
 
@@ -152,8 +154,7 @@
   width: 140px;
   height: 45px;
   margin: 0;
-  background-color: #666;
-  /* 밝은 회색 */
+  background-color: #222;
   color: white;
   border: none;
   border-radius: 10px;
@@ -163,7 +164,7 @@
 }
 
 .nav-buttons button:hover {
-  background-color: #888;
+  background-color: #555
 }
 
 /* ✅ 진행도 바 */

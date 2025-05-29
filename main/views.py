@@ -25,6 +25,9 @@ import pickle
 from django.conf import settings
 import sys
 
+# 0528 동건 추가
+import datetime
+
 # 0526 동건 추가
 MODEL_DIR = os.path.join(os.path.dirname(__file__), 'models')
 model = tf.keras.models.load_model(os.path.join(MODEL_DIR, 'final_model.h5'))
@@ -32,6 +35,28 @@ with open(os.path.join(MODEL_DIR, 'tfidf_vectorizer.pkl'), 'rb') as f:
     tfidf = pickle.load(f)
 
 # 0527 동건 수정
+def calculate_age(birthday):
+    """
+    생년월일(birthday)로부터 현재 나이를 계산하는 함수
+    """
+    today = datetime.date.today()
+    return today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
+
+def get_age_category(age):
+    """
+    나이를 받아서 나이대 카테고리(1~5)를 반환하는 함수
+    """
+    if age < 20:
+        return 1
+    elif age < 30:
+        return 2
+    elif age < 40:
+        return 3
+    elif age < 50:
+        return 4
+    else:
+        return 5
+
 def main(request):
     print("💡 main 함수 진입!", flush=True)
 
@@ -43,34 +68,31 @@ def main(request):
     if songs:
         quiz_song = random.choice(songs)
 
-    # ✅ 비로그인 사용자 등 fallback용 랜덤 추천 5곡
+    # ✅ 비로그인 fallback 추천: 랜덤 5곡
     all_cover_songs = list(ChartSong.objects.exclude(album_cover_url=''))
     random.shuffle(all_cover_songs)
     fallback_top5 = all_cover_songs[:5]
-
-    # ✅ 최종 추천 리스트: 기본값은 fallback 추천
-    top5 = fallback_top5
+    top5 = fallback_top5  # 기본 추천
 
     if request.user.is_authenticated:
         print("✅ 유저 인증됨!", flush=True)
-        
+
         # ✅ 사용자가 좋아요한 곡 ID 리스트
         liked_songs_qs = Lovelist.objects.filter(user=request.user, is_liked=True)
         liked_song_ids = list(liked_songs_qs.values_list('song_id', flat=True))
         print(f"✅ 좋아요한 song_id: {liked_song_ids}", flush=True)
 
         if liked_song_ids:
-            # ✅ 좋아요한 곡들
+            # ✅ 좋아요한 곡 정보
             liked_songs = ChartSong.objects.filter(id__in=liked_song_ids)
-            # ✅ 벡터화할 텍스트 (장르+감정태그+키워드)
             liked_texts = [f"{s.normalized_genre} {s.emotion_tags} {s.keywords}" for s in liked_songs]
 
             if liked_texts:
-                # ✅ 좋아요 곡들의 평균 벡터
+                # ✅ 좋아요곡들의 평균 벡터 계산
                 liked_vecs = tfidf.transform(liked_texts)
                 song_vec_mean = np.asarray(liked_vecs.mean(axis=0)).flatten()
 
-                # ✅ 평탄화 도우미 함수 (중첩 리스트 → 단일 리스트)
+                # ✅ 중첩 리스트를 평탄화하는 함수
                 def flatten(l):
                     for el in l:
                         if isinstance(el, list):
@@ -78,59 +100,63 @@ def main(request):
                         else:
                             yield el
 
-                # ✅ 감정/키워드 태그를 평탄화
+                # ✅ 감정/키워드 리스트를 평탄화
                 emotion_list = [e for e in flatten([s.emotion_tags for s in liked_songs]) if e]
                 keyword_list = [k for k in flatten([s.keywords for s in liked_songs]) if k]
 
-                # ✅ 고정된 감정/키워드 vocab 로드
+                # ✅ 전체 감정/키워드 vocab 로드
                 with open(os.path.join(MODEL_DIR, 'trained_emotions.pkl'), 'rb') as f:
                     all_emotions = pickle.load(f)
                 with open(os.path.join(MODEL_DIR, 'trained_keywords.pkl'), 'rb') as f:
                     all_keywords = pickle.load(f)
 
-                # ✅ 분포 계산 함수
+                # ✅ 분포 벡터 계산 함수
                 def build_dist(items, vocab):
                     count = {w: items.count(w) for w in vocab}
                     total = sum(count.values()) or 1
                     return [count.get(w, 0) / total for w in vocab]
 
-                # ✅ 사용자의 감정/키워드 분포 벡터
+                # ✅ 감정/키워드 분포 벡터 생성
                 emotion_dist = build_dist(emotion_list, all_emotions)
                 keyword_dist = build_dist(keyword_list, all_keywords)
 
-                # ✅ 사용자 메타정보 (나이, 성별)
-                user_meta = [request.user.age, 0 if request.user.gender == 'M' else 1] if hasattr(request.user, 'age') else [30, 0]
-                
-                # ✅ 최종 사용자 벡터 (좋아요곡 평균벡터 + 메타 + 감정 + 키워드)
+                # ✅ 사용자 나이 계산 (없으면 30으로 기본값)
+                if hasattr(request.user, 'birthday') and request.user.birthday:
+                    user_age = calculate_age(request.user.birthday)
+                else:
+                    user_age = 30
+
+                # ✅ 나이대 One-Hot 인코딩
+                age_category = get_age_category(user_age)
+                age_onehot = [1 if i == age_category else 0 for i in range(1, 6)]
+
+                # ✅ 성별 One-Hot (없으면 'M'으로 기본값)
+                user_gender = request.user.gender or 'M'
+                gender_onehot = [1, 0] if user_gender == 'M' else [0, 1]
+
+                # ✅ 최종 사용자 메타벡터 (나이대+성별)
+                user_meta = np.array(age_onehot + gender_onehot)
+
+                # ✅ 최종 사용자 벡터 (좋아요곡 평균벡터 + 사용자메타 + 감정 + 키워드)
                 user_vector = np.hstack((song_vec_mean, user_meta, emotion_dist, keyword_dist))
 
-                # ✅ input shape 체크 로그 (모델과 비교)
-                expected_input_shape = model.input_shape[1]
-                actual_input_shape = len(user_vector) + len(song_vec_mean)
-                print(f"🎯 모델 input shape: {expected_input_shape}, 현재 요청 input shape: {actual_input_shape}", flush=True)
-
-                # ✅ 추천 대상 곡들 (좋아요하지 않은 곡들)
+                # ✅ 좋아요하지 않은 곡들로 추천 후보 리스트 생성
                 not_liked_songs = ChartSong.objects.exclude(id__in=liked_song_ids)
-
-                # ✅ 후보곡들의 (user+곡) 벡터를 미리 만들어 리스트에 저장
                 song_vectors_list = []
                 song_objs_list = []
                 for song in not_liked_songs:
                     song_text = f"{song.normalized_genre} {song.emotion_tags} {song.keywords}"
                     song_vec = tfidf.transform([song_text]).toarray().flatten()
-                    # ✅ user_vector와 곡 벡터를 결합
                     sample = np.hstack((user_vector, song_vec))
                     song_vectors_list.append(sample)
                     song_objs_list.append(song)
 
-                # ✅ 배치로 한 번에 모델 예측! (핵심 속도 개선 포인트!)
+                # ✅ 모델로 한 번에 배치 예측
                 samples_array = np.array(song_vectors_list)
                 preds = model.predict(samples_array, verbose=0).flatten()
-
-                # ✅ (곡, 점수) 쌍으로 정리
                 scores = list(zip(song_objs_list, preds))
 
-                # ✅ 모델 추천곡 상위 20곡 → 3곡 랜덤으로 선택
+                # ✅ 상위 20곡에서 3곡 랜덤으로 추출
                 top20 = [s[0] for s in sorted(scores, key=lambda x: x[1], reverse=True)[:20]]
                 print(f"🎵 모델 추천 후보 개수: {len(top20)}", flush=True)
 
@@ -139,7 +165,7 @@ def main(request):
                 for song in model_top3:
                     print(f"🎵 (모델추천) {song.title} by {song.artist}", flush=True)
 
-                # ✅ 완전 랜덤 2곡 (not_liked_songs 중에서)
+                # ✅ 완전 랜덤 2곡 (모델 무관)
                 all_songs_pool = list(not_liked_songs)
                 random2 = random.sample(all_songs_pool, 2) if len(all_songs_pool) >= 2 else all_songs_pool
                 print("\n🎯 [랜덤 추천곡 2곡 (완전 랜덤)]")
@@ -154,13 +180,12 @@ def main(request):
                 for song in top5:
                     print(f"🎵 (최종) {song.title} by {song.artist}", flush=True)
 
-    # ✅ 결과 렌더링
+    # ✅ 결과를 index.html로 렌더링
     return render(request, 'index.html', {
         'quiz_song': quiz_song,
         'cover_songs': top5,
         'popular_tags': get_popular_tags(),
     })
-
 def preference_view(request):
     return render(request, "preference.html") # 메인 음악 취향 검사
 

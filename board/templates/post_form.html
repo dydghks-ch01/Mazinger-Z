@@ -4,69 +4,73 @@
 {% block title %}Post{% endblock %}
 
 {% block extra_head %}
-  <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  <link rel="stylesheet" href="{% static 'css/post_form.css' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/post_form.css' %}">
 {% endblock %}
 
 {% block content %}
-  <!-- ✅ 모달은 form 밖에 위치 -->
-  <div id="lovelistModalBackdrop" class="modal-backdrop"></div>
-  <div id="lovelistModal" class="modal">
-    <div class="modal-content">
-      <h3>좋아요한 곡 선택</h3>
-      <div class="lovelist-select">
-        {% for song in lovelist %}
-          <label>
-            <input type="checkbox" name="songs" class="song-checkbox" value="{{ song.id }}">
-            🎵 {{ song.title }} - {{ song.artist }}
-          </label><br>
-        {% empty %}
-          <p>좋아요한 곡이 없습니다.</p>
-        {% endfor %}
+<!-- ✅ Modal positioned outside the form -->
+<div id="lovelistModalBackdrop" class="modal-backdrop"></div>
+<div id="lovelistModal" class="modal">
+  <div class="modal-content">
+    <h3>좋아요 목록</h3>
+    <div class="lovelist-select">
+      {% for song in lovelist %}
+      <label >
+        <input type="checkbox" name="songs" class="song-checkbox" value="{{ song.id }}">
+        {{ song.title }} - {{ song.artist }}
+      </label><br>
+      {% empty %}
+      <p>No liked songs available.</p>
+      {% endfor %}
+    </div>
+    <button type="button" id="closeLovelistModal" class="btn-submit">선택 완료</button>
+  </div>
+</div>
+
+<!-- ✅ Form content -->
+<div class="post-form-wrapper">
+  <div class="post-form-container">
+    <a href="{% url 'post_list' %}" class="back-to-board-btn">← 게시판으로 이동</a>
+    <h1 class="post-form-title">New Post</h1>
+
+    <form method="POST" enctype="multipart/form-data" id="postForm">
+      {% csrf_token %}
+
+      <label for="id_title">제목</label>
+      {{ form.title }}
+
+      <label for="id_description">내용</label>
+      {{ form.description }}
+
+      <div class="playlist-label-button-wrapper">
+        <label>플레이리스트</label>
+        <button type="button" id="openLovelistModal">🎵 곡 선택</button>
       </div>
-      <button type="button" id="closeLovelistModal" class="btn-submit">곡 선택 완료</button>
-    </div>
+
+
+      <!-- ✅ Place to insert hidden inputs for selected songs -->
+      <div id="selectedSongsHiddenInputs"></div>
+
+      <div id="selectedSongsPreview" class="selected-songs-preview">
+        <p class="no-selection">선택된 곡이 없습니다.</p>
+      </div>
+
+      <label for="id_thumbnail">썸네일 이미지</label>
+      {{ form.thumbnail }}
+
+      <button type="submit" class="btn-submit">등록</button>
+    </form>
+
   </div>
-
-  <!-- ✅ 폼 본문 -->
-  <div class="post-form-wrapper">
-    <div class="post-form-container">
-      <a href="{% url 'post_list' %}" class="back-to-board-btn">← 게시판으로</a>
-      <h1 class="post-form-title">새 게시글 작성</h1>
-
-      <form method="POST" enctype="multipart/form-data" id="postForm">
-        {% csrf_token %}
-
-        <label for="id_title">제목</label>
-        {{ form.title }}
-
-        <label for="id_description">설명</label>
-        {{ form.description }}
-
-        <label>곡 선택 (좋아요 목록)</label>
-        <button type="button" id="openLovelistModal">🎵 곡 등록</button>
-
-        <!-- ✅ 여기에 선택된 곡 hidden input이 들어갈 곳 -->
-        <div id="selectedSongsHiddenInputs"></div>
-
-        <div id="selectedSongsPreview" class="selected-songs-preview">
-          <p class="no-selection">선택된 곡이 없습니다.</p>
-        </div>
-
-        <label for="id_thumbnail">썸네일 이미지</label>
-        {{ form.thumbnail }}
-
-        <button type="submit" class="btn-submit">등록하기</button>
-      </form>
-
-    </div>
-  </div>
+</div>
 {% endblock %}
 
 {% block extra_script %}
-  <script>
-   const previouslySelectedSongIds = {{ selected_song_ids|default:'[]'|safe }};
-  </script>
-  <script src="{% static 'js/base.js' %}"></script>
-  <script src="{% static 'js/post_form.js' %}"></script>
+<script>
+  const previouslySelectedSongIds = {{ selected_song_ids|default:"[]"|safe }};
+</script>
+
+<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/post_form.js' %}"></script>
 {% endblock %}

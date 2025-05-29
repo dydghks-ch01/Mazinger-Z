@@ -1,19 +1,20 @@
-/* 메시지 스타일 */
-.error-msg {
+/* 상태별 메시지 스타일 */
+.check-msg {
+  display: block;
   font-size: 0.85em;
-  color: red;
+  margin-top: 4px;
 }
 
-.check-msg {
-  font-size: 0.85em;
-  color: yellowgreen;
-}
+.check-msg.success { color: lightgreen; }
+.check-msg.error { color: red; }
+.check-msg.warning { color: orange; }
 
 .input-info {
   font-size: 0.8em;
   color: rgba(167, 167, 156, 0.897) !important; 
   margin-top: -30px;
   margin-bottom: 10px;
+  list-style-type: none;
 }
 
 /* 사용자 이름, 이메일 등의 라벨 스타일 (공통) */
@@ -38,7 +39,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 50px;
+  margin-top: -20px;
   width: 60%;
 }
 
@@ -78,18 +80,73 @@
 
 /* 다른 p 태그 (예: 비밀번호, 생일 등)는 그대로 block */
 .signup-form p {
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   width: 100%;
-}
-
-.input-info {
-  list-style-type: none;
 }
 
 /* 라디오 버튼 일자로 정렬 */
 #id_gender {
   display: flex;
-  flex-direction: row;    /* 가로로 정렬 */
-  gap: 20px;              /* 버튼 사이 간격 */
-  justify-content: center; /* 중앙정렬 */
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;     /* 세로 중앙 정렬! */
+  gap: 20px;
+  height: 42px;            /* 높이 입력칸과 맞춤 */
+  background-color: #222;  /* 기존 스타일 유지 */
+  border-radius: 4px;
+}
+
+#id_gender label {
+  display: flex;
+  align-items: center;     /* 라벨 안의 요소(라디오 버튼 + 텍스트)도 세로 중앙 */
+  gap: 4px;
+  font-size: 0.95rem;      /* 필요에 따라 크기 조정 */
+  color: white;
+}
+
+#id_gender input[type="radio"] {
+  vertical-align: middle;
+  margin: 0;
+  transform: translateY(1px);
+}
+
+/* 프로필 아이콘 선택 UI */
+.profile-icon-selector {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.icon-option {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;    /* 살짝 둥글게 */
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.icon-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.icon-option.selected {
+  border-color: #ff3d00;  /* 선택된 아이콘 강조색 */
+}
+
+#email-send-msg,
+#email-verify-msg {
+  position: relative;
+  top: -60px; /* 문구만 살짝 위로 올림 */
+}
+
+.signup-form {
+  background: none !important;   /* 배경 제거 */
+  border: 2px solid white;       /* 흰색 테두리 */
+  border-radius: 10px;           /* 둥근 테두리 유지 */
 }

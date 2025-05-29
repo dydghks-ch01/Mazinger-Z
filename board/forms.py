@@ -13,7 +13,7 @@ class PostForm(forms.ModelForm):
         # 폼 필드에 CSS 클래스와 placeholder 추가
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '제목 입력'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': '설명 입력'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': '내용 입력'}),
             'thumbnail': ClearableFileInput(),  # ✅ 위젯 지
         }
         

@@ -185,13 +185,23 @@ function calculateResult() {
       document.getElementById("result").innerText = `추천 장르: ${genre}`;
       fetch(`/recommend_by_genre/?genre=${encodeURIComponent(genre)}`)
         .then(res => res.json())
+      document.getElementById("result").innerText = `추천 장르: ${genre}`;
+      fetch(`/recommend_by_genre/?genre=${encodeURIComponent(genre)}`)
+        .then(res => res.json())
         .then(data => {
           const recDiv = document.getElementById("recommend-songs");
           recDiv.innerHTML = "<div class='recommend-title'>추천 음악</div>";
+
           data.songs.forEach(song => {
             const div = document.createElement("div");
             div.className = "recommended-song";
-            div.innerText = `${song.title} - ${song.artist} (${song.normalized_genre})`;
+            div.textContent = `${song.title} - ${song.artist} (${song.normalized_genre})`;
+
+            // ✅ div 클릭 시 바로 상세 페이지로 이동!
+            div.onclick = () => {
+              window.location.href = `/music-info/?title=${encodeURIComponent(song.title)}&artist=${encodeURIComponent(song.artist)}`;
+            };
+
             recDiv.appendChild(div);
           });
         });

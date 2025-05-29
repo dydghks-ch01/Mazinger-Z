@@ -391,6 +391,13 @@ def fetch_spotify_csv():
     options = webdriver.ChromeOptions()
     prefs = {"download.default_directory": os.getcwd()}
     options.add_experimental_option("prefs", prefs)
+
+    # 💡 충돌 방지: 새로운 임시 사용자 데이터 디렉토리 지정
+    options.add_argument("--user-data-dir=/tmp/selenium_profile")
+    # 💡 서버 환경일 경우 필수: 샌드박스/공유메모리 비활성화
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     wait = WebDriverWait(driver, 20)
     try:
