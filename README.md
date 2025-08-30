@@ -1,2 +1,2 @@
-# Mazinger-Z
+# SOSIC (Show your musictaste)
  팀 프로젝트용 사용자 취향 기반 음악 및 콘텐츠 추천 사이트
